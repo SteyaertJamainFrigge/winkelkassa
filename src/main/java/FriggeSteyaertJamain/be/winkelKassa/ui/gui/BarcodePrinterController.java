@@ -1,11 +1,15 @@
 package FriggeSteyaertJamain.be.winkelKassa.ui.gui;
 
+import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import com.itextpdf.text.DocumentException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import FriggeSteyaertJamain.be.winkelKassa.domain.barcode.BarCode128Generator;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
@@ -15,6 +19,13 @@ public class BarcodePrinterController extends SubWindow {
     private Spinner<Integer> amountSpinner;
 
     private String barcode;
+
+    private int productid;
+
+    public BarcodePrinterController(int productid, String barcode){
+        this.barcode = barcode;
+        this.productid = productid;
+    }
 
     public void initialize(){
         changeReturnBtnStyle();
@@ -26,12 +37,16 @@ public class BarcodePrinterController extends SubWindow {
         return amountSpinner.getValue() > 0;
     }
 
+    private boolean validateProductInput(){
+        Repositories.getInstance().getProductRepository().getProduct(productid);
+        return true;
+    }
+
     private void showErrorPane(String input) {
         Alert al = new Alert(Alert.AlertType.ERROR);
         al.setContentText(input);
         DialogPane dialogPane = al.getDialogPane();
         dialogPane.getStylesheets().add("/style/css/flatterfx.css");
-
         al.showAndWait();
     }
 
@@ -39,7 +54,7 @@ public class BarcodePrinterController extends SubWindow {
         try {
             int amount = this.amountSpinner.getValue();
             BarCode128Generator bcg = new BarCode128Generator("A4", barcode, amount);
-            bcg.generateBarCode128();
+            bcg.run();
         } catch (FileNotFoundException e) {
             throw new KassaException("Unable to Find pdf File", e);
         } catch (DocumentException e) {
@@ -49,17 +64,22 @@ public class BarcodePrinterController extends SubWindow {
 
     @FXML
     void confirm(ActionEvent event) {
-        if (validateAmountInput()) {
-            printBarcode();
-        } else {
-            showErrorPane("foute input.");
+        if (!validateProductInput()){
+            showErrorPane("product bestaat niet");
+        }else {
+            if (!validateAmountInput()) {
+                showErrorPane("aantal niet aanvaard input.");
+            } else {
+                printBarcode();
+            }
         }
     }
 
     @FXML
     void returnToMain(ActionEvent event) {
         try {
-            returnToMainScene();
+            Stage stage = (Stage) returnBtn.getScene().getWindow();
+            stage.close();
         } catch (Exception e) {
             throw new KassaException("Unable to go back to main scene", e);
         }

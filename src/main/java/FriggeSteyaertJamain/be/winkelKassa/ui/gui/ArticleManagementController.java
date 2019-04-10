@@ -16,6 +16,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ArticleManagementController extends SubWindow {
@@ -90,13 +93,13 @@ public class ArticleManagementController extends SubWindow {
     }
 
     @FXML
-    private void runBarcodePrinter(){
+    private void runBarcodePrinter() throws IOException {
         Stage window = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/barcodePrinter.fxml"));
         Scene scene = new Scene(root);
         window.hide();
         window.setScene(scene);
-        window.setMaximized(maximized);
+        window.setMaximized(false);
         window.show();
     }
 
