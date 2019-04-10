@@ -25,7 +25,7 @@ public class BarCode128Generator {
         this(pageSizeName, code, 1);
     }
 
-    public void generateBarCode128 ()throws DocumentException {
+    public void run ()throws DocumentException {
 
         this.document.open();
 
