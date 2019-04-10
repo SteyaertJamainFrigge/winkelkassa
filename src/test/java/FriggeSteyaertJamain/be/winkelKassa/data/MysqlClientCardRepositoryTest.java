@@ -11,22 +11,6 @@ import static org.junit.Assert.*;
 public class MysqlClientCardRepositoryTest {
 
     @Test
-    public void addClientCard() {
-        //some preperation
-        List<Card> testAllCards = Repositories.getInstance().getClientCardRepository().getAllClientCards();
-        Client testClient = new Client(1, "test", "test", "test", "test", "test", "test");
-        Card testCard = new Card(2, "20", "123456789", testClient);
-
-        // the actual test
-        Repositories.getInstance().getClientCardRepository().addClientCard(testCard);
-        List<Client> editedClients = Repositories.getInstance().getClientRepository().getAllClients();
-        assertTrue("category is added?", editedClients.size() < editedClients.size());
-
-        // revert the added row in database
-        Repositories.getInstance().getClientCardRepository().deleteClientCards(testCard);
-    }
-
-    @Test
     public void getClientCard() {
         Card card = Repositories.getInstance().getClientCardRepository().getClientCard(1);
         assertTrue("the category is correctly requested", card.getId() > 0);
@@ -42,7 +26,7 @@ public class MysqlClientCardRepositoryTest {
     public void updateClientCards() {
         // some preparation
         Client testClient = new Client(1, "test", "test", "test", "test", "test", "test");
-        Card cardToEdit = new Card(1, 20, "123456752", testClient);
+        Card cardToEdit = new Card(1, 20, 123456752, testClient);
 
         // the actual test
         Repositories.getInstance().getClientCardRepository().updateClientCards(cardToEdit);
@@ -50,7 +34,7 @@ public class MysqlClientCardRepositoryTest {
         assertEquals("name has been edited?", cardToEdit.getPoints(), editedCard.getPoints());
 
         // revert update
-        Repositories.getInstance().getClientCardRepository().updateClientCards(new Card(1, "0", "123456789", testClient));
+        Repositories.getInstance().getClientCardRepository().updateClientCards(new Card(1, 0, 123456789, testClient));
     }
 
     @Test
