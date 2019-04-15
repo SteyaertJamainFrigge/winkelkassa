@@ -110,10 +110,27 @@ public class ArticleManagementController extends SubWindow {
         this.btwComboBx.setValue(product.getBtw());
     }
 
+    private void saveChangesToObject(Product product){
+        product.setName(this.nameInput.getText());
+        product.setPrice(this.priceSpinner.getValue());
+        product.setBarcode(this.barcodeInput.getText());
+        product.setCategory(this.categoryComboBx.getValue());
+        product.setDescription(this.descriptionInput.getText());
+        product.setLocation(this.locationInput.getText());
+        product.setStore(this.storeInput.getText());
+        product.setCategory(this.categoryComboBx.getValue());
+        product.setBtw(this.btwComboBx.getValue());
+    }
+
+    private void savechangedObjectToDB(Product productToSave){
+        Repositories.getInstance().getProductRepository().updateProduct(productToSave);
+    }
+
     @FXML
     private void save(){
         Product productToSave = this.productList.getSelectionModel().getSelectedItem();
-        Repositories.getInstance().getProductRepository().updateProduct(productToSave);
+        saveChangesToObject(productToSave);
+        savechangedObjectToDB(productToSave);
     }
 
     @FXML
