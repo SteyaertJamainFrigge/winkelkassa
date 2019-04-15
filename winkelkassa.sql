@@ -23,7 +23,7 @@ USE `kassa`;
 
 DROP TABLE IF EXISTS `btw`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `btw` (
   `idbtw` int(11) NOT NULL AUTO_INCREMENT,
   `tarief` int(11) NOT NULL,
@@ -47,10 +47,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `categorie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `categorie` (
   `idcategorie` int(11) NOT NULL AUTO_INCREMENT,
-  `naam` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `naam` varchar(45) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`idcategorie`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -71,7 +71,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `categorie_subcategorie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `categorie_subcategorie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idcategorie` int(11) DEFAULT NULL,
@@ -100,15 +100,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `klant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `klant` (
   `idklant` int(11) NOT NULL AUTO_INCREMENT,
-  `naam` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `famillienaam` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `email` varchar(320) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `telNummer` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `adres` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `postNummer` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `naam` varchar(45) CHARACTER SET utf8  NOT NULL,
+  `famillienaam` varchar(45) CHARACTER SET utf8  NOT NULL,
+  `email` varchar(320) CHARACTER SET utf8  DEFAULT NULL,
+  `telNummer` varchar(30) CHARACTER SET utf8  DEFAULT NULL,
+  `adres` varchar(45) CHARACTER SET utf8  DEFAULT NULL,
+  `postNummer` varchar(45) CHARACTER SET utf8  DEFAULT NULL,
   PRIMARY KEY (`idklant`),
   UNIQUE KEY `telNummer_UNIQUE` (`telNummer`),
   UNIQUE KEY `adres_UNIQUE` (`adres`)
@@ -131,11 +131,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `klantenkaart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `klantenkaart` (
   `idklantenkaart` int(11) NOT NULL AUTO_INCREMENT,
   `punten` int(11) NOT NULL DEFAULT '0',
-  `barcode` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `barcode` varchar(30) CHARACTER SET utf8 NOT NULL,
   `eigenaar` int(11) DEFAULT NULL,
   PRIMARY KEY (`idklantenkaart`),
   UNIQUE KEY `barcode_UNIQUE` (`barcode`),
@@ -160,16 +160,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `product` (
   `idproduct` int(11) NOT NULL AUTO_INCREMENT,
-  `naam` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `naam` varchar(45) CHARACTER SET utf8 NOT NULL,
   `prijs` double NOT NULL,
   `btw` int(11) DEFAULT NULL,
-  `omschrijving` varchar(320) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `locatie` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `winkel` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `barcode` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `omschrijving` varchar(320) CHARACTER SET utf8 DEFAULT NULL,
+  `locatie` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `winkel` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `barcode` varchar(45) CHARACTER SET utf8  NOT NULL,
   `idcategorie` int(11) DEFAULT NULL,
   PRIMARY KEY (`idproduct`),
   KEY `idcategorie_idx` (`idcategorie`),
