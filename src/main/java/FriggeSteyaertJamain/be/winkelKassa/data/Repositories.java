@@ -17,4 +17,6 @@ public class Repositories {
     public ProductRepository getProductRepository(){return  new MysqlProductRepository();}
 
     public CategoryRepository getCategoryRepository(){return new MysqlCategoryRepository();}
+
+    public BtwRepository getBtwRepository(){return new MysqlBtwRepository();}
 }

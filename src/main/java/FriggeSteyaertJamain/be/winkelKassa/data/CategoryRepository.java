@@ -10,7 +10,7 @@ public interface CategoryRepository {
     /**
      * returns the category that has the given id.
      *
-     * @param {String} id
+     * @param id {String} id
      * @return {Category}  category
      */
     ProductCategory getGategory(int id);
@@ -18,7 +18,7 @@ public interface CategoryRepository {
     /**
      * adds a new category to the data layer.
      *
-     * @param {Category} product category
+     * @param pc {Category} product category
      */
     void addCategory(ProductCategory pc);
 
@@ -27,13 +27,13 @@ public interface CategoryRepository {
      *
      * @return {List<Category>} list of categories
      */
-    List<ProductCategory> getCategories();
+    List<ProductCategory> getAllCategories();
 
 
     /**
      * updates the given category in the datalayer.
      *
-     * @param {Category} product category
+     * @param pc {Category} product category
      */
     void updateCategory(ProductCategory pc);
 
@@ -41,7 +41,7 @@ public interface CategoryRepository {
     /**
      * deletes the given category in the data layer
      *
-     * @param {Category} product category
+     * @param pc {Category} product category
      */
     void deleteCategory(ProductCategory pc);
 

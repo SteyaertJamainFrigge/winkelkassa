@@ -4,14 +4,14 @@ public class Product {
     private int id;
     private String name;
     private double price;
-    private String btw;
+    private Btw btw;
     private String description;
     private String location;
     private String store;
     private String barcode;
     private ProductCategory category;
 
-    public Product(int id, String name, double price, String btw, String description, String location, String store, String barcode, ProductCategory category) {
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, ProductCategory category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -39,19 +39,17 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
-    }
+    public double getPrice() {return price; }
 
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getBtw() {
+    public Btw getBtw() {
         return btw;
     }
 
-    public void setBtw(String btw) {
+    public void setBtw(Btw btw) {
         this.btw = btw;
     }
 

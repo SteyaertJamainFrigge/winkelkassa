@@ -28,4 +28,9 @@ public class ProductCategory {
         return subCategories;
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
 }

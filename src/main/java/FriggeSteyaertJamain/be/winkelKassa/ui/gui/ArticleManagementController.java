@@ -1,12 +1,11 @@
 package FriggeSteyaertJamain.be.winkelKassa.ui.gui;
 
-
 import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+import FriggeSteyaertJamain.be.winkelKassa.domain.register.Btw;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleManagementController extends SubWindow {
@@ -51,12 +48,11 @@ public class ArticleManagementController extends SubWindow {
     private ComboBox<ProductCategory> categoryComboBx;
 
     @FXML
-    private ComboBox<Integer> btwComboBx;
+    private ComboBox<Btw> btwComboBx;
 
     @FXML
     private GridPane productInputs;
 
-    private ObservableList<Product> observableList;
 
     @FXML
     void returnToMain(ActionEvent event) {
@@ -67,19 +63,39 @@ public class ArticleManagementController extends SubWindow {
         }
     }
 
-    public void initialize(){
+    public void initialize() {
         changeReturnBtnStyle();
+        initializeSpinner();
+        fillProductList();
+        fillCategories();
+        fillBtw();
+        addProductListListener();
+        this.productList.getSelectionModel().selectFirst();
+    }
+
+    private void initializeSpinner(){
         SpinnerValueFactory<Double> spinnerValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00,2000.00);
         this.priceSpinner.setValueFactory(spinnerValueFactory);
-        fillProductList();
+    }
 
+    private void addProductListListener(){
         this.productList.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> fillProductValues(newValue));
     }
+
     private void fillProductList(){
         List<Product> products = Repositories.getInstance().getProductRepository().getAllProducts();
-        this.observableList = FXCollections.observableList(products);
-        this.productList.setItems(this.observableList);
+        this.productList.setItems(FXCollections.observableList(products));
+    }
+
+    private void fillBtw(){
+        List<Btw> btwTarifs = Repositories.getInstance().getBtwRepository().getAllBtw();
+        this.btwComboBx.setItems(FXCollections.observableList(btwTarifs));
+    }
+
+    private void fillCategories(){
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        this.categoryComboBx.setItems(FXCollections.observableList(categories));
     }
 
     private void fillProductValues(Product product){
@@ -90,19 +106,31 @@ public class ArticleManagementController extends SubWindow {
         this.locationInput.setText(product.getLocation());
         this.storeInput.setText(product.getStore());
         this.barcodeInput.setText(product.getBarcode());
+        this.categoryComboBx.setValue(product.getCategory());
+        this.btwComboBx.setValue(product.getBtw());
+    }
+
+    @FXML
+    private void save(){
+        Product productToSave = this.productList.getSelectionModel().getSelectedItem();
+        Repositories.getInstance().getProductRepository().updateProduct(productToSave);
     }
 
     @FXML
     private void runBarcodePrinter() throws IOException {
         Stage window = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/barcodePrinter.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/barcodePrinter.fxml"));
+
+        Parent root = loader.load();
+        BarcodePrinterController bpc = loader.getController();
+        bpc.setBarcode(this.barcodeInput.getText());
+        bpc.setProductid(this.productList.getSelectionModel().getSelectedItem().getId());
         Scene scene = new Scene(root);
         window.hide();
         window.setScene(scene);
         window.setMaximized(false);
         window.show();
     }
-
 
 }
 

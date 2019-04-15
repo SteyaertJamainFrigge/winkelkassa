@@ -56,7 +56,7 @@ public class MysqlCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public List<ProductCategory> getCategories() {
+    public List<ProductCategory> getAllCategories() {
         try(Connection con = MySqlConnection.getConnection();
             PreparedStatement prep = con.prepareStatement(SQL_GET_CATEGORIES)) {
             try(ResultSet rs = prep.executeQuery()){

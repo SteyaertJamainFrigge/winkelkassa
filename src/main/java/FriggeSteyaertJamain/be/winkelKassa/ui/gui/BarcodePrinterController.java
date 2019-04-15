@@ -22,8 +22,11 @@ public class BarcodePrinterController extends SubWindow {
 
     private int productid;
 
-    public BarcodePrinterController(int productid, String barcode){
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public void setProductid(int productid) {
         this.productid = productid;
     }
 

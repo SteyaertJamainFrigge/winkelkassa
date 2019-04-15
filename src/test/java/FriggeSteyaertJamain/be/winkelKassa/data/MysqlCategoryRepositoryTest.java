@@ -19,12 +19,12 @@ public class MysqlCategoryRepositoryTest {
     @Test
     public void addCategory() {
         // some preperation.
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getCategories();
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         ProductCategory category = new ProductCategory(4, "addTester");
 
         // the actual test
         Repositories.getInstance().getCategoryRepository().addCategory(category);
-        List<ProductCategory> editedCategories = Repositories.getInstance().getCategoryRepository().getCategories();
+        List<ProductCategory> editedCategories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         assertTrue("category is added?", categories.size() < editedCategories.size());
 
         // revert the added row in database
@@ -33,7 +33,7 @@ public class MysqlCategoryRepositoryTest {
 
     @Test
     public void getCategories() {
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getCategories();
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         assertTrue("all categories are requested?", categories.size() > 0);
     }
 
