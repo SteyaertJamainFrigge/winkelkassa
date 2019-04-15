@@ -48,7 +48,7 @@ command: <br />
 
 4. give your github credentials
 
-_here are some git tutorials that explain more about what you can do: _<br />
+_here are some git tutorials that explain more about what you can do:_ <br/>
 &nbsp;&nbsp;&nbsp;https://www.tutorialspoint.com/git/<br/>
 &nbsp;&nbsp;&nbsp;https://www.atlassian.com/git/tutorials<br/>
 &nbsp;&nbsp;&nbsp;https://guides.github.com/activities/hello-world/
