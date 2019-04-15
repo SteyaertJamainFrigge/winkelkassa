@@ -17,7 +17,6 @@ public class Program extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         Scene scene = new Scene(root, 600, 550);
-        scene.getStylesheets().add("/style/css/flatterfx.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
