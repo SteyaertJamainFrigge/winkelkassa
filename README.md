@@ -34,6 +34,35 @@ Alternatively, you can also download NetBeans IDE installer script in your syste
 5. After running the installer script above, the installer “Welcome page” will show up as follows, click Next to continue (or customize your installation by clicking on Customize) to follow the installation wizard.<br />
 **!! Kies in de wizard om de JDK te gebruiken die je juist hebt geïnstalleerd (v 1.8.0.201) !!**
 
+### installing git
+command: <br />
+&nbsp;&nbsp;&nbsp;`$ sudo apt-get install git`
+
+### cloning the repository with git
+1. create a folder where you want to store all your netbeans projects
+
+2. go to that folder with terminal
+
+3. run this command:
+&nbsp;&nbsp;&nbsp;`$ git clone https://github.com/SteyaertJamainFrigge/winkelkassa.git`
+
+4. give your github credentials
+
+_here are some git tutorials that explain more about what you can do: _<br />
+&nbsp;&nbsp;&nbsp;https://www.tutorialspoint.com/git/<br/>
+&nbsp;&nbsp;&nbsp;https://www.atlassian.com/git/tutorials<br/>
+&nbsp;&nbsp;&nbsp;https://guides.github.com/activities/hello-world/
+
+
+### opening the project with netbeans
+1. double click on the netbeans icon that was created by instal wizard
+
+2. go to tools -> plugin -> available plugins and search for "gradle" and "git toolbar"
+
+3. install these plugins (git toolbar is optional)
+
+4. go to File -> open project and navigate to your cloned project
+
 # configure DB
 run de winkelkassa.sql in mysql <br/>
 add user with username: "kassa_usr" passwrd: "kassa_pwd" that has all ddl access to the db.
