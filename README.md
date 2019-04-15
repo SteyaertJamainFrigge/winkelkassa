@@ -31,8 +31,7 @@ Alternatively, you can also download NetBeans IDE installer script in your syste
 &nbsp;&nbsp;&nbsp;`$ chmod +x netbeans-8.2-linux.sh`<br/>
 &nbsp;&nbsp;&nbsp;`$ ./netbeans-8.2-linux.sh`
 
-5. After running the installer script above, the installer “Welcome page” will show up as follows, click Next to continue (or customize your installation by clicking on Customize) to follow the installation wizard.
-
+5. After running the installer script above, the installer “Welcome page” will show up as follows, click Next to continue (or customize your installation by clicking on Customize) to follow the installation wizard.<br />
 **!! Kies in de wizard om de JDK te gebruiken die je juist hebt geïnstalleerd (v 1.8.0.201) !!**
 
 # configure DB
