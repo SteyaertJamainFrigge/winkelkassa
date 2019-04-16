@@ -23,7 +23,7 @@ If you have more than one Java installed on your system, you can install oracle-
 Please note that the same webupd8team/java PPA also offers older and newer versions of Java packages like Java 7 and Java 9.
 
 #### Install NetBeans IDE in Linux Mint
-3. Now oen a browser, navigate to NetBeans IDE download page and download the latest NetBeans IDE installer script for your installed Linux distribution.<br />
+3. Now open a browser, navigate to NetBeans IDE download page and download the latest NetBeans IDE installer script for your installed Linux distribution.<br />
 Alternatively, you can also download NetBeans IDE installer script in your system via wget utility, by issuing the below command.<br />
 &nbsp;&nbsp;&nbsp;`user@host:~$ wget -c http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-linux.sh`
 
