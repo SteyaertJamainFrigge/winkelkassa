@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 class MySqlConnection {
 
-    private static final String URL = "jdbc:mysql://localhost/kassa";
+    private static final String URL = "jdbc:mysql://localhost/kassa?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String UID = "kassa_usr";
     private static final String PWD = "Kassa1_pwd*";
 
