@@ -59,11 +59,16 @@ _here are some git tutorials that explain more about what you can do:_ <br/>
 ### opening the project with netbeans
 1. double click on the netbeans icon that was created by instal wizard
 
-2. go to tools -> plugin -> available plugins and search for "gradle" and "git toolbar"
+2. go to tools -> plugin -> available plugins and search for "gradle" or "gradle support"? and "git toolbar"
 
 3. install these plugins (git toolbar is optional)
 
 4. go to File -> open project and navigate to your cloned project
+
+** When activating Gradle Support requires full Jave JDK 1.8.0.201<br />
+** Install Java 1.8.0.201 (forgot how I did it... just search internet... ;-)<br /> 
+** alter netbeans.conf -> point "netbeans_jdkhome" to the proper location <br />
+netbeans_jdkhome="/usr/lib/jvm/java-8-oracle/"  
 
 ## configure DB
 
