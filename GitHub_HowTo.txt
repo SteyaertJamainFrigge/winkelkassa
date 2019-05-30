@@ -1,2 +1,18 @@
-Hello
+# download online github data
+git pull
+
+
+# compose upload package own changes 
+# make commits rather small to keep track of changes
+# add changes as necessary and push only one time at the end
+git add xyz[tab][tab]
+
+# confirm upload package
+git commit 
+            - in nano screen
+            - add title name package
+    
+# upload changes only once at the end
+git push
+
 
