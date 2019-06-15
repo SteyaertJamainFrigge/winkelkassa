@@ -27,22 +27,17 @@ public interface SubcategoryRepository {
     /**
      * adds a new category to the data layer.
      *
-     * @param spc {ProductCategory} product category
+     * @param parentCategoryId {Integer} product category id
+     * @param subcategoryID {int} product subcatecory id
      */
-    void addSubcategory(ProductCategory spc);
-
-    /**
-     * updates the given category in the datalayer.
-     *
-     * @param spc{ProductCategory} product category
-     */
-    void updateSubcategory(ProductCategory spc);
+    void addSubcategory(int parentCategoryId, int subcategoryID);
 
 
     /**
      * deletes the given category in the data layer
      *
-     * @param spc{ProductCategory} product category
+     * @param parentCategoryId {Integer} product category id
+     * @param subcategoryID {int} product subcatecory id
      */
-    void deleteSubcategory(ProductCategory spc);
+    void deleteSubcategory(int parentCategoryId, int subcategoryID);
 }
