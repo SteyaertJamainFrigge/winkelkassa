@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MySqlClientRepository implements ClientRepository {
 
-    private static final String SQL_ADD_CLIENT =    "insert into klant(naam, famillienaam, email, telNummer, adres, postNummer) " +
+    private static final String SQL_ADD_CLIENT =    "insert into klant(voornaam, famillienaam, email, telNummer, adres, postNummer) " +
                                                     "values(?, ?, ?, ?, ?, ?)";
     private static final String SQL_GET_CLIENTS =   "select * from klant";
     private static final String SQL_GET_CLIENT =    "select * from klant " +
