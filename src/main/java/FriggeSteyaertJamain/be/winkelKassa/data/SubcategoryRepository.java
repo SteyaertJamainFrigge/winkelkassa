@@ -7,13 +7,22 @@ import java.util.List;
 
 public interface SubcategoryRepository {
 
+
+    /**
+     * test if a category has any subcategories by asking for their id.
+     *
+     * @param id [Integer}  product category id
+     * @return subcategoryIds {List<Integer>} all id's connected to given category
+     */
+    Boolean hasSubcategories(int id);
+
     /**
      * gets all subcategories linked to the given category.
      *
-     * @param spc {ProductCategory} product category
+     * @param id {ProductCategory} product category
      * @return subcategories {List<ProductCategory>} all connected subcategories
      */
-    List<ProductCategory> getSubcategories(ProductCategory spc);
+    List<Integer> getSubcategories(int id);
 
     /**
      * adds a new category to the data layer.

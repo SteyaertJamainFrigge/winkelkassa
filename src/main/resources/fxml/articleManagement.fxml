@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.ArticleManagementController">
+<Pane xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.ArticleManagementController">
     <AnchorPane>
         <ListView fx:id="productList" layoutX="12.0" layoutY="59.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0" />
         <Button fx:id="returnBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToMain" AnchorPane.bottomAnchor="560.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="158.0" AnchorPane.topAnchor="14.0" />
@@ -72,7 +72,7 @@
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />
-            <RowConstraints minHeight="0.0" />
+            <RowConstraints />
             <RowConstraints />
             <RowConstraints />
          </rowConstraints>

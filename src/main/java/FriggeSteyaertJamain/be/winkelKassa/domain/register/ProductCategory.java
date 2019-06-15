@@ -9,11 +9,13 @@ public class ProductCategory {
     private String name;
     private List<ProductCategory> subCategories;
 
-    public ProductCategory(int id, String name, ProductCategory... subCategories) {
+    public ProductCategory(int id, String name, List<ProductCategory> subCategories) {
         this.id = id;
         this.name = name;
-        this.subCategories = new ArrayList<>();
-        this.subCategories.addAll(Arrays.asList(subCategories));
+        this.subCategories = subCategories;
+    }
+    public ProductCategory(int id, String name){
+        this(id, name, null);
     }
 
     public int getId() {
