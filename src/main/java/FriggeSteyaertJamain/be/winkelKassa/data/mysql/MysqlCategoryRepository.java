@@ -1,9 +1,8 @@
-package FriggeSteyaertJamain.be.winkelKassa.data;
+package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
 
-import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
+import FriggeSteyaertJamain.be.winkelKassa.data.CategoryRepository;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
-import com.mysql.cj.MysqlConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +14,7 @@ import java.util.List;
 public class MysqlCategoryRepository implements CategoryRepository {
 
     private static final String SQL_GET_CATEGORIES = "SELECT * FROM categorie";
+    private static final String SQL_GET_MULTIPLE_CATEGORYID = "SELECT * FROM categorie where ";
     private static final String SQL_GET_CATEGORY = "SELECT * FROM categorie c where c.idcategorie = ?";
     private static final String SQL_ADD_CATEGORY = "insert into categorie(idcategorie, naam) values (?,?)";
     private static final String SQL_UPDATE_CATEGORY = "UPDATE `kassa`.`categorie` SET `naam` =? WHERE (`idcategorie` = ?)";
@@ -23,6 +23,10 @@ public class MysqlCategoryRepository implements CategoryRepository {
     private ProductCategory create(ResultSet resultSet) throws SQLException{
         String name = resultSet.getString("naam");
         int id = resultSet.getInt("idcategorie");
+        /*SubcategoryRepository repo = Repositories.getInstance().getSubCategoryRepository();
+        if(repo.hasSubcategories(id)){
+            repo.getSubcategories(id);
+        }*/
         return new ProductCategory(id, name);
     }
 
@@ -56,10 +60,12 @@ public class MysqlCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public List<ProductCategory> getAllCategories() {
-        try(Connection con = MySqlConnection.getConnection();
-            PreparedStatement prep = con.prepareStatement(SQL_GET_CATEGORIES)) {
-            try(ResultSet rs = prep.executeQuery()){
+    public List<ProductCategory> getMultipleCategories(String ids) {
+        try(Connection con = MySqlConnection.getConnection()){
+            String statement;
+            if(ids.equals("all"))statement = SQL_GET_CATEGORIES; else statement = SQL_GET_MULTIPLE_CATEGORYID;
+                try(PreparedStatement prep = con.prepareStatement(statement);
+                ResultSet rs = prep.executeQuery()){
                 ArrayList<ProductCategory> productCategories = new ArrayList<>();
                 while (rs.next()){
                     productCategories.add(create(rs));

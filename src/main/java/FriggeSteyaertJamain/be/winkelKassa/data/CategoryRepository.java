@@ -23,11 +23,12 @@ public interface CategoryRepository {
     void addCategory(ProductCategory pc);
 
     /**
-     * returns all categories found in data layer as a List
+     * returns multiple or all categories found in data layer as a List
      *
+     * @param categoryIds {String} 'all' or 'id1, id2, id3, id4'
      * @return {List<Category>} list of categories
      */
-    List<ProductCategory> getAllCategories();
+    List<ProductCategory> getMultipleCategories(String categoryIds);
 
 
     /**

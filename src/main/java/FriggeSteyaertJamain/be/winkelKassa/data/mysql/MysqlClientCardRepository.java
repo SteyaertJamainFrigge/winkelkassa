@@ -1,5 +1,7 @@
-package FriggeSteyaertJamain.be.winkelKassa.data;
+package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
 
+import FriggeSteyaertJamain.be.winkelKassa.data.ClientCardRepository;
+import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Card;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Client;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;

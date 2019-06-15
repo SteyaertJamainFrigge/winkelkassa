@@ -1,4 +1,4 @@
-package FriggeSteyaertJamain.be.winkelKassa.data;
+package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
 
 
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
