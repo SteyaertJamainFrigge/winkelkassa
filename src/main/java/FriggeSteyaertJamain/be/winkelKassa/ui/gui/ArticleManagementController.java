@@ -96,7 +96,7 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void fillCategories(){
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         this.categoryComboBx.setItems(FXCollections.observableList(categories));
     }
 

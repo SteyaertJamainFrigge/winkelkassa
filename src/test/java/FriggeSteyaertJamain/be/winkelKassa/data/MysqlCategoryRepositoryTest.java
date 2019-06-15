@@ -1,5 +1,6 @@
 package FriggeSteyaertJamain.be.winkelKassa.data;
 
+import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import org.junit.Test;
 
@@ -19,12 +20,12 @@ public class MysqlCategoryRepositoryTest {
     @Test
     public void addCategory() {
         // some preperation.
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
-        ProductCategory category = new ProductCategory(4, "addTester");
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        ProductCategory category = new ProductCategory(5, "addTester");
 
         // the actual test
         Repositories.getInstance().getCategoryRepository().addCategory(category);
-        List<ProductCategory> editedCategories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
+        List<ProductCategory> editedCategories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         assertTrue("category is added?", categories.size() < editedCategories.size());
 
         // revert the added row in database
@@ -33,7 +34,7 @@ public class MysqlCategoryRepositoryTest {
 
     @Test
     public void getCategories() {
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         assertTrue("all categories are requested?", categories.size() > 0);
     }
 

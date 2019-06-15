@@ -20,7 +20,7 @@ public interface SubcategoryRepository {
      * gets all subcategories linked to the given category.
      *
      * @param id {ProductCategory} product category
-     * @return subcategories {List<ProductCategory>} all connected subcategories
+     * @return subcategories {List<Integer>} all connected subcategories
      */
     List<Integer> getSubcategories(int id);
 

@@ -60,7 +60,7 @@ public class MySqlClientRepository implements ClientRepository {
 
     private Client createClient(ResultSet rs) throws SQLException {
         int id = rs.getInt("idklant");
-        String name = rs.getString("naam");
+        String name = rs.getString("voornaam");
         String familyName = rs.getString("famillienaam");
         String email = rs.getString("email");
         String telNumber = rs.getString("telNummer");

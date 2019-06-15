@@ -23,7 +23,7 @@ public class MysqlClientCardRepository implements ClientCardRepository {
 
     private void fillPreparedStatement(Card c, PreparedStatement prep) throws SQLException {
         prep.setInt(1, c.getId());
-        prep.setInt(2, c.getBarcode());
+        prep.setString(2, c.getBarcode());
         prep.setInt(3, c.getPoints());
         prep.setInt(4, c.getOwner().getId());
 
@@ -33,7 +33,7 @@ public class MysqlClientCardRepository implements ClientCardRepository {
     private Card createClientCard(ResultSet rs) throws SQLException {
         int id = rs.getInt("idklantenkaart");
         int points = rs.getInt("punten");
-        int barcode = rs.getInt("barcode");
+        String barcode = rs.getString("barcode");
         int ownerId = rs.getInt("eigenaar");
 
         Client owner = Repositories.getInstance().getClientRepository().getClient(ownerId);
