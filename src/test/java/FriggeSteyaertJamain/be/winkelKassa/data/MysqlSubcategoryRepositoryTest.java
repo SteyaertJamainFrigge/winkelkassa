@@ -3,6 +3,8 @@ package FriggeSteyaertJamain.be.winkelKassa.data;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import org.junit.*;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class MysqlSubcategoryRepositoryTest {
@@ -27,4 +29,29 @@ public class MysqlSubcategoryRepositoryTest {
         Assert.assertFalse(Repositories.getInstance().getSubCategoryRepository().hasSubcategories(pc2.getId()));
     }
 
+
+    @Test
+    public void getSubcategories() {
+        Assert.assertTrue(Repositories.getInstance().getSubCategoryRepository().getSubcategories(pc1.getId()).size() > 0 );
+    }
+
+    @Test
+    public void addSubcategory() {
+        SubcategoryRepository repo = Repositories.getInstance().getSubCategoryRepository();
+        ArrayList baseList = (ArrayList) repo.getSubcategories(pc1.getId());
+        repo.addSubcategory(pc1.getId(), 4);
+        ArrayList changedList = (ArrayList) repo.getSubcategories(pc1.getId());
+
+        Assert.assertTrue(baseList.size() < changedList.size());
+    }
+
+    @Test
+    public void deleteSubcategory() {
+        SubcategoryRepository repo = Repositories.getInstance().getSubCategoryRepository();
+        ArrayList baseList = (ArrayList) repo.getSubcategories(pc1.getId());
+        repo.deleteSubcategory(pc1.getId(), 4);
+        ArrayList changedList = (ArrayList) repo.getSubcategories(pc1.getId());
+
+        Assert.assertTrue(baseList.size() > changedList.size());
+    }
 }
