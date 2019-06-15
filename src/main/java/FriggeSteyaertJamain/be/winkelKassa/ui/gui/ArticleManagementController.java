@@ -20,6 +20,8 @@ import java.util.List;
 
 public class ArticleManagementController extends SubWindow {
 
+    private int id;
+
     @FXML
     private ListView<Product> productList;
 
@@ -94,7 +96,7 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void fillCategories(){
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
         this.categoryComboBx.setItems(FXCollections.observableList(categories));
     }
 
@@ -108,6 +110,8 @@ public class ArticleManagementController extends SubWindow {
         this.barcodeInput.setText(product.getBarcode());
         this.categoryComboBx.setValue(product.getCategory());
         this.btwComboBx.setValue(product.getBtw());
+        this.id = product.getId();
+        System.out.println(this.id);
     }
 
     private void saveChangesToObject(Product product){
@@ -140,8 +144,7 @@ public class ArticleManagementController extends SubWindow {
 
         Parent root = loader.load();
         BarcodePrinterController bpc = loader.getController();
-        bpc.setBarcode(this.barcodeInput.getText());
-        bpc.setProductid(this.productList.getSelectionModel().getSelectedItem().getId());
+        bpc.iniData(this.productList.getSelectionModel().getSelectedItem());
         Scene scene = new Scene(root);
         window.hide();
         window.setScene(scene);

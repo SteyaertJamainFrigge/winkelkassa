@@ -19,12 +19,12 @@ public class MysqlCategoryRepositoryTest {
     @Test
     public void addCategory() {
         // some preperation.
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
         ProductCategory category = new ProductCategory(4, "addTester");
 
         // the actual test
         Repositories.getInstance().getCategoryRepository().addCategory(category);
-        List<ProductCategory> editedCategories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        List<ProductCategory> editedCategories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
         assertTrue("category is added?", categories.size() < editedCategories.size());
 
         // revert the added row in database
@@ -33,7 +33,7 @@ public class MysqlCategoryRepositoryTest {
 
     @Test
     public void getCategories() {
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getMultipleCategories("all");
         assertTrue("all categories are requested?", categories.size() > 0);
     }
 
@@ -53,10 +53,10 @@ public class MysqlCategoryRepositoryTest {
 
     @Test
     public void deleteCategory() {
-        ProductCategory categoryToDelete = Repositories.getInstance().getCategoryRepository().getGategory(1);
+        ProductCategory categoryToDelete = Repositories.getInstance().getCategoryRepository().getGategory(4);
         Repositories.getInstance().getCategoryRepository().deleteCategory(categoryToDelete);
 
-        assertNull("the category has been deleted?",Repositories.getInstance().getCategoryRepository().getGategory(1));
+        assertNull("the category has been deleted?",Repositories.getInstance().getCategoryRepository().getGategory(4));
 
         Repositories.getInstance().getCategoryRepository().addCategory(categoryToDelete);
     }
