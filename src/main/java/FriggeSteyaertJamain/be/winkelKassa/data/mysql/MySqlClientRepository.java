@@ -13,16 +13,16 @@ import java.util.List;
 
 public class MySqlClientRepository implements ClientRepository {
 
-    private static final String SQL_ADD_CLIENT =    "insert into klant(voornaam, famillienaam, email, telNummer, adres, postNummer) " +
-                                                    "values(?, ?, ?, ?, ?, ?)";
-    private static final String SQL_GET_CLIENTS =   "select * from klant";
-    private static final String SQL_GET_CLIENT =    "select * from klant " +
-                                                    "where idklant=?";
+    private static final String SQL_ADD_CLIENT = "insert into klant(voornaam, famillienaam, email, telNummer, adres, postNummer) " +
+            "values(?, ?, ?, ?, ?, ?)";
+    private static final String SQL_GET_CLIENTS = "select * from klant";
+    private static final String SQL_GET_CLIENT = "select * from klant " +
+            "where idklant=?";
     private static final String SQL_UPDATE_CLIENT = "UPDATE klant " +
-                                                    "SET naam=?, famillienaam=?, email=?, telNummer=? adres=?, postNummer=? " +
-                                                    "WHERE idklant=?";
+            "SET voornaam=?, famillienaam=?, email=?, telNummer=?, adres=?, postNummer=? " +
+            "WHERE idklant=?";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM klant " +
-                                                    "WHERE idklant=?;";
+            "WHERE idklant=?;";
 
     @Override
     public void addClient(Client c) {
@@ -40,19 +40,17 @@ public class MySqlClientRepository implements ClientRepository {
     @Override
     public List<Client> getAllClients() {
 
-        try (
-                Connection con = MySqlConnection.getConnection();
-                PreparedStatement prep = con.prepareStatement(SQL_GET_CLIENTS)
-        ){
-            try (ResultSet rs = prep.executeQuery()) {
-                List<Client> clients = new ArrayList<>();
+        try (Connection con = MySqlConnection.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_GET_CLIENTS);
+             ResultSet rs = prep.executeQuery()) {
+            List<Client> clients = new ArrayList<>();
 
-                while (rs.next()) {
-                    clients.add(createClient(rs));
-                }
-                return clients;
+            while (rs.next()) {
+                clients.add(createClient(rs));
             }
-        } catch(SQLException ex){
+            return clients;
+
+        } catch (SQLException ex) {
             throw new KassaException("Unable to get clients from DB.", ex);
         }
 
@@ -84,7 +82,7 @@ public class MySqlClientRepository implements ClientRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_GET_CLIENT)
-        ){
+        ) {
             prep.setInt(1, id);
             try (ResultSet rs = prep.executeQuery()) {
                 if (rs.next()) {
@@ -93,7 +91,7 @@ public class MySqlClientRepository implements ClientRepository {
                     return null;
                 }
             }
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new KassaException("Unable to get clients from DB.", ex);
         }
     }
@@ -103,11 +101,11 @@ public class MySqlClientRepository implements ClientRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_UPDATE_CLIENT)
-        ){
+        ) {
             fillPreparedStatement(c, prep);
             prep.setInt(7, c.getId());
             prep.executeUpdate();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new KassaException("Unable to update client in DB.", ex);
         }
     }
@@ -118,11 +116,10 @@ public class MySqlClientRepository implements ClientRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_DELETE_CLIENT)
-        )
-        {
+        ) {
             prep.setInt(1, c.getId());
             prep.executeUpdate();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new KassaException("Unable to delete client from DB.", ex);
         }
     }
