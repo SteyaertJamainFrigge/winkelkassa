@@ -1,5 +1,11 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
+import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Product {
     private int id;
     private String name;
@@ -21,6 +27,10 @@ public class Product {
         this.store = store;
         this.barcode = barcode;
         this.category = category;
+    }
+
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, ProductCategory category) {
+        this(id, name, price, btw, description, location, store, null, category);
     }
 
     public int getId() {
@@ -96,5 +106,62 @@ public class Product {
     @Override
     public String toString() {
         return this.name;
+    }
+
+
+    /**
+     *  generates a unique code that will be used for making the barcode
+     *  uses EAN standard
+     *
+     * @return {String} 13 digits between 0 and 9
+     */
+    public String generateInternalUniqueCode(){
+        String prefix = "029";
+        String manufacturer = "80156";
+        StringBuilder code = new StringBuilder(prefix + manufacturer);
+
+        code.append(getProductCode());
+
+        //checksum
+        code.append(getChecksum(code.toString()));
+
+        return code.toString();
+    }
+
+    /**
+     *  add's the id that the product has to the barcode number as a product code
+     *
+     * @return {String} 4 digits between 0 and 9
+     */
+    private String getProductCode(){
+        StringBuilder product = new StringBuilder();
+        if(this.id == 0){
+            this.id = Repositories.getInstance().getProductRepository().getHighestId();
+        }
+        // add 0's
+        for(int i = Integer.toString(this.id).length() ; i <= 4; i++){
+            product.append('0');
+        }
+        product.append(this.id);
+        return product.toString();
+    }
+
+    /**
+     * compute modulo 10, where the weights in the checksum calculation alternate 3 and 1
+     *
+     * @return {String} a single digit between 0 and 9
+     */
+    private String getChecksum(String code){
+        String[] strArray = code.split("");
+        int[] intArray = new int[strArray.length];
+        for(int i = 0; i < strArray.length; i++) {
+            intArray[i] = Integer.parseInt(strArray[i]);
+        }
+        int total = 0;
+        for(int i = 0; i < strArray.length; i+=2) {
+            total += (intArray[i] * 3) + intArray[i+1];
+        }
+        int rest = 10 - (total % 10);
+        return Integer.toString(rest);
     }
 }

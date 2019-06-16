@@ -6,6 +6,7 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.Btw;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
+import com.mysql.cj.protocol.Resultset;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +25,7 @@ public class MysqlProductRepository implements ProductRepository {
     private static final String SQL_UPDATE_PRODUCT ="UPDATE product " +
                                                     "set naam=?, prijs=?, btw=?, omschrijving=?, locatie=?, winkel=?, barcode=?, idcategorie=? " +
                                                     "where idproduct=?";
+    private static final String SQL_GET_LAST_ID = "SELECT idproduct FROM product ORDER BY idproduct DESC limit 1";
 
     @Override
     public void addProduct(Product product) {
@@ -127,6 +129,18 @@ public class MysqlProductRepository implements ProductRepository {
             prep.executeUpdate();
         } catch(SQLException ex){
             throw new KassaException("Unable to delete product from DB.", ex);
+        }
+    }
+
+    @Override
+    public int getHighestId() {
+        try(Connection con = MySqlConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(SQL_GET_LAST_ID);
+            ResultSet rs = prep.executeQuery()){
+
+            return rs.getInt("idproduct");
+        } catch (SQLException e) {
+            throw new KassaException("Unable to get id from DB");
         }
     }
 }
