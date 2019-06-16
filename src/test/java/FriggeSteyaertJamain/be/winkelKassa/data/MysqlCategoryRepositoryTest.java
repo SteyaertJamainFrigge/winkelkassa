@@ -2,7 +2,9 @@ package FriggeSteyaertJamain.be.winkelKassa.data;
 
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.validator.ValidateWith;
 
 import java.util.List;
 
@@ -10,31 +12,37 @@ import static org.junit.Assert.*;
 
 public class MysqlCategoryRepositoryTest {
 
+    private static CategoryRepository repo;
+
+    @BeforeClass
+    public static void setUp() throws Exception {
+        repo = Repositories.getInstance().getCategoryRepository();
+    }
 
     @Test
     public void getGategory() {
-        ProductCategory category = Repositories.getInstance().getCategoryRepository().getGategory(1);
+        ProductCategory category = repo.getGategory(1);
         assertTrue("the category is correctly requested", category.getId() > 0);
     }
 
     @Test
     public void addCategory() {
         // some preperation.
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        List<ProductCategory> categories = repo.getAllCategories();
         ProductCategory category = new ProductCategory(5, "addTester");
 
         // the actual test
-        Repositories.getInstance().getCategoryRepository().addCategory(category);
-        List<ProductCategory> editedCategories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        repo.addCategory(category);
+        List<ProductCategory> editedCategories = repo.getAllCategories();
         assertTrue("category is added?", categories.size() < editedCategories.size());
 
         // revert the added row in database
-        Repositories.getInstance().getCategoryRepository().deleteCategory(category);
+        repo.deleteCategory(category);
     }
 
     @Test
     public void getCategories() {
-        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        List<ProductCategory> categories = repo.getAllCategories();
         assertTrue("all categories are requested?", categories.size() > 0);
     }
 
@@ -44,21 +52,21 @@ public class MysqlCategoryRepositoryTest {
         ProductCategory categoryToEdit = new ProductCategory(1, "i edited it");
 
         // the actual test
-        Repositories.getInstance().getCategoryRepository().updateCategory(categoryToEdit);
-        ProductCategory editedCategory = Repositories.getInstance().getCategoryRepository().getGategory(1);
+        repo.updateCategory(categoryToEdit);
+        ProductCategory editedCategory = repo.getGategory(1);
         assertEquals("name has been edited?", categoryToEdit.getName(), editedCategory.getName());
 
         // revert update
-        Repositories.getInstance().getCategoryRepository().updateCategory(new ProductCategory(1, "testcategorie"));
+        repo.updateCategory(new ProductCategory(1, "testcategorie"));
     }
 
     @Test
     public void deleteCategory() {
-        ProductCategory categoryToDelete = Repositories.getInstance().getCategoryRepository().getGategory(4);
-        Repositories.getInstance().getCategoryRepository().deleteCategory(categoryToDelete);
+        ProductCategory categoryToDelete = repo.getGategory(4);
+        repo.deleteCategory(categoryToDelete);
 
-        assertNull("the category has been deleted?",Repositories.getInstance().getCategoryRepository().getGategory(4));
+        assertNull("the category has been deleted?",repo.getGategory(4));
 
-        Repositories.getInstance().getCategoryRepository().addCategory(categoryToDelete);
+        repo.addCategory(categoryToDelete);
     }
 }
