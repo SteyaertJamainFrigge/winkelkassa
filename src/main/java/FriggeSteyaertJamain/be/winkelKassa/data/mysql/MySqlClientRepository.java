@@ -13,8 +13,8 @@ import java.util.List;
 
 public class MySqlClientRepository implements ClientRepository {
 
-    private static final String SQL_ADD_CLIENT = "insert into klant(voornaam, famillienaam, email, telNummer, adres, postNummer) " +
-            "values(?, ?, ?, ?, ?, ?)";
+    private static final String SQL_ADD_CLIENT = "insert into klant(idklant, voornaam, famillienaam, email, telNummer, adres, postNummer) " +
+            "values(?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_GET_CLIENTS = "select * from klant";
     private static final String SQL_GET_CLIENT = "select * from klant " +
             "where idklant=?";
@@ -25,13 +25,19 @@ public class MySqlClientRepository implements ClientRepository {
             "WHERE idklant=?;";
 
     @Override
-    public void addClient(Client c) {
+    public boolean addClient(Client c) {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_ADD_CLIENT)
         ) {
-            fillPreparedStatement(c, prep);
-            prep.executeUpdate();
+            prep.setInt(1, c.getId());
+            prep.setString(2, c.getName());
+            prep.setString(3, c.getFamilyName());
+            prep.setString(4, c.getEmail());
+            prep.setString(5, c.getTelNumber());
+            prep.setString(6, c.getAddress());
+            prep.setString(7, c.getPostAddress());
+            return prep.executeUpdate() > 0;
         } catch (SQLException ex) {
             throw new KassaException("Unable to add client to DB.", ex);
         }
@@ -67,16 +73,6 @@ public class MySqlClientRepository implements ClientRepository {
         return new Client(id, name, familyName, email, telNumber, address, postNumber);
     }
 
-
-    private void fillPreparedStatement(Client c, PreparedStatement prep) throws SQLException {
-        prep.setString(1, c.getName());
-        prep.setString(2, c.getFamilyName());
-        prep.setString(3, c.getEmail());
-        prep.setString(4, c.getTelNumber());
-        prep.setString(5, c.getAddress());
-        prep.setString(6, c.getPostAddress());
-    }
-
     @Override
     public Client getClient(int id) {
         try (
@@ -97,14 +93,19 @@ public class MySqlClientRepository implements ClientRepository {
     }
 
     @Override
-    public void updateClient(Client c) {
+    public boolean updateClient(Client c) {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_UPDATE_CLIENT)
         ) {
-            fillPreparedStatement(c, prep);
+            prep.setString(1, c.getName());
+            prep.setString(2, c.getFamilyName());
+            prep.setString(3, c.getEmail());
+            prep.setString(4, c.getTelNumber());
+            prep.setString(5, c.getAddress());
+            prep.setString(6, c.getPostAddress());
             prep.setInt(7, c.getId());
-            prep.executeUpdate();
+            return prep.executeUpdate() > 0;
         } catch (SQLException ex) {
             throw new KassaException("Unable to update client in DB.", ex);
         }
@@ -112,13 +113,13 @@ public class MySqlClientRepository implements ClientRepository {
 
 
     @Override
-    public void deleteClient(Client c) {
+    public boolean deleteClient(Client c) {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_DELETE_CLIENT)
         ) {
             prep.setInt(1, c.getId());
-            prep.executeUpdate();
+            return prep.executeUpdate() > 0;
         } catch (SQLException ex) {
             throw new KassaException("Unable to delete client from DB.", ex);
         }
