@@ -38,11 +38,11 @@ public class MysqlBtwRepository implements BtwRepository {
     }
 
     @Override
-    public void addBtw(Btw btw) {
+    public boolean addBtw(Btw btw) {
         try(Connection con = MySqlConnection.getConnection();
             PreparedStatement prep = con.prepareStatement(SQL_ADD_BTW)){
             prep.setInt(1, btw.getTarif());
-            prep.executeUpdate();
+            return prep.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new KassaException("unable do add Btw", e);
         }
@@ -66,23 +66,23 @@ public class MysqlBtwRepository implements BtwRepository {
 
 
     @Override
-    public void updateBtw(Btw btw) {
+    public boolean updateBtw(Btw btw) {
         try(Connection con = MySqlConnection.getConnection();
             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_BTW)){
             prep.setInt(1, btw.getTarif());
             prep.setInt(2, btw.getId());
-            prep.executeUpdate();
+            return 0<prep.executeUpdate();
         } catch (SQLException e) {
             throw new KassaException("Unable to update Btw in Bd", e);
         }
     }
 
     @Override
-    public void deleteBtw(int id) {
+    public boolean deleteBtw(int id) {
         try(Connection con = MySqlConnection.getConnection();
             PreparedStatement prep = con.prepareStatement(SQL_DELETE_BTW)){
             prep.setInt(1, id);
-            prep.executeUpdate();
+            return 0< prep.executeUpdate();
         } catch (SQLException e) {
             throw new KassaException("Unable to delete Btw in Bd", e);
         }

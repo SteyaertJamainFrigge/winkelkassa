@@ -19,7 +19,7 @@ public interface BtwRepository {
      *
      * @param btw {Btw} product Btw
      */
-    void addBtw(Btw btw);
+    boolean addBtw(Btw btw);
 
     /**
      * returns all Btw's found in data layer as a List
@@ -34,7 +34,7 @@ public interface BtwRepository {
      *
      * @param btw{Btw} product Btw
      */
-    void updateBtw(Btw btw);
+    boolean updateBtw(Btw btw);
 
 
     /**
@@ -42,6 +42,6 @@ public interface BtwRepository {
      *
      * @param id{Btw} product Btw
      */
-    void deleteBtw(int id);
+    boolean deleteBtw(int id);
 
 }
