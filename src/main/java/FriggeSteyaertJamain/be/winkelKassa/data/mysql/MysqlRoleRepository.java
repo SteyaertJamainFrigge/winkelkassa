@@ -17,7 +17,7 @@ public class MysqlRoleRepository implements RoleRepository {
     private static final String SQL_GET_ROLE = "SELECT * from login_role where idrole=?";
     private static final String SQL_GET_ALL_ROLES = "SELECT * from login_role";
     private static final String SQL_UPDATE_ROLE = "UPDATE login_role set rolename=?, weight=? where idrole=?";
-    private static final String SQL_DELETE_ROLE = "DELETE ";
+    private static final String SQL_DELETE_ROLE = "DELETE from login_role where idrole=?";
 
     @Override
     public boolean addRole(Role r) {
