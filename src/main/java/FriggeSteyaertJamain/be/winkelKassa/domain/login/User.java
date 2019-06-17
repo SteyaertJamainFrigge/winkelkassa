@@ -1,20 +1,16 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.login;
 
-public class user {
+public class User {
     private int loginId;
     private String username;
     private String hashedPassword;
-    private int roleId;
-    private String roleName;
-    private int weight;
+    private Role role;
 
-    public user(int loginId, String username, String hashedPassword, int roleId, String roleName, int weight) {
+    public User(int loginId, String username, String hashedPassword, Role role) {
         this.loginId = loginId;
         this.username = username;
         this.hashedPassword = hashedPassword;
-        this.roleId = roleId;
-        this.roleName = roleName;
-        this.weight = weight;
+        this.role = role;
     }
 
     public int getLoginId() {
@@ -29,15 +25,11 @@ public class user {
         return hashedPassword;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public int getWeight() {
-        return weight;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
