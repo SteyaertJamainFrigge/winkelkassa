@@ -23,4 +23,6 @@ public class Repositories {
     public BtwRepository getBtwRepository(){return new MysqlBtwRepository();}
 
     public SubcategoryRepository getSubCategoryRepository(){return new MysqlSubcategoryRepository();}
+
+    public RoleRepository getRoleRepository(){return new MysqlRoleRepository();}
 }
