@@ -16,13 +16,8 @@ public class MySqlClientRepositoryTest {
 
     @BeforeClass
     public static void setUp(){
-        genericClient = new Client(2, "genericName", "genericson", "email@generic.com", "0474123456", "adres", "8000");
+        genericClient = new Client(1, "genericName", "genericson", "email@generic.com", "0474126456", "adres1", "8000");
         repo = Repositories.getInstance().getClientRepository();
-    }
-
-    @Test
-    public void addClient() {
-        repo.addClient(genericClient);
     }
 
     @Test
@@ -33,17 +28,26 @@ public class MySqlClientRepositoryTest {
 
     @Test
     public void getClient() {
-        repo.getClient(genericClient.getId());
+        assertNotNull("heeft succesvol een client kunnen aanvragen?", repo.getClient(genericClient.getId()));
     }
+
 
     @Test
     public void updateClient() {
+        // preparation
         genericClient.setName("changed by tester");
-        repo.updateClient(genericClient);
+        repo.addClient(genericClient);
+
+        //actual test
+        assertTrue("client was edited?", repo.updateClient(genericClient));
+
+        // cleanup
+        repo.deleteClient(genericClient);
     }
 
     @Test
-    public void deleteClient() {
-        repo.deleteClient(genericClient);
+    public void addAndDeleteClient() {
+        assertTrue("client was added?", repo.addClient(genericClient));
+        assertTrue("client has been beleted?", repo.deleteClient(genericClient));
     }
 }
