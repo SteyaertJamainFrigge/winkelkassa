@@ -32,4 +32,16 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public void setLoginId(int loginId) {
+        this.loginId = loginId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
 }
