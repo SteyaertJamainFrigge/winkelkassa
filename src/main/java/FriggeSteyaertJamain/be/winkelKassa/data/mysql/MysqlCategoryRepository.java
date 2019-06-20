@@ -3,6 +3,7 @@ package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
 import FriggeSteyaertJamain.be.winkelKassa.data.CategoryRepository;
 import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.data.SubcategoryRepository;
+import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 
@@ -24,16 +25,17 @@ public class MysqlCategoryRepository implements CategoryRepository {
     private ProductCategory create(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString("naam");
         int id = resultSet.getInt("idcategorie");
-        SubcategoryRepository subCategoryRepository = Repositories.getInstance().getSubCategoryRepository();
+        ArrayList<Product> products = (ArrayList<Product>) Repositories.getInstance().getProductRepository().getProductByCategory(id);
         if (resultSet.getBoolean("heeftsubcategorie")) {
+            SubcategoryRepository repo = Repositories.getInstance().getSubCategoryRepository();
             ArrayList<ProductCategory> subcategories = new ArrayList<>();
-            ArrayList<Integer> idlist = (ArrayList<Integer>) subCategoryRepository.getSubcategories(id);
+            ArrayList<Integer> idlist = (ArrayList<Integer>) repo.getSubcategories(id);
             for (int subid :
                     idlist) {
                 subcategories.add(getGategory(subid));
             }
-            return new ProductCategory(id, name, subcategories);
-        } else return new ProductCategory(id, name);
+            return new ProductCategory(id, name, products, subcategories);
+        } else return new ProductCategory(id, name, products);
     }
 
     @Override

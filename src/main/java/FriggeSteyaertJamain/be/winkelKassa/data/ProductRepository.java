@@ -42,4 +42,6 @@ public interface ProductRepository {
      * @return {Integer} highest id
      */
     int getHighestId();
+
+    List<Product> getProductByCategory(int categoryId);
 }

@@ -26,6 +26,8 @@ public class MysqlProductRepository implements ProductRepository {
                                                     "set naam=?, prijs=?, btw=?, omschrijving=?, locatie=?, winkel=?, barcode=?, idcategorie=? " +
                                                     "where idproduct=?";
     private static final String SQL_GET_LAST_ID = "SELECT idproduct FROM product ORDER BY idproduct DESC limit 1";
+    private static final String SQL_GET_PRODUCT_BY_CATEGORY_ID = "";
+
 
     @Override
     public void addProduct(Product product) {
@@ -141,6 +143,23 @@ public class MysqlProductRepository implements ProductRepository {
             return rs.getInt("idproduct");
         } catch (SQLException e) {
             throw new KassaException("Unable to get id from DB");
+        }
+    }
+
+    @Override
+    public List<Product> getProductByCategory(int categoryId){
+        try(Connection con = MySqlConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(SQL_GET_PRODUCT_BY_CATEGORY_ID)){
+            prep.setInt(1, categoryId);
+            try (ResultSet rs = prep.executeQuery()){
+                ArrayList<Product> products = new ArrayList<>();
+                while (rs.next()){
+                    products.add(createProduct(rs));
+                }
+                return products;
+            }
+        } catch (SQLException e) {
+            throw new KassaException("Unabel to get products from DB");
         }
     }
 }
