@@ -1,7 +1,6 @@
 package FriggeSteyaertJamain.be.winkelKassa.data;
 
 import FriggeSteyaertJamain.be.winkelKassa.data.mysql.*;
-import sun.rmi.runtime.Log;
 
 public class Repositories {
     private static Repositories ourInstance = new Repositories();
@@ -29,4 +28,5 @@ public class Repositories {
 
     public SubcategoryRepository getSubCategoryRepository(){return new MysqlSubcategoryRepository();}
 
+    public SupplierRepository getSupplierRepository(){return new MysqlSupplierRepository();}
 }
