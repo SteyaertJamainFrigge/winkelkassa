@@ -5,6 +5,7 @@ import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Product {
     private int id;
@@ -163,5 +164,9 @@ public class Product {
         }
         int rest = 10 - (total % 10);
         return Integer.toString(rest);
+    }
+
+    public boolean Equals(Product p){
+        return this.id == p.getId();
     }
 }
