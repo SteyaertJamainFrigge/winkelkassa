@@ -96,6 +96,6 @@ GRANT ALL PRIVILEGES ON *.* TO 'kassa_usr'@'localhost' WITH GRANT OPTION;
 
 3. connect to the server with the previously created kassa_usr login.
 
-4. execute the winkelkassa.sql file in mysql workbench
+4. execute the winkelkassa_structuur.sql file in mysql workbench
 
 **!! now all the preparations are done!!**
