@@ -26,7 +26,7 @@ public class MysqlProductRepository implements ProductRepository {
                                                     "set naam=?, prijs=?, btw=?, omschrijving=?, locatie=?, winkel=?, barcode=?, idcategorie=? " +
                                                     "where idproduct=?";
     private static final String SQL_GET_LAST_ID = "SELECT idproduct FROM product ORDER BY idproduct DESC limit 1";
-    private static final String SQL_GET_PRODUCT_BY_CATEGORY_ID = "";
+    private static final String SQL_GET_PRODUCT_BY_CATEGORY_ID = "select * from product where idcategorie=?";
 
 
     @Override
@@ -50,7 +50,7 @@ public class MysqlProductRepository implements ProductRepository {
         prep.setString(5, p.getLocation());
         prep.setString(6, p.getStore());
         prep.setString(7, p.getBarcode());
-        prep.setInt(8, p.getCategory().getId());
+        prep.setInt(8, p.getCategory());
     }
 
     private Product createProduct(ResultSet rs) throws SQLException {
@@ -63,10 +63,9 @@ public class MysqlProductRepository implements ProductRepository {
         String store = rs.getString("winkel");
         String barcode = rs.getString("barcode");
         int categoryId = rs.getInt("idcategorie");
-        int tarif = rs.getInt("tarief");
+        int tariff = Repositories.getInstance().getBtwRepository().getBtw(btwId);
 
-        ProductCategory category =  Repositories.getInstance().getCategoryRepository().getGategory(categoryId);
-        return new Product(id, name, price, new Btw(btwId, tarif), description, location, store, barcode, category);
+        return new Product(id, name, price, new Btw(btwId, tariff), description, location, store, barcode, categoryId);
     }
 
     @Override
