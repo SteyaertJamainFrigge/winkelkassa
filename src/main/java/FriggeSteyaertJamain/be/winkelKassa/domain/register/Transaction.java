@@ -1,8 +1,6 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import java.util.*;
 
 public class Transaction {
@@ -122,7 +120,7 @@ public class Transaction {
         for (Product p:
              products) {
             int amount = productsFrequency.get(p.getId());
-            double btw = p.getPrice() / 100 * p.getBtw().getTarif();
+            double btw = p.getPrice() / 100 * p.getBtw().getTariff();
             totalPrice = totalPrice + (amount + btw) * amount;
         }
         return totalPrice;

@@ -2,11 +2,11 @@ package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
 public class Btw {
     private int id;
-    private int tarif;
+    private int tariff;
 
-    public Btw(int id, int tarif) {
+    public Btw(int id, int tariff) {
         this.id = id;
-        this.tarif = tarif;
+        this.tariff = tariff;
     }
 
     public int getId() {
@@ -17,16 +17,16 @@ public class Btw {
         this.id = id;
     }
 
-    public int getTarif() {
-        return tarif;
+    public int getTariff() {
+        return tariff;
     }
 
-    public void setTarif(int tarif) {
-        this.tarif = tarif;
+    public void setTariff(int tariff) {
+        this.tariff = tariff;
     }
 
     @Override
     public String toString() {
-        return this.tarif + " %";
+        return this.tariff + " %";
     }
 }
