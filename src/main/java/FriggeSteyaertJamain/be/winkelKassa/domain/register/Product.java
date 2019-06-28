@@ -16,9 +16,9 @@ public class Product {
     private String location;
     private String store;
     private String barcode;
-    private ProductCategory category;
+    private int category;
 
-    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, ProductCategory category) {
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, int category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -30,7 +30,7 @@ public class Product {
         this.category = category;
     }
 
-    public Product(int id, String name, double price, Btw btw, String description, String location, String store, ProductCategory category) {
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, int category) {
         this(id, name, price, btw, description, location, store, null, category);
     }
 
@@ -88,11 +88,11 @@ public class Product {
         this.barcode = barcode;
     }
 
-    public ProductCategory getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(ProductCategory category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
