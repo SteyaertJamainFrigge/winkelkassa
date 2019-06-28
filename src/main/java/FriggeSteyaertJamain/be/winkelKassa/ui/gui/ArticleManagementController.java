@@ -21,6 +21,7 @@ import java.util.List;
 public class ArticleManagementController extends SubWindow {
 
     private int id;
+    private List<ProductCategory> categories;
 
     @FXML
     private ListView<Product> productList;
@@ -66,10 +67,11 @@ public class ArticleManagementController extends SubWindow {
     }
 
     public void initialize() {
+
         changeReturnBtnStyle();
         initializeSpinner();
-        fillProductList();
         fillCategories();
+        fillProductList();
         fillBtw();
         addProductListListener();
         this.productList.getSelectionModel().selectFirst();
@@ -97,6 +99,7 @@ public class ArticleManagementController extends SubWindow {
 
     private void fillCategories(){
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
+        this.categories = categories;
         this.categoryComboBx.setItems(FXCollections.observableList(categories));
     }
 
@@ -108,21 +111,33 @@ public class ArticleManagementController extends SubWindow {
         this.locationInput.setText(product.getLocation());
         this.storeInput.setText(product.getStore());
         this.barcodeInput.setText(product.getBarcode());
-        this.categoryComboBx.setValue(product.getCategory());
+        ProductCategory pc = findCategoryById(product.getCategory());
+        this.categoryComboBx.setValue(pc);
         this.btwComboBx.setValue(product.getBtw());
         this.id = product.getId();
         System.out.println(this.id);
     }
 
+    private ProductCategory findCategoryById(int id) {
+        ProductCategory category = null;
+        for (ProductCategory item:
+                categories) {
+            if(item.getId() == id){
+                category = item;
+            }
+        }
+        return category;
+    }
+
+
     private void saveChangesToObject(Product product){
         product.setName(this.nameInput.getText());
         product.setPrice(this.priceSpinner.getValue());
         product.setBarcode(this.barcodeInput.getText());
-        product.setCategory(this.categoryComboBx.getValue());
+        product.setCategory(this.categoryComboBx.getValue().getId());
         product.setDescription(this.descriptionInput.getText());
         product.setLocation(this.locationInput.getText());
         product.setStore(this.storeInput.getText());
-        product.setCategory(this.categoryComboBx.getValue());
         product.setBtw(this.btwComboBx.getValue());
     }
 
@@ -141,7 +156,6 @@ public class ArticleManagementController extends SubWindow {
     private void runBarcodePrinter() throws IOException {
         Stage window = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/barcodePrinter.fxml"));
-
         Parent root = loader.load();
         BarcodePrinterController bpc = loader.getController();
         bpc.iniData(this.productList.getSelectionModel().getSelectedItem());
