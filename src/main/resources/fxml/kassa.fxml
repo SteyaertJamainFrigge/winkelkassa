@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -20,7 +21,7 @@
   <children>
       <Pane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" VBox.vgrow="NEVER">
          <children>
-            <Label layoutX="1621.0" layoutY="1.0" prefHeight="30.0" prefWidth="299.0" text="Gebruikersnaam" textAlignment="RIGHT">
+            <Label layoutX="1563.0" layoutY="26.0" prefHeight="30.0" prefWidth="327.0" text="Gebruikersnaam" textAlignment="RIGHT">
                <font>
                   <Font size="17.0" />
                </font>
@@ -28,7 +29,7 @@
                   <Point3D />
                </rotationAxis>
             </Label>
-            <GridPane id="sneltoetsen" nodeOrientation="LEFT_TO_RIGHT" prefHeight="174.0" prefWidth="535.0">
+            <GridPane id="sneltoetsen" nodeOrientation="LEFT_TO_RIGHT" prefHeight="224.0" prefWidth="680.0" style="-fx-border-color: green;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
@@ -46,32 +47,32 @@
                   </Label>
                   <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: limegreen;" text="Cash" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font name="System Bold" size="26.0" />
                      </font>
                   </Label>
                   <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: limegreen;" text="Wissel" textFill="WHITE" GridPane.rowIndex="2">
                      <font>
-                        <Font name="System Bold" size="21.0" />
+                        <Font name="System Bold" size="33.0" />
                      </font>
                   </Label>
                   <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: limegreen;" text="999.999,99€" textFill="WHITE" GridPane.columnIndex="1">
                      <font>
-                        <Font name="System Bold" size="40.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
                   <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: limegreen;" text="999.999,99€" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font name="System Bold" size="31.0" />
+                        <Font name="System Bold" size="40.0" />
                      </font>
                   </Label>
                   <Label contentDisplay="TEXT_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: limegreen;" text="999.999,99€" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
-                        <Font name="System Bold" size="31.0" />
+                        <Font name="System Bold" size="40.0" />
                      </font>
                   </Label>
                </children>
             </GridPane>
-            <GridPane id="sneltoetsen" layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="400.0">
+            <GridPane id="sneltoetsen" gridLinesVisible="true" layoutY="380.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="480.0" style="-fx-border-color: green;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
                   <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
@@ -90,12 +91,7 @@
                         <Font name="System Bold" size="29.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="100.0" prefWidth="125.0" text="Retour" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="DejaVu Sans Bold" size="19.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="80.0" text="C" GridPane.columnIndex="3">
+                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="80.0" GridPane.columnIndex="3">
                      <font>
                         <Font size="27.0" />
                      </font>
@@ -155,61 +151,66 @@
                         <Image url="@../images/green/48x48/0.png" />
                      </image>
                   </ImageView>
+                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="134.0" prefWidth="130.0" text="Retour" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="DejaVu Sans Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/green/48x48/Arrow2%20Left.png" />
+                     </image>
+                  </ImageView>
                   <ImageView fitHeight="70.0" fitWidth="70.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <image>
-                        <Image url="@../images/green/48x48/Plus.png" />
+                        <Image url="@../images/green/48x48/Ok.png" />
                      </image>
                   </ImageView>
                </children>
             </GridPane>
-            <TableView layoutX="537.0" layoutY="2.0" prefHeight="366.0" prefWidth="792.0">
+            <TableView layoutX="763.0" prefHeight="520.0" prefWidth="800.0">
               <columns>
-                  <TableColumn prefWidth="268.0" text="Artikel" />
-                  <TableColumn minWidth="0.0" prefWidth="91.0" text="Aantal" />
-                  <TableColumn prefWidth="128.0" text="Prijs" />
-                  <TableColumn prefWidth="63.0" text="Korting" />
-                  <TableColumn prefWidth="41.0" text="BTW" />
-                <TableColumn prefWidth="128.0" text="Bedrag" />
+                  <TableColumn prefWidth="336.0" text="Artikel" />
+                  <TableColumn minWidth="0.0" prefWidth="79.0" text="Aantal" />
+                  <TableColumn prefWidth="125.0" text="Prijs" />
+                  <TableColumn prefWidth="66.0" text="Korting" />
+                  <TableColumn prefWidth="43.0" text="BTW" />
+                <TableColumn prefWidth="149.0" text="Bedrag" />
               </columns>
                <rotationAxis>
                   <Point3D />
                </rotationAxis>
             </TableView>
-            <Button layoutX="1329.0" layoutY="29.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="60.0" text="Up">
-               <rotationAxis>
-                  <Point3D />
-               </rotationAxis></Button>
-            <Button layoutX="1329.0" layoutY="288.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="60.0" text="Down">
-               <rotationAxis>
-                  <Point3D />
-               </rotationAxis></Button>
-            <Button layoutX="1329.0" layoutY="164.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="60.0" text="Wis" textFill="RED">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-               <rotationAxis>
-                  <Point3D />
-               </rotationAxis>
-            </Button>
-            <Pane layoutY="197.0" prefHeight="80.0" prefWidth="535.0" style="-fx-border-style: dot;">
+            <Pane layoutY="224.0" prefHeight="70.0" prefWidth="680.0" style="-fx-border-color: green;">
                <children>
-                  <Label layoutX="125.0" layoutY="29.0" prefHeight="16.0" prefWidth="92.0" text="Spaarkaart€" />
-                  <Label layoutY="4.0" prefHeight="16.0" prefWidth="372.0" text="Klantnaam">
-                     <rotationAxis>
-                        <Point3D />
-                     </rotationAxis>
-                  </Label>
-                  <Button contentDisplay="GRAPHIC_ONLY" layoutX="455.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" text="zoek">
+                  <Label layoutX="241.0" layoutY="39.0" prefHeight="25.0" prefWidth="133.0" text="Spaarkaart €">
                      <font>
                         <Font size="17.0" />
                      </font>
-                  </Button>
-                  <CheckBox layoutY="27.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="90.0" text="Lid Coop" />
-                  <ImageView layoutX="466.0" layoutY="11.0">
+                  </Label>
+                  <Label layoutX="73.0" layoutY="6.0" prefHeight="30.0" prefWidth="600.0" text="Klantnaam">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <CheckBox layoutX="73.0" layoutY="40.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="119.0" text="Lid Coop">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </CheckBox>
+                  <ImageView layoutY="12.0">
                      <image>
-                        <Image url="@../images/green/48x48/Search.png" />
+                        <Image url="@../images/orange/48x48/Search.png" />
                      </image>
                   </ImageView>
+                  <Label layoutX="393.0" layoutY="39.0" prefHeight="25.0" prefWidth="133.0" text="Tegoed €">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
                </children>
                <rotationAxis>
                   <Point3D />
@@ -218,7 +219,7 @@
                   <Insets />
                </opaqueInsets>
             </Pane>
-            <GridPane id="sneltoetsen" gridLinesVisible="true" layoutX="539.0" layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="538.0" prefWidth="571.0">
+            <GridPane id="sneltoetsen" gridLinesVisible="true" layoutX="763.0" layoutY="520.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="560.0" prefWidth="800.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
@@ -234,9 +235,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <GridPane id="sneltoetsen" layoutX="399.0" layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="137.0">
+            <GridPane id="sneltoetsen" layoutX="480.0" layoutY="380.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="200.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0" />
                </columnConstraints>
@@ -251,90 +253,273 @@
                <children>
                   <Button alignment="CENTER" contentDisplay="TEXT_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="135.0" text="Aantal">
                      <font>
-                        <Font name="DejaVu Sans Bold" size="16.0" />
+                        <Font name="DejaVu Sans Bold" size="20.0" />
                      </font>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="TEXT_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="135.0" text="Weegschaal" GridPane.rowIndex="1">
                      <font>
-                        <Font name="DejaVu Sans Bold" size="16.0" />
+                        <Font name="DejaVu Sans Bold" size="20.0" />
                      </font>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="TEXT_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="135.0" text="Prijs" GridPane.rowIndex="2">
                      <font>
-                        <Font name="DejaVu Sans Bold" size="16.0" />
+                        <Font name="DejaVu Sans Bold" size="20.0" />
                      </font>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="TEXT_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="135.0" text="Korting" GridPane.rowIndex="3">
                      <font>
-                        <Font name="DejaVu Sans Bold" size="16.0" />
+                        <Font name="DejaVu Sans Bold" size="20.0" />
                      </font>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="TEXT_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="135.0" text="BTW" GridPane.rowIndex="4">
                      <font>
-                        <Font name="DejaVu Sans Bold" size="16.0" />
+                        <Font name="DejaVu Sans Bold" size="20.0" />
                      </font>
                   </Button>
                   <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="47.0" prefWidth="137.0" text="Verpakking" textFill="RED" GridPane.rowIndex="5">
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                   </Button>
                </children>
             </GridPane>
-            <GridPane id="sneltoetsen" layoutY="906.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="174.0" prefWidth="535.0">
+            <GridPane id="sneltoetsen" layoutY="860.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="220.0" prefWidth="680.0">
                <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="Cash">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="pay cash" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="Digitaal" wrapText="true" GridPane.columnIndex="1">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="pay digital" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="On-Hold" wrapText="true" GridPane.columnIndex="2">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="ticket on hold" wrapText="true" GridPane.columnIndex="2">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="Open On-Hold" wrapText="true" GridPane.columnIndex="3">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="get ticket on hold" wrapText="true" GridPane.columnIndex="3">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="Print Kasticket" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="print ticket" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="E-mail Kasticket" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="email ticket" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="Lade Open" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="open drawer" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
+                  <ImageView GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Printer.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Mail.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Player%20Pause.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Player%20Play.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Currency%20Euro.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Dots.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Alarme.png" />
+                     </image>
+                  </ImageView>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="recall ticket" wrapText="true" GridPane.columnIndex="4">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="5">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Database.png" />
+                     </image>
+                  </ImageView>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" text="register cash in drawer" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/orange/48x48/Go%20In.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
-            <Button layoutX="1879.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="zoek">
+            <Label layoutX="718.0" layoutY="520.0" text="Pg 1/1" />
+            <Pane layoutX="1563.0" layoutY="519.0" prefHeight="286.0" prefWidth="355.0" style="-fx-border-color: green;">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="200.0" layoutY="25.0" text="artikelkode">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="200.0" layoutY="100.0" text="prijs">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="200.0" layoutY="75.0" text="merk">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ImageView layoutX="329.0" layoutY="2.0">
+                     <image>
+                        <Image url="@../images/orange/24x24/Info2.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="200.0" layoutY="125.0" text="locatie">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="199.0" prefHeight="86.0" prefWidth="355.0" text="info">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="200.0" layoutY="50.0" text="omschrijving">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="200.0" layoutY="175.0" text="waarde">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <CheckBox layoutX="200.0" layoutY="150.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="153.0" text="leeggoed">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </Pane>
+            <ImageView layoutX="713.0" layoutY="619.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Arrow3%20Up.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="713.0" layoutY="776.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Arrow3%20Down.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="714.0" layoutY="30.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Arrow3%20Up.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="714.0" layoutY="146.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Arrow3%20Down.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="713.0" layoutY="697.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Search.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="738.0" layoutY="1054.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Tool.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="726.0" layoutY="100.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Trash.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="1894.0" layoutY="29.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Search.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="713.0" layoutY="547.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Home.png" />
+               </image>
+            </ImageView>
+            <TextField layoutY="324.0" prefHeight="56.0" prefWidth="480.0" text="999.999,999">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <Label layoutX="1563.0" layoutY="-1.0" prefHeight="30.0" prefWidth="327.0" text="Kassa" textAlignment="RIGHT">
                <font>
                   <Font size="17.0" />
                </font>
-            </Button>
+            </Label>
+            <ImageView layoutX="1894.0" layoutY="2.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Tool.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="1894.0" layoutY="1054.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Cancel.png" />
+               </image>
+            </ImageView>
          </children>
          <rotationAxis>
             <Point3D />
