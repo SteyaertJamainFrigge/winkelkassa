@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Box?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane VBox.vgrow="ALWAYS">
+         <children>
+            <Label layoutX="13.0" layoutY="115.0" text="Pagina">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="20.0" />
+               </font>
+            </Label>
+            <GridPane id="sneltoetsen" gridLinesVisible="true" layoutX="80.0" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="560.0" prefWidth="800.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <ImageView layoutX="14.0" layoutY="263.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Arrow3%20Up.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="14.0" layoutY="311.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Arrow3%20Down.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="14.0" layoutY="168.0">
+               <image>
+                  <Image url="@../images/orange/48x48/Home.png" />
+               </image>
+            </ImageView>
+            <Box depth="100" height="100.0" layoutX="1182.0" layoutY="253.0" width="500.0" />
+            <TextField layoutX="946.0" layoutY="268.0" prefHeight="26.0" prefWidth="241.0" text="Artikel">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </TextField>
+            <Button layoutX="1189.0" layoutY="268.0" mnemonicParsing="false" text="Kies artikel">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Button>
+            <CheckBox layoutX="944.0" layoutY="215.0" mnemonicParsing="false" text="Doorklikken naar pagina">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </CheckBox>
+            <Label layoutX="1052.0" layoutY="240.0" text="Of">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Box depth="100" height="60.0" layoutX="1182.0" layoutY="363.0" width="500.0" />
+            <Button layoutX="957.0" layoutY="350.0" mnemonicParsing="false" text="Kies afbeelding">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Button>
+            <TextField layoutX="1147.0" layoutY="350.0" text="tekst">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </TextField>
+            <Label layoutX="1104.0" layoutY="350.0" text="Of">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="932.0" layoutY="192.0" text="Actie">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="932.0" layoutY="324.0" text="Knop canvas">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+            <ImageView layoutX="1424.0" layoutY="2.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Cancel.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="1166.0" layoutY="415.0">
+               <image>
+                  <Image url="@../images/orange/32x32/Cancel.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="202.0" layoutY="711.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Horz.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="880.0" layoutY="299.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Vert.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="336.0" layoutY="711.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Horz.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="469.0" layoutY="711.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Horz.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="602.0" layoutY="711.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Horz.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="735.0" layoutY="711.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Horz.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="880.0" layoutY="219.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Vert.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="880.0" layoutY="380.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Vert.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="880.0" layoutY="540.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Vert.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="880.0" layoutY="459.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Vert.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="880.0" layoutY="620.0">
+               <image>
+                  <Image url="@../images/orange/24x24/Direction%20Vert.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="1336.0" layoutY="350.0" mnemonicParsing="false" text="Kies kleur">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="14.0" layoutY="52.0" text="Kassa">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="20.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="109.0" layoutY="51.0" prefHeight="26.0" prefWidth="58.0" />
+            <ComboBox layoutX="109.0" layoutY="114.0" prefHeight="26.0" prefWidth="58.0" />
+            <ImageView layoutX="182.0" layoutY="111.0">
+               <image>
+                  <Image url="@../images/orange/32x32/Cancel.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="231.0" layoutY="111.0">
+               <image>
+                  <Image url="@../images/green/32x32/Plus.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="182.0" layoutY="48.0">
+               <image>
+                  <Image url="@../images/orange/32x32/Cancel.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="231.0" layoutY="48.0">
+               <image>
+                  <Image url="@../images/green/32x32/Plus.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="15.0" text="Winkel">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="20.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="110.0" layoutY="14.0" prefHeight="26.0" prefWidth="58.0" />
+            <ImageView layoutX="183.0" layoutY="11.0">
+               <image>
+                  <Image url="@../images/orange/32x32/Cancel.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="232.0" layoutY="11.0">
+               <image>
+                  <Image url="@../images/green/32x32/Plus.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="278.0" layoutY="111.0">
+               <image>
+                  <Image url="@../images/green/32x32/Go%20Out.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="278.0" layoutY="48.0">
+               <image>
+                  <Image url="@../images/green/32x32/Go%20Out.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="278.0" layoutY="11.0">
+               <image>
+                  <Image url="@../images/green/32x32/Go%20Out.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="139.0" layoutY="713.0" text="1">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="272.0" layoutY="713.0" text="2">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="408.0" layoutY="713.0" text="3">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="541.0" layoutY="713.0" text="4">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="674.0" layoutY="713.0" text="5">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="811.0" layoutY="713.0" text="6">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="886.0" layoutY="659.0" text="7">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="886.0" layoutY="580.0" text="6">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="886.0" layoutY="498.0" text="5">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="886.0" layoutY="421.0" text="4">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="886.0" layoutY="340.0" text="3">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="886.0" layoutY="260.0" text="2">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="886.0" layoutY="182.0" text="1">
+               <font>
+                  <Font name="DejaVu Sans ExtraLight" size="18.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="1163.0" layoutY="211.0" prefHeight="26.0" prefWidth="58.0" />
+         </children>
+      </Pane>
+   </children>
+</VBox>
