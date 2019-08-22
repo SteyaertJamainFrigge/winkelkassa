@@ -5,77 +5,172 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<Pane stylesheets="@../style/css/flatterfx.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.ArticleManagementController">
-    <AnchorPane>
-        <ListView fx:id="productList" layoutX="12.0" layoutY="59.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0" />
-        <Button fx:id="returnBtn" layoutX="14.0" layoutY="14.0" minWidth="36.0" mnemonicParsing="false" onAction="#returnToMain" styleClass="icon-button" AnchorPane.bottomAnchor="560.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="14.0" />
+<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.ArticleManagementController">
+    <AnchorPane layoutX="2.0" layoutY="55.0" prefHeight="673.0" prefWidth="313.0">
+        <ListView fx:id="productList" layoutX="4.0" layoutY="2.0" prefHeight="669.0" prefWidth="305.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="2.0" />
     </AnchorPane>
-    <AnchorPane layoutX="335.0" prefHeight="599.0" prefWidth="659.0">
-        <GridPane fx:id="productInputs" hgap="10.0" layoutX="-7.0" styleClass="grid-pane" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
-                <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" />
-                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
-            </columnConstraints>
-            <Label text="naam: " />
-            <Label text="prijs: " GridPane.rowIndex="1" />
-            <Label text="btw categorie: " GridPane.rowIndex="2" />
-            <Label text="beschrijving: " GridPane.rowIndex="6" />
-            <Label text="locatie: " GridPane.rowIndex="3" />
-            <Label text="winkel: " GridPane.rowIndex="4" />
-            <Label text="barcode: " GridPane.rowIndex="5" />
-            <Label text="categorie: " GridPane.rowIndex="7" />
-            <TextField fx:id="nameInput" GridPane.columnIndex="1" />
-            <TextArea fx:id="descriptionInput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="124.0" prefWidth="291.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="locationInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="storeInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="categoryComboBx" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <ComboBox fx:id="btwComboBx" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <GridPane hgap="10.0" prefHeight="27.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <columnConstraints>
-                    <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="250.3999755859375" minWidth="10.0" prefWidth="173.60001220703126" />
-                    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="143.20001220703125" minWidth="10.0" prefWidth="123.99998779296877" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-                <Spinner fx:id="priceSpinner" editable="true" />
-                <Label text="€" GridPane.columnIndex="1" />
-            </GridPane>
-            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#save" text="Save" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
-           <columnConstraints>
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-           </columnConstraints>
-           <rowConstraints>
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-           </rowConstraints>
-                  <Button mnemonicParsing="false" onAction="#runBarcodePrinter" text="Print Barcode" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <TextField fx:id="barcodeInput" />
-         </GridPane>
-            <padding>
-                <Insets bottom="20.0" left="10.0" right="10.0" top="75.0" />
-            </padding>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
-    </AnchorPane>
+   <ImageView layoutX="58.0" layoutY="5.0">
+      <image>
+         <Image url="@../images/orange/48x48/Gear.png" />
+      </image>
+   </ImageView>
+   <ImageView layoutX="162.0" layoutY="5.0">
+      <image>
+         <Image url="@../images/orange/48x48/Cancel.png" />
+      </image>
+   </ImageView>
+   <ImageView layoutX="270.0" layoutY="5.0">
+      <image>
+         <Image url="@../images/orange/48x48/Search.png" />
+      </image>
+   </ImageView>
+   <ImageView layoutX="108.0" layoutY="5.0">
+      <image>
+         <Image url="@../images/green/48x48/Ok.png" />
+      </image>
+   </ImageView>
+   <ImageView layoutX="5.0" layoutY="5.0">
+      <image>
+         <Image url="@../images/green/48x48/Plus.png" />
+      </image>
+   </ImageView>
+   <TextField layoutX="321.0" layoutY="16.0" />
+   <ImageView layoutX="966.0" layoutY="2.0">
+      <image>
+         <Image url="@../images/orange/24x24/Cancel.png" />
+      </image>
+   </ImageView>
+   <ImageView layoutX="216.0" layoutY="5.0">
+      <image>
+         <Image url="@../images/orange/48x48/Database.png" />
+      </image>
+   </ImageView>
+   <Label layoutX="417.0" layoutY="86.0" text="artikelcode">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+   </Label>
+      <Label layoutX="460.0" layoutY="115.0" text="naam">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <Label layoutX="468.0" layoutY="144.0" text="prijs">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <Label layoutX="399.0" layoutY="175.0" text="btw categorie">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <Label layoutX="410.0" layoutY="361.0" text="beschrijving">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <Label layoutX="450.0" layoutY="204.0" text="locatie">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <Label layoutX="451.0" layoutY="299.0" text="winkel">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <Label layoutX="440.0" layoutY="330.0" text="barcode">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <Label layoutX="431.0" layoutY="472.0" text="categorie">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+   <Label layoutX="423.0" layoutY="236.0" text="kassa grid">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+   <Label layoutX="421.0" layoutY="268.0" text="afbeelding">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+   </Label>
+      <TextField fx:id="nameInput" layoutX="515.0" layoutY="110.0" prefHeight="26.0" prefWidth="291.0" />
+   <TextField layoutX="515.0" layoutY="81.0" />
+      <ComboBox fx:id="btwComboBx" layoutX="516.0" layoutY="169.0" />
+   <Label layoutX="517.0" layoutY="236.0" text="Kassanr / Paginanr / X / Y" />
+   <TextField layoutX="516.0" layoutY="263.0" />
+      <TextField fx:id="storeInput" layoutX="516.0" layoutY="293.0" />
+         <TextField fx:id="barcodeInput" editable="false" layoutX="516.0" layoutY="324.0" />
+         <Button layoutX="687.0" layoutY="324.0" mnemonicParsing="false" onAction="#runBarcodePrinter" text="Print Barcode" />
+      <ComboBox fx:id="categoryComboBx" layoutX="515.0" layoutY="468.0" />
+   <Button layoutX="687.0" layoutY="263.0" mnemonicParsing="false" text="Kies" />
+   <TextField fx:id="nameInput1" layoutX="516.0" layoutY="199.0" prefHeight="26.0" prefWidth="219.0" />
+   <TextArea layoutX="516.0" layoutY="354.0" prefHeight="110.0" prefWidth="389.0" />
+   <TextField layoutX="516.0" layoutY="139.0" />
+   <Label layoutX="398.0" layoutY="526.0" text="Leeggoedcode">
+      <font>
+         <Font name="DejaVu Sans Bold" size="13.0" />
+      </font>
+   </Label>
+   <TextField layoutX="515.0" layoutY="521.0" />
+   <Button layoutX="687.0" layoutY="521.0" mnemonicParsing="false" text="Kies" />
+   <Pane layoutX="750.0" layoutY="144.0" prefHeight="175.0" prefWidth="201.0" style="-fx-border-color: green;">
+      <children>
+         <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView layoutX="176.0" layoutY="2.0">
+            <image>
+               <Image url="@../images/orange/24x24/Zoom%20In.png" />
+            </image>
+         </ImageView>
+         <ImageView layoutX="147.0" layoutY="2.0">
+            <image>
+               <Image url="@../images/orange/24x24/Photo.png" />
+            </image>
+         </ImageView>
+      </children>
+   </Pane>
 </Pane>
