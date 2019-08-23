@@ -4,6 +4,7 @@ import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton;
+import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -127,24 +128,86 @@ public class KassaController {
     }
 
     private void fillProductAndCategoryGrid(List<ProductCategory> categories) {
-        List<CategoryButton> buttonList;
+        List<CategoryButton> categoryButtons;
+        List<ProductButton> productButtons;
         if (categories == null) {
-            buttonList = makeCategoryButonList(Repositories.getInstance().getCategoryRepository().getbaseCategories());
+            List<ProductCategory> baseCategories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
+            categoryButtons = makeCategoryButonList(baseCategories);
+            productButtons = makeProdcutButtonList(baseCategories);
         } else {
-            buttonList = makeCategoryButonList(categories);
-
+            categoryButtons = makeCategoryButonList(categories);
+            productButtons = makeProdcutButtonList(categories);
         }
+
+        addButtonsToCategoryGrid(categoryButtons, productButtons);
+
+        //int lastfilledIndex = addCategoryButtons(categoryButtons);
+        //addProductButtons(productButtons, lastfilledIndex);
+    }
+
+    private void addButtonsToCategoryGrid(List<CategoryButton> categoryButtons, List<ProductButton> productButtons) {
+        int x =0;
+        int y =0;
+        int categoryIndex = 0;
+        int productIndex= 0;
+
+        while(y<6){
+            while(x<4) {
+                if (categoryIndex < categoryButtons.size()) {
+                    categoriesGrid.add(categoryButtons.get(categoryIndex), x, y);
+                    categoryIndex++;
+                }else if (productIndex < productButtons.size()) {
+                    categoriesGrid.add(productButtons.get(productIndex), x, y);
+                    productIndex++;
+                }
+                x++;
+            }
+            y++;
+        }
+    }
+
+    private void addProductButtons(List<ProductButton> productButtons, int xIndex, int yIndex) {
         int index = 0;
         outerloop:
-        for (int j = 0; j < 6; j++) {
-            for (int i = 0; i < 4; i++) {
-                if (index == 34 || index == buttonList.size()) {
+        for(int i= index%4; i< 6; i++){
+            for(int j= index%6; j<4; j++){
+                if(index + index == 34 || index == productButtons.size()){
                     break outerloop;
                 }
-                categoriesGrid.add(buttonList.get(index), i, j);
+                categoriesGrid.add(productButtons.get(index), j, i);
                 index++;
             }
         }
+    }
+
+    private int addCategoryButtons(List<CategoryButton> categoryButtons) {
+        int index = 0;
+        outerloop:
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (index == 34 || index == categoryButtons.size()) {
+                    break outerloop;
+                }
+                categoriesGrid.add(categoryButtons.get(index), j, i);
+                index++;
+            }
+        }
+        return index;
+    }
+
+    private List<ProductButton> makeProdcutButtonList(List<ProductCategory> categories) {
+        List<ProductButton> buttons = new ArrayList<>();
+        for (ProductCategory c: categories) {
+            for (Product p :
+                    c.getProducts()) {
+                ProductButton button = new ProductButton(p);
+                button.setMaxWidth(1.79E308);
+                button.setMaxHeight(1.79E308);
+                button.setMnemonicParsing(false);
+                buttons.add(button);
+            }
+        }
+        return buttons;
     }
 
     private List<CategoryButton> makeCategoryButonList(List<ProductCategory> categories) {
