@@ -21,6 +21,7 @@ public class MysqlCategoryRepository implements CategoryRepository {
     private static final String SQL_ADD_CATEGORY = "insert into categorie(idcategorie, naam, heeftsubcategorie) values (?,?,?)";
     private static final String SQL_UPDATE_CATEGORY = "UPDATE `kassa`.`categorie` SET `naam` =? WHERE (`idcategorie` = ?)";
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM categorie WHERE (idcategorie = ?);";
+    private static final String SQL_GET_PARENT_CATEGORY = "select c.idcategorie, cs.parent from categorie c left join categorie_subcategorie cs on c.idcategorie = cs.child where c.idcategorie = ?";
 
     private ProductCategory create(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString("naam");
@@ -68,6 +69,8 @@ public class MysqlCategoryRepository implements CategoryRepository {
         }
     }
 
+
+
     @Override
     public List<ProductCategory> getAllCategories() {
         try (Connection con = MySqlConnection.getConnection();
@@ -80,6 +83,37 @@ public class MysqlCategoryRepository implements CategoryRepository {
             return productCategories;
         } catch (SQLException e) {
             throw new KassaException("Unable to get Category from Db");
+        }
+    }
+
+    @Override
+    public List<ProductCategory> getbaseCategories() {
+        try (Connection con = MySqlConnection.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_GET_CATEGORIES);
+             ResultSet rs = prep.executeQuery()) {
+            ArrayList<ProductCategory> productCategories = new ArrayList<>();
+            while (rs.next()) {
+                ProductCategory category = create(rs);
+                if(hasNoParentCategory(category)){
+                    productCategories.add(category);
+                }
+            }
+            return productCategories;
+        } catch (SQLException e) {
+            throw new KassaException("Unable to get Category from Db");
+        }
+    }
+
+    private boolean hasNoParentCategory(ProductCategory category) {
+        try(Connection con = MySqlConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(SQL_GET_PARENT_CATEGORY)){
+            prep.setInt(1, category.getId());
+            try(ResultSet rs = prep.executeQuery()){
+                rs.next();
+                return rs.getInt("parent") == 0;
+            }
+        } catch (SQLException e) {
+            throw new KassaException("Unable to get data from Db");
         }
     }
 

@@ -14,10 +14,10 @@ import java.util.List;
 
 public class MysqlSubcategoryRepository implements SubcategoryRepository {
 
-    private static final String SQL_GET_SUBCATEGORYID = "SELECT idsubcategorie FROM categorie_subcategorie WHERE idcategorie=?";
-    private static final String SQL_GET_All_SUBCATEGORYID = "SELECT idsubcategorie FROM categorie_subcategorie WHERE idcategorie=?";
-    private static final String SQL_ADD_SUBCATEGORY = "INSERT into categorie_subcategorie(idcategorie, idsubcategorie) values(?,?)";
-    private static final String SQL_DELETE_SUBCATEGORY = "delete from categorie_subcategorie where idcategorie=? AND idsubcategorie= ?";
+    private static final String SQL_GET_SUBCATEGORYID = "SELECT child FROM categorie_subcategorie WHERE parent=?";
+    private static final String SQL_GET_All_SUBCATEGORYID = "SELECT child FROM categorie_subcategorie WHERE parent=?";
+    private static final String SQL_ADD_SUBCATEGORY = "INSERT into categorie_subcategorie(parent, child) values(?,?)";
+    private static final String SQL_DELETE_SUBCATEGORY = "delete from categorie_subcategorie where parent=? AND child= ?";
 
     @Override
     public Boolean hasSubcategories(int id) {
@@ -41,7 +41,7 @@ public class MysqlSubcategoryRepository implements SubcategoryRepository {
             ArrayList<Integer> subCategoryIds = new ArrayList<>();
             try (ResultSet rs = prep.executeQuery()){
                 while (rs.next()){
-                    subCategoryIds.add(rs.getInt("idsubcategorie"));
+                    subCategoryIds.add(rs.getInt("child"));
                 }
             }
             return subCategoryIds;

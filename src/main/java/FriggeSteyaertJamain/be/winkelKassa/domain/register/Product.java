@@ -1,6 +1,7 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
 import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -16,9 +17,9 @@ public class Product {
     private String location;
     private String store;
     private String barcode;
-    private int category;
+    private Integer category;
 
-    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, int category) {
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, Integer category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -30,7 +31,7 @@ public class Product {
         this.category = category;
     }
 
-    public Product(int id, String name, double price, Btw btw, String description, String location, String store, int category) {
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, Integer category) {
         this(id, name, price, btw, description, location, store, null, category);
     }
 

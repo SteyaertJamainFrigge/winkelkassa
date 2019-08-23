@@ -15,9 +15,10 @@ public class Program extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-        Scene scene = new Scene(root, 600, 550);
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/kassa.fxml"));
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 }

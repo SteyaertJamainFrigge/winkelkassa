@@ -29,6 +29,14 @@ public interface CategoryRepository {
      */
     List<ProductCategory> getAllCategories();
 
+
+    /**
+     * returns a list of categories that don't have a parent category
+     *
+     * @return @return {List<Category>} list of categories
+     */
+    List<ProductCategory> getbaseCategories();
+
     /**
      * updates the given category in the datalayer.
      *

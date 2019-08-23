@@ -128,28 +128,32 @@ public class KassaController {
 
     private void fillProductAndCategoryGrid(List<ProductCategory> categories) {
         List<CategoryButton> buttonList;
-        if(categories == null){
-            buttonList = makeCategoryButonList(Repositories.getInstance().getCategoryRepository().getAllCategories());
-        }else {
+        if (categories == null) {
+            buttonList = makeCategoryButonList(Repositories.getInstance().getCategoryRepository().getbaseCategories());
+        } else {
             buttonList = makeCategoryButonList(categories);
 
         }
-
-        //TODO lus die de grid invult met buttons vanuit gegeven category lijst en product lijst
-
-        // <Button maxHeight="1.79E308" maxWidth="1.79E308" mnemonicParsing="false"/>
-
-        for(int i = 0; i< buttonList.size(); i++){
-
+        int index = 0;
+        outerloop:
+        for (int j = 0; j < 6; j++) {
+            for (int i = 0; i < 4; i++) {
+                if (index == 34 || index == buttonList.size()) {
+                    break outerloop;
+                }
+                categoriesGrid.add(buttonList.get(index), i, j);
+                index++;
+            }
         }
-
-        categoriesGrid.add(null,0,0);
     }
 
     private List<CategoryButton> makeCategoryButonList(List<ProductCategory> categories) {
         List<CategoryButton> buttons = new ArrayList<>();
-        for (ProductCategory category: categories) {
+        for (ProductCategory category : categories) {
             CategoryButton button = new CategoryButton(category);
+            button.setMaxWidth(1.79E308);
+            button.setMaxHeight(1.79E308);
+            button.setMnemonicParsing(false);
             buttons.add(button);
         }
         return buttons;
@@ -205,7 +209,7 @@ public class KassaController {
                 }};
 
         String[][] filenames =
-                {{"Currency Euro", "Dots", "Player Pause", "Player Play", "Database", "Alarme", "Printer", "Mail", "Go In"},{"0", "OK", "Arrow2 Left"}};
+                {{"Currency Euro", "Dots", "Player Pause", "Player Play", "Database", "Alarme", "Printer", "Mail", "Go In"}, {"0", "OK", "Arrow2 Left"}};
 
 
         for (int i = 0; i < buttons.length; i++) {

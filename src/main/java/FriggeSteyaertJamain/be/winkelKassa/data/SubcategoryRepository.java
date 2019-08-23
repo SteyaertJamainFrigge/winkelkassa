@@ -40,4 +40,5 @@ public interface SubcategoryRepository {
      * @param subcategoryID {int} product subcatecory id
      */
     void deleteSubcategory(int parentCategoryId, int subcategoryID);
+
 }
