@@ -166,35 +166,6 @@ public class KassaController {
         }
     }
 
-    private void addProductButtons(List<ProductButton> productButtons, int xIndex, int yIndex) {
-        int index = 0;
-        outerloop:
-        for(int i= index%4; i< 6; i++){
-            for(int j= index%6; j<4; j++){
-                if(index + index == 34 || index == productButtons.size()){
-                    break outerloop;
-                }
-                categoriesGrid.add(productButtons.get(index), j, i);
-                index++;
-            }
-        }
-    }
-
-    private int addCategoryButtons(List<CategoryButton> categoryButtons) {
-        int index = 0;
-        outerloop:
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (index == 34 || index == categoryButtons.size()) {
-                    break outerloop;
-                }
-                categoriesGrid.add(categoryButtons.get(index), j, i);
-                index++;
-            }
-        }
-        return index;
-    }
-
     private List<ProductButton> makeProdcutButtonList(List<ProductCategory> categories) {
         List<ProductButton> buttons = new ArrayList<>();
         for (ProductCategory c: categories) {
