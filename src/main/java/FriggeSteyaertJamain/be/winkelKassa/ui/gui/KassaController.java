@@ -3,21 +3,19 @@ package FriggeSteyaertJamain.be.winkelKassa.ui.gui;
 import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
+import FriggeSteyaertJamain.be.winkelKassa.domain.register.Purchase;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class KassaController {
@@ -118,48 +116,75 @@ public class KassaController {
     @FXML
     private GridPane categoriesGrid;
 
+    @FXML
+    private TableView<Purchase> shoppingListTable;
+
     private ToggleGroup group;
 
     @FXML
     public void initialize() {
         addButtonIcons();
         createToggleGroup();
-        fillProductAndCategoryGrid(null);
+        createShoppingListTableColumns();
+        this.categoriesGrid.setGridLinesVisible(false);
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
+        List<Product> products = Repositories.getInstance().getProductRepository().getBaseProducts();
+        fillProductAndCategoryGrid(categories, products);
     }
 
-    private void fillProductAndCategoryGrid(List<ProductCategory> categories) {
+    private void createShoppingListTableColumns() {
+        TableColumn<Purchase, String> column1 = new TableColumn<>("Artikel");
+        column1.setMinWidth(100);
+        column1.setCellValueFactory(new PropertyValueFactory<>("article"));
+        TableColumn<Purchase, Integer> column2 = new TableColumn<>("Aantal");
+        column2.setMinWidth(100);
+        column2.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        TableColumn<Purchase, Double> column3 = new TableColumn<>("Prijs");
+        column3.setMinWidth(100);
+        column3.setCellValueFactory(new PropertyValueFactory<>("price"));
+        TableColumn<Purchase, Double> column4 = new TableColumn<>("Korting");
+        column4.setMinWidth(100);
+        column4.setCellValueFactory(new PropertyValueFactory<>("discount"));
+        TableColumn<Purchase, Integer> column5 = new TableColumn<>("BTW");
+        column5.setMinWidth(100);
+        column5.setCellValueFactory(new PropertyValueFactory<>("btw"));
+        TableColumn<Purchase, Double> column6 = new TableColumn<>("Bedrag");
+        column6.setMinWidth(100);
+        column6.setCellValueFactory(new PropertyValueFactory<>("total"));
+        this.shoppingListTable.getColumns().addAll(column1, column2, column3, column4, column5, column6);
+    }
+
+    private void fillProductAndCategoryGrid(List<ProductCategory> categories, List<Product> products) {
         List<CategoryButton> categoryButtons;
         List<ProductButton> productButtons;
-        if (categories == null) {
-            List<ProductCategory> baseCategories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
-            List<Product> baseProducts = Repositories.getInstance().getProductRepository().getBaseProducts();
-            categoryButtons = makeCategoryButonList(baseCategories);
-            productButtons = makeBaseProductButtonList(baseProducts);
-        } else {
+        if(categories!=null){
             categoryButtons = makeCategoryButonList(categories);
-            productButtons = makeProdcutButtonList(categories);
+        }else {
+            categoryButtons = new ArrayList<>();
         }
-
+        if(products!=null){
+            productButtons = makeProdcutButtonList(products);
+        }else {
+            productButtons = new ArrayList<>();
+        }
         addButtonsToCategoryGrid(categoryButtons, productButtons);
-
-        //int lastfilledIndex = addCategoryButtons(categoryButtons);
-        //addProductButtons(productButtons, lastfilledIndex);
     }
 
     private void addButtonsToCategoryGrid(List<CategoryButton> categoryButtons, List<ProductButton> productButtons) {
-        int x =0;
-        int y =0;
+        int y = 0;
         int categoryIndex = 0;
-        int productIndex= 0;
-
-        while(y<6){
-            while(x<4) {
+        int productIndex = 0;
+        while (y < 6) {
+            int x = 0;
+            while (x < 4) {
                 if (categoryIndex < categoryButtons.size()) {
-                    categoriesGrid.add(categoryButtons.get(categoryIndex), x, y);
+                    this.categoriesGrid.add(categoryButtons.get(categoryIndex), x, y);
                     categoryIndex++;
-                }else if (productIndex < productButtons.size()) {
-                    categoriesGrid.add(productButtons.get(productIndex), x, y);
-                    productIndex++;
+                } else {
+                    if (productIndex < productButtons.size()) {
+                        this.categoriesGrid.add(productButtons.get(productIndex), x, y);
+                        productIndex++;
+                    }
                 }
                 x++;
             }
@@ -167,31 +192,25 @@ public class KassaController {
         }
     }
 
-    private List<ProductButton> makeBaseProductButtonList(List<Product> products){
+    private List<ProductButton> makeProdcutButtonList(List<Product> products) {
         List<ProductButton> buttons = new ArrayList<>();
         for (Product product : products) {
             ProductButton button = new ProductButton(product);
             button.setMaxWidth(1.79E308);
             button.setMaxHeight(1.79E308);
             button.setMnemonicParsing(false);
+            button.setOnAction(this::addProductToShoppingListTable);
             buttons.add(button);
         }
         return buttons;
     }
 
-    private List<ProductButton> makeProdcutButtonList(List<ProductCategory> categories) {
-        List<ProductButton> buttons = new ArrayList<>();
-        for (ProductCategory c: categories) {
-            for (Product p :
-                    c.getProducts()) {
-                ProductButton button = new ProductButton(p);
-                button.setMaxWidth(1.79E308);
-                button.setMaxHeight(1.79E308);
-                button.setMnemonicParsing(false);
-                buttons.add(button);
-            }
-        }
-        return buttons;
+    private void addProductToShoppingListTable(ActionEvent event) {
+        ProductButton button = (ProductButton) event.getSource();
+        Product product = button.getProduct();
+        Purchase purchase = new Purchase(product);
+        this.shoppingListTable.getItems().add(purchase);
+
     }
 
     private List<CategoryButton> makeCategoryButonList(List<ProductCategory> categories) {
@@ -201,24 +220,35 @@ public class KassaController {
             button.setMaxWidth(1.79E308);
             button.setMaxHeight(1.79E308);
             button.setMnemonicParsing(false);
+            button.setOnAction(this::showSubCategoriesAndProducts);
             buttons.add(button);
         }
         return buttons;
     }
 
+    private void showSubCategoriesAndProducts(ActionEvent event) {
+        clearCategoryGrid();
+        CategoryButton button = (CategoryButton) event.getSource();
+        fillProductAndCategoryGrid(button.getSubCategories(), button.getProducts());
+    }
+
+    private void clearCategoryGrid() {
+        this.categoriesGrid.getChildren().clear();
+    }
+
 
     private void createToggleGroup() {
-        group = new ToggleGroup();
-        amountBtn.setUserData("amount");
-        scaleBtn.setUserData("scale");
-        priceBTn.setUserData("price");
-        discountBtn.setUserData("discount");
-        VATBtn.setUserData("VAT");
-        amountBtn.setToggleGroup(group);
-        scaleBtn.setToggleGroup(group);
-        priceBTn.setToggleGroup(group);
-        discountBtn.setToggleGroup(group);
-        VATBtn.setToggleGroup(group);
+        this.group = new ToggleGroup();
+        this.amountBtn.setUserData("amount");
+        this.scaleBtn.setUserData("scale");
+        this.priceBTn.setUserData("price");
+        this.discountBtn.setUserData("discount");
+        this.VATBtn.setUserData("VAT");
+        this.amountBtn.setToggleGroup(this.group);
+        this.scaleBtn.setToggleGroup(this.group);
+        this.priceBTn.setToggleGroup(this.group);
+        this.discountBtn.setToggleGroup(this.group);
+        this.VATBtn.setToggleGroup(this.group);
     }
 
     private void addButtonIcons() {
@@ -227,7 +257,7 @@ public class KassaController {
     }
 
     private void addNumpadButtonIcons() {
-        Button[] buttons = {zeroBtn, oneBtn, twoBtn, threeBtn, fourBtn, fiveBtn, sixBtn, sevenBtn, eightBtn, nineBtn};
+        Button[] buttons = {this.zeroBtn, this.oneBtn, this.twoBtn, this.threeBtn, this.fourBtn, this.fiveBtn, this.sixBtn, this.sevenBtn, this.eightBtn, this.nineBtn};
         for (int i = 0; i < 10; i++) {
             String location = "/images/green/48x48/" + i + ".png";
             Image image = new Image(getClass().getResourceAsStream(location));
@@ -240,19 +270,19 @@ public class KassaController {
     private void addMoreButtonIcons() {
         Button[][] buttons =
                 {{
-                        payCashBtn,
-                        payDigitalBtn,
-                        pauzeTicketBtn,
-                        pauzeTicketBtn,
-                        recallTicketBtn,
-                        openDrawerBtn,
-                        printTicketBtn,
-                        registerCashBtn,
-                        mailTicketBtn
+                        this.payCashBtn,
+                        this.payDigitalBtn,
+                        this.pauzeTicketBtn,
+                        this.pauzeTicketBtn,
+                        this.recallTicketBtn,
+                        this.openDrawerBtn,
+                        this.printTicketBtn,
+                        this.registerCashBtn,
+                        this.mailTicketBtn
                 }, {
-                        doubleZeroBtn,
-                        confirmBtn,
-                        backspaceBtn,
+                        this.doubleZeroBtn,
+                        this.confirmBtn,
+                        this.backspaceBtn,
                 }};
 
         String[][] filenames =
@@ -277,7 +307,7 @@ public class KassaController {
 
     @FXML
     void Retour(ActionEvent event) {
-        previewTxtField.setText("");
+        this.previewTxtField.setText("");
     }
 
     @FXML
@@ -330,15 +360,20 @@ public class KassaController {
 
     @FXML
     void backspace(ActionEvent event) {
-        String text = previewTxtField.getText();
+        String text = this.previewTxtField.getText();
         if (text != null && text.length() > 0) {
             text = text.substring(0, text.length() - 1);
         }
-        previewTxtField.setText(text);
+        this.previewTxtField.setText(text);
     }
 
     @FXML
     void confirm(ActionEvent event) {
         //TODO confirm the input of the previewTxtfield
+    }
+
+    @FXML
+    void addPurchase(ActionEvent event) {
+
     }
 }

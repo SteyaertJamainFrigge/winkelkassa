@@ -33,7 +33,7 @@ public class ProductCategory {
     }
 
     public List<ProductCategory> getSubCategories() {
-        return subCategories;
+         return subCategories;
     }
 
     public List<Product> getProducts() {

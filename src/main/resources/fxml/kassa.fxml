@@ -5,7 +5,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -18,9 +17,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane stylesheets="@../style/css/stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KassaController">
+<Pane stylesheets="@../style/css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KassaController">
     <children>
-        <AnchorPane fx:id="anchor">
+        <AnchorPane>
             <AnchorPane layoutY="170.0" prefHeight="80.0" prefWidth="585.0">
                 <GridPane layoutY="-2.0" prefHeight="88.0" prefWidth="692.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -127,314 +126,380 @@
                 </Label>
             </AnchorPane>
             <AnchorPane layoutY="250.0" prefHeight="733.0" prefWidth="624.0">
-                <children>
-                    <GridPane id="sneltoetsen" gridLinesVisible="true" layoutX="1.0" layoutY="65.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="480.0" style="-fx-border-color: green;" AnchorPane.leftAnchor="0.0">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <Button fx:id="dotBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="90.0" text="." GridPane.columnIndex="2" GridPane.rowIndex="3">
-                            <font>
-                                <Font name="System Bold" size="29.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="backspaceBtn" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backspace" prefHeight="90.0" prefWidth="80.0" text="backspace" GridPane.columnIndex="3">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Button>
-                        <ToggleButton fx:id="retourBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#Retour" text="Retour" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                            <font>
-                                <Font name="System Bold" size="22.0" />
-                            </font>
-                        </ToggleButton>
-                        <Button fx:id="zeroBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="0" GridPane.rowIndex="3">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="threeBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="3" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="twoBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="2" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="oneBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="1" GridPane.rowIndex="2">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="fourBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="4" GridPane.rowIndex="1">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="fiveBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="sixBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="confirmBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#confirm" prefHeight="90.0" prefWidth="80.0" text="confirm" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="nineBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="9" GridPane.columnIndex="2">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="eightBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="8" GridPane.columnIndex="1">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="doubleZeroBtn" alignment="CENTER" layoutX="11.0" layoutY="370.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="00" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="sevenBtn" alignment="CENTER" layoutX="131.0" layoutY="131.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="7">
-                            <font>
-                                <Font size="27.0" />
-                            </font>
-                        </Button>
-                    </GridPane>
-                    <GridPane id="sneltoetsen" layoutX="481.0" layoutY="65.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="144.0" AnchorPane.rightAnchor="0.0">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <Button fx:id="packagingBtn" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Verpakking" textFill="RED" GridPane.rowIndex="5">
-                            <font>
-                                <Font name="System Bold" size="20.0" />
-                            </font>
-                        </Button>
-                        <ToggleButton fx:id="amountBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Aantal">
-                            <font>
-                                <Font name="DejaVu Sans Bold" size="20.0" />
-                            </font>
-                        </ToggleButton>
-                        <ToggleButton fx:id="scaleBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Weegschaal" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="DejaVu Sans Bold" size="20.0" />
-                            </font>
-                        </ToggleButton>
-                        <ToggleButton fx:id="priceBTn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Prijs" GridPane.rowIndex="2">
-                            <font>
-                                <Font name="DejaVu Sans Bold" size="20.0" />
-                            </font>
-                        </ToggleButton>
-                        <ToggleButton fx:id="discountBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Korting" GridPane.rowIndex="3">
-                            <font>
-                                <Font name="DejaVu Sans Bold" size="20.0" />
-                            </font>
-                        </ToggleButton>
-                        <ToggleButton fx:id="VATBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="BTW" GridPane.rowIndex="4">
-                            <font>
-                                <Font name="DejaVu Sans Bold" size="20.0" />
-                            </font>
-                        </ToggleButton>
-                    </GridPane>
-                    <TextField fx:id="previewTxtField" editable="false" layoutX="1.0" prefHeight="56.0" prefWidth="480.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <GridPane id="sneltoetsen" gridLinesVisible="true" layoutX="1.0" layoutY="65.0"
+                          nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="480.0"
+                          style="-fx-border-color: green;" AnchorPane.leftAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="25.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <Button fx:id="dotBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" onAction="#addInteger" prefHeight="90.0" prefWidth="90.0" text="."
+                            GridPane.columnIndex="2" GridPane.rowIndex="3">
                         <font>
-                            <Font size="30.0" />
+                            <Font name="System Bold" size="29.0"/>
                         </font>
-                    </TextField>
-                    <GridPane id="sneltoetsen" layoutY="546.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="187.0" prefWidth="634.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                            <ColumnConstraints hgrow="SOMETIMES" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                        </rowConstraints>
-                        <Button fx:id="payCashBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="payDigitalBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="1">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="pauzeTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="2">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="resumeTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="3">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="printTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="mailTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="openDrawerBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="recallTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="4">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="95.0" prefWidth="107.0" wrapText="true" GridPane.columnIndex="5">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="registerCashBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                    </GridPane>
-                </children>
+                    </Button>
+                    <Button fx:id="backspaceBtn" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                            maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backspace"
+                            prefHeight="90.0" prefWidth="80.0" text="backspace" GridPane.columnIndex="3">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Button>
+                    <ToggleButton fx:id="retourBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#Retour" text="Retour" textFill="RED"
+                                  GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <font>
+                            <Font name="System Bold" size="22.0"/>
+                        </font>
+                    </ToggleButton>
+                    <Button fx:id="zeroBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="0" GridPane.rowIndex="3">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="threeBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="3" GridPane.columnIndex="2"
+                            GridPane.rowIndex="2">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="twoBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="2" GridPane.columnIndex="1"
+                            GridPane.rowIndex="2">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="oneBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="1" GridPane.rowIndex="2">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="fourBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="4" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="fiveBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="5" GridPane.columnIndex="1"
+                            GridPane.rowIndex="1">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="sixBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="6" GridPane.columnIndex="2"
+                            GridPane.rowIndex="1">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="confirmBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#confirm" prefHeight="90.0" prefWidth="80.0" text="confirm"
+                            GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="nineBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="9" GridPane.columnIndex="2">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="eightBtn" alignment="CENTER" layoutX="370.0" layoutY="11.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="8" GridPane.columnIndex="1">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="doubleZeroBtn" alignment="CENTER" layoutX="11.0" layoutY="370.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="00" GridPane.columnIndex="1"
+                            GridPane.rowIndex="3">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="sevenBtn" alignment="CENTER" layoutX="131.0" layoutY="131.0"
+                            maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            onAction="#addInteger" prefHeight="90.0" prefWidth="80.0" text="7">
+                        <font>
+                            <Font size="27.0"/>
+                        </font>
+                    </Button>
+                </GridPane>
+                <GridPane id="sneltoetsen" layoutX="481.0" layoutY="65.0" nodeOrientation="LEFT_TO_RIGHT"
+                          prefHeight="480.0" prefWidth="144.0" AnchorPane.rightAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <Button fx:id="packagingBtn" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                            maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Verpakking" textFill="RED"
+                            GridPane.rowIndex="5">
+                        <font>
+                            <Font name="System Bold" size="20.0"/>
+                        </font>
+                    </Button>
+                    <ToggleButton fx:id="amountBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" text="Aantal">
+                        <font>
+                            <Font name="DejaVu Sans Bold" size="20.0"/>
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="scaleBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" text="Weegschaal" GridPane.rowIndex="1">
+                        <font>
+                            <Font name="DejaVu Sans Bold" size="20.0"/>
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="priceBTn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" text="Prijs" GridPane.rowIndex="2">
+                        <font>
+                            <Font name="DejaVu Sans Bold" size="20.0"/>
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="discountBtn" maxHeight="1.7976931348623157E308"
+                                  maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Korting"
+                                  GridPane.rowIndex="3">
+                        <font>
+                            <Font name="DejaVu Sans Bold" size="20.0"/>
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="VATBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" text="BTW" GridPane.rowIndex="4">
+                        <font>
+                            <Font name="DejaVu Sans Bold" size="20.0"/>
+                        </font>
+                    </ToggleButton>
+                </GridPane>
+                <TextField fx:id="previewTxtField" editable="false" layoutX="1.0" prefHeight="56.0" prefWidth="480.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </TextField>
+                <GridPane id="sneltoetsen" layoutY="546.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="187.0"
+                          prefWidth="634.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
+                    </rowConstraints>
+                    <Button fx:id="payCashBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" GridPane.hgrow="ALWAYS"
+                            GridPane.vgrow="ALWAYS">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="payDigitalBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true"
+                            GridPane.columnIndex="1">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="pauzeTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true"
+                            GridPane.columnIndex="2">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="resumeTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true"
+                            GridPane.columnIndex="3">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="printTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" textAlignment="CENTER"
+                            wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="mailTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" textAlignment="CENTER"
+                            wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="openDrawerBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" textAlignment="CENTER"
+                            wrapText="true" GridPane.rowIndex="1">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="recallTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true"
+                            GridPane.columnIndex="4">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            prefHeight="95.0" prefWidth="107.0" wrapText="true" GridPane.columnIndex="5">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="1"
+                            GridPane.rowIndex="1">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                            prefHeight="90.0" prefWidth="110.0" wrapText="true" GridPane.columnIndex="4"
+                            GridPane.rowIndex="1">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="registerCashBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" prefHeight="90.0" prefWidth="110.0" wrapText="true"
+                            GridPane.columnIndex="5" GridPane.rowIndex="1">
+                        <font>
+                            <Font name="System Bold" size="18.0"/>
+                        </font>
+                    </Button>
+                </GridPane>
             </AnchorPane>
             <AnchorPane layoutX="624.0" layoutY="443.0" prefHeight="540.0" prefWidth="808.0">
-                <children>
-                    <SplitPane dividerPositions="0.13027295285359802" layoutX="-0.5" layoutY="-0.5" minWidth="-Infinity" prefHeight="543.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <items>
-                            <AnchorPane prefHeight="546.0" prefWidth="100.0">
-                                <children>
-                                    <ImageView layoutX="27.0" layoutY="43.0">
-                                        <Image url="@../images/orange/48x48/Home.png" />
-                                    </ImageView>
-                                    <Label layoutX="14.0" layoutY="26.0" text="Pg 1/1" />
-                                    <ImageView layoutX="27.0" layoutY="105.0">
-                                        <Image url="@../images/orange/48x48/Arrow3 Up.png" />
-                                    </ImageView>
-                                    <ImageView layoutX="27.0" layoutY="176.0">
-                                        <Image url="@../images/orange/48x48/Search.png" />
-                                    </ImageView>
-                                    <ImageView layoutX="27.0" layoutY="245.0">
-                                        <Image url="@../images/orange/48x48/Arrow3 Down.png" />
-                                    </ImageView>
-                                    <ImageView layoutX="63.0" layoutY="506.0">
-                                        <Image url="@../images/orange/24x24/Tool.png" />
-                                    </ImageView>
-                                </children>
-                            </AnchorPane>
-                            <AnchorPane prefWidth="518.0">
-                                <children>
-                                    <GridPane fx:id="categories" gridLinesVisible="true" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666" />
-                                            <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666" />
-                                            <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666" />
-                                            <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666" />
-                                            <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666" />
-                                            <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666" />
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        </rowConstraints>
-                                    </GridPane>
-                                </children>
-                            </AnchorPane>
-                        </items>
-                    </SplitPane>
-                </children>
+                <SplitPane dividerPositions="0.13027295285359802" layoutX="-0.5" layoutY="-0.5" minWidth="-Infinity"
+                           prefHeight="543.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <AnchorPane prefHeight="546.0" prefWidth="100.0">
+                        <ImageView layoutX="27.0" layoutY="43.0">
+                            <Image url="@../images/orange/48x48/Home.png"/>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="26.0" text="Pg 1/1"/>
+                        <ImageView layoutX="27.0" layoutY="105.0">
+                            <Image url="@../images/orange/48x48/Arrow3 Up.png"/>
+                        </ImageView>
+                        <ImageView layoutX="27.0" layoutY="176.0">
+                            <Image url="@../images/orange/48x48/Search.png"/>
+                        </ImageView>
+                        <ImageView layoutX="27.0" layoutY="245.0">
+                            <Image url="@../images/orange/48x48/Arrow3 Down.png"/>
+                        </ImageView>
+                        <ImageView layoutX="63.0" layoutY="506.0">
+                            <Image url="@../images/orange/24x24/Tool.png"/>
+                        </ImageView>
+                    </AnchorPane>
+                    <AnchorPane prefWidth="518.0">
+                        <GridPane fx:id="categoriesGrid" gridLinesVisible="true" nodeOrientation="LEFT_TO_RIGHT"
+                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666"/>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666"/>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666"/>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666"/>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666"/>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="16.666666"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                        </GridPane>
+                    </AnchorPane>
+                </SplitPane>
             </AnchorPane>
             <Pane layoutX="1432.0" layoutY="443.0" prefHeight="286.0" prefWidth="267.0" style="-fx-border-color: green;">
                 <AnchorPane layoutX="14.0" layoutY="14.0">
-                    <children>
-                        <Label layoutY="21.0" text="artikelkode">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <Label layoutY="96.0" text="prijs">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <Label layoutY="71.0" text="merk">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <Label layoutY="121.0" text="locatie">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <Label layoutY="46.0" text="omschrijving">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <CheckBox layoutY="146.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="153.0" text="leeggoed">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </CheckBox>
-                        <ImageView layoutX="115.0" AnchorPane.rightAnchor="0.0">
-                            <Image url="@../images/orange/24x24/Info2.png" />
-                        </ImageView>
-                        <ImageView layoutX="27.0">
-                            <Image url="@../images/orange/24x24/Gear.png" />
-                        </ImageView>
-                        <ImageView layoutX="1.0">
-                            <Image url="@../images/orange/24x24/Zoom In.png" />
-                        </ImageView>
-                    </children>
+                    <Label layoutY="21.0" text="artikelkode">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
+                    <Label layoutY="96.0" text="prijs">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
+                    <Label layoutY="71.0" text="merk">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
+                    <Label layoutY="121.0" text="locatie">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
+                    <Label layoutY="46.0" text="omschrijving">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </Label>
+                    <CheckBox layoutY="146.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="153.0"
+                              text="leeggoed">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </CheckBox>
+                    <ImageView layoutX="115.0" AnchorPane.rightAnchor="0.0">
+                        <Image url="@../images/orange/24x24/Info2.png"/>
+                    </ImageView>
+                    <ImageView layoutX="27.0">
+                        <Image url="@../images/orange/24x24/Gear.png"/>
+                    </ImageView>
+                    <ImageView layoutX="1.0">
+                        <Image url="@../images/orange/24x24/Zoom In.png"/>
+                    </ImageView>
                 </AnchorPane>
                 <Label layoutX="5.0" layoutY="190.0" prefHeight="80.0" prefWidth="172.0" text="info">
                     <font>
@@ -447,23 +512,21 @@
             </Pane>
             <GridPane layoutX="1598.0" layoutY="3.0" prefHeight="37.0" prefWidth="75.0">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
-                <children>
-                    <ImageView>
-                        <Image url="@../images/orange/24x24/Search.png" />
-                    </ImageView>
-                    <ImageView GridPane.columnIndex="1">
-                        <Image url="@../images/orange/24x24/Tool.png" />
-                    </ImageView>
-                </children>
                 <padding>
-                    <Insets right="5.0" top="5.0" />
+                    <Insets right="5.0" top="5.0"/>
                 </padding>
+                <ImageView>
+                    <Image url="@../images/orange/24x24/Search.png"/>
+                </ImageView>
+                <ImageView GridPane.columnIndex="1">
+                    <Image url="@../images/orange/24x24/Tool.png"/>
+                </ImageView>
             </GridPane>
             <GridPane layoutX="1432.0" layoutY="40.0" prefHeight="60.0" prefWidth="267.0">
                 <columnConstraints>
@@ -488,36 +551,23 @@
                     <Insets left="10.0" />
                 </padding>
             </GridPane>
-            <SplitPane dividerPositions="0.13" focusTraversable="false" layoutX="624.0" layoutY="3.0" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="440.0" prefWidth="808.0">
-                <items>
-                    <AnchorPane minWidth="-Infinity" prefWidth="100.0" SplitPane.resizableWithParent="false">
-                        <children>
-                            <ImageView layoutX="27.0" layoutY="118.0">
-                                <Image url="@../images/orange/48x48/Arrow3 Down.png" />
-                            </ImageView>
-                            <ImageView layoutX="39.0" layoutY="74.0">
-                                <Image url="@../images/orange/24x24/Trash.png" />
-                            </ImageView>
-                            <ImageView layoutX="27.0" layoutY="14.0">
-                                <Image url="@../images/orange/48x48/Arrow3 Up.png" />
-                            </ImageView>
-                        </children>
-                    </AnchorPane>
-                    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" SplitPane.resizableWithParent="false">
-                        <children>
-                            <TableView layoutX="-3.0" layoutY="-1.0" minWidth="-Infinity" prefWidth="700.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="-1.0">
-                                <columns>
-                                    <TableColumn prefWidth="178.0" text="Artikel" />
-                                    <TableColumn minWidth="0.0" prefWidth="149.0" text="Aantal" />
-                                    <TableColumn prefWidth="112.0" text="Prijs" />
-                                    <TableColumn prefWidth="93.0" text="Korting" />
-                                    <TableColumn prefWidth="83.0" text="BTW" />
-                                    <TableColumn maxWidth="1.7976931348623157E308" prefWidth="87.0" text="Bedrag" />
-                                </columns>
-                            </TableView>
-                        </children>
-                    </AnchorPane>
-                </items>
+            <SplitPane dividerPositions="0.12779156327543426" layoutX="624.0" layoutY="3.0"
+                       minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="440.0" prefWidth="808.0">
+                <AnchorPane minWidth="-Infinity" prefWidth="100.0" SplitPane.resizableWithParent="false">
+                    <ImageView layoutX="27.0" layoutY="118.0">
+                        <Image url="@../images/orange/48x48/Arrow3 Down.png"/>
+                    </ImageView>
+                    <ImageView layoutX="39.0" layoutY="74.0">
+                        <Image url="@../images/orange/24x24/Trash.png"/>
+                    </ImageView>
+                    <ImageView layoutX="27.0" layoutY="14.0">
+                        <Image url="@../images/orange/48x48/Arrow3 Up.png"/>
+                    </ImageView>
+                </AnchorPane>
+                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" SplitPane.resizableWithParent="false">
+                    <TableView fx:id="shoppingListTable" layoutX="-3.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                </AnchorPane>
             </SplitPane>
               <ImageView fitWidth="24.0" layoutX="1661.0" layoutY="955.0">
                   <Image url="@../images/orange/24x24/Cancel.png" />

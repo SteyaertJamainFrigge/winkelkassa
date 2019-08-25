@@ -15,7 +15,7 @@ public class MysqlCategoryRepositoryTest {
     private static CategoryRepository repo;
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() {
         repo = Repositories.getInstance().getCategoryRepository();
     }
 
@@ -68,5 +68,10 @@ public class MysqlCategoryRepositoryTest {
         assertNull("the category has been deleted?",repo.getGategory(4));
 
         repo.addCategory(categoryToDelete);
+    }
+
+    @Test
+    public void hasParentCategory(){
+        repo.getbaseCategories();
     }
 }
