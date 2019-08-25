@@ -44,4 +44,6 @@ public interface ProductRepository {
     int getHighestId();
 
     List<Product> getProductByCategory(int categoryId);
+
+    List<Product> getBaseProducts();
 }

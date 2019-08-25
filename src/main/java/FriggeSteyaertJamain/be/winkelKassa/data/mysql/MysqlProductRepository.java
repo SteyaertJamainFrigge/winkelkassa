@@ -27,6 +27,7 @@ public class MysqlProductRepository implements ProductRepository {
                                                     "where idproduct=?";
     private static final String SQL_GET_LAST_ID = "SELECT idproduct FROM product ORDER BY idproduct DESC limit 1";
     private static final String SQL_GET_PRODUCT_BY_CATEGORY_ID = "select * from product where idcategorie=?";
+    private static final String SQL_GET_CATEGORYLESS_PRODUCT = "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw where  p.idcategorie is null";
 
 
     @Override
@@ -159,6 +160,24 @@ public class MysqlProductRepository implements ProductRepository {
             }
         } catch (SQLException e) {
             throw new KassaException("Unabel to get products from DB");
+        }
+    }
+
+    @Override
+    public List<Product> getBaseProducts() {
+        try (
+                Connection con = MySqlConnection.getConnection();
+                PreparedStatement prep = con.prepareStatement(SQL_GET_CATEGORYLESS_PRODUCT)
+        ){
+            try(ResultSet rs = prep.executeQuery()){
+                List<Product> products = new ArrayList<>();
+                while (rs.next()){
+                    products.add(createProduct(rs));
+                }
+                return products;
+            }
+        } catch (SQLException ex) {
+            throw new KassaException("Unable to get base products from DB");
         }
     }
 }

@@ -132,8 +132,9 @@ public class KassaController {
         List<ProductButton> productButtons;
         if (categories == null) {
             List<ProductCategory> baseCategories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
+            List<Product> baseProducts = Repositories.getInstance().getProductRepository().getBaseProducts();
             categoryButtons = makeCategoryButonList(baseCategories);
-            productButtons = makeProdcutButtonList(baseCategories);
+            productButtons = makeBaseProductButtonList(baseProducts);
         } else {
             categoryButtons = makeCategoryButonList(categories);
             productButtons = makeProdcutButtonList(categories);
@@ -164,6 +165,18 @@ public class KassaController {
             }
             y++;
         }
+    }
+
+    private List<ProductButton> makeBaseProductButtonList(List<Product> products){
+        List<ProductButton> buttons = new ArrayList<>();
+        for (Product product : products) {
+            ProductButton button = new ProductButton(product);
+            button.setMaxWidth(1.79E308);
+            button.setMaxHeight(1.79E308);
+            button.setMnemonicParsing(false);
+            buttons.add(button);
+        }
+        return buttons;
     }
 
     private List<ProductButton> makeProdcutButtonList(List<ProductCategory> categories) {
