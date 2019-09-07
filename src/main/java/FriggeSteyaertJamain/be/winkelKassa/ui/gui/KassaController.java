@@ -6,6 +6,10 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Purchase;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
+import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
+import com.sun.deploy.util.ArrayUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,115 +25,89 @@ import java.util.List;
 public class KassaController {
 
     @FXML
+    public Button scrollUpBtn;
+    @FXML
+    public Button scrollDownBTn;
+    @FXML
     private Button dotBtn;
-
     @FXML
     private Button backspaceBtn;
-
     @FXML
     private ToggleButton retourBtn;
-
     @FXML
     private Button zeroBtn;
-
     @FXML
     private Button threeBtn;
-
     @FXML
     private Button twoBtn;
-
     @FXML
     private Button oneBtn;
-
     @FXML
     private Button fourBtn;
-
     @FXML
     private Button fiveBtn;
-
     @FXML
     private Button sixBtn;
-
     @FXML
     private Button confirmBtn;
-
     @FXML
     private Button nineBtn;
-
     @FXML
     private Button eightBtn;
-
     @FXML
     private Button doubleZeroBtn;
-
     @FXML
     private Button sevenBtn;
-
     @FXML
     private Button packagingBtn;
-
     @FXML
     private ToggleButton amountBtn;
-
     @FXML
     private ToggleButton scaleBtn;
-
     @FXML
     private ToggleButton priceBTn;
-
     @FXML
     private ToggleButton discountBtn;
-
     @FXML
     private ToggleButton VATBtn;
-
     @FXML
     private TextField previewTxtField;
-
     @FXML
     private Button payCashBtn;
-
     @FXML
     private Button payDigitalBtn;
-
     @FXML
     private Button pauzeTicketBtn;
-
     @FXML
     private Button resumeTicketBtn;
-
     @FXML
     private Button printTicketBtn;
-
     @FXML
     private Button openDrawerBtn;
-
     @FXML
     private Button recallTicketBtn;
-
     @FXML
     private Button registerCashBtn;
-
     @FXML
     private Button mailTicketBtn;
-
     @FXML
     private GridPane categoriesGrid;
-
     @FXML
     private TableView<Purchase> shoppingListTable;
-
     @FXML
     private Button deleteBtn;
 
-
     private ToggleGroup group;
+
+    private ObservableList<Purchase> shoppingList;
 
     @FXML
     public void initialize() {
         addButtonIcons();
         createToggleGroup();
         createShoppingListTableColumns();
+        shoppingList = FXCollections.observableArrayList();
+        this.shoppingListTable.setItems(shoppingList);
         this.categoriesGrid.setGridLinesVisible(false);
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
         List<Product> products = Repositories.getInstance().getProductRepository().getBaseProducts();
@@ -214,25 +192,21 @@ public class KassaController {
         Product product = button.getProduct();
         Integer index = containsProduct(product);
         if(index != null ){
-            Purchase purchase = this.shoppingListTable.getItems().get(index);
+            Purchase purchase = this.shoppingList.get(index);
             purchase.increment();
-            this.shoppingListTable.getItems().set(index, purchase);
+            this.shoppingList.set(index, purchase);
         }else {
             Purchase purchase = new Purchase(product);
-            this.shoppingListTable.getItems().add(purchase);
+            this.shoppingList.add(purchase);
         }
-    }
-
-    private void removeProductFromShoppingListTalbe(){
-        this.shoppingListTable.getSelectionModel().getSelectedItem().decrement();
     }
 
     private Integer containsProduct(Product product){
-        if(this.shoppingListTable.getItems().isEmpty()){
+        if(this.shoppingList.isEmpty()){
             return null;
         }
-        for(int i = 0; i< this.shoppingListTable.getItems().size(); i++){
-            Purchase purchase = this.shoppingListTable.getItems().get(i);
+        for(int i = 0; i< this.shoppingList.size(); i++){
+            Purchase purchase = this.shoppingList.get(i);
             if(purchase.getBarcode().equals(product.getBarcode())){
                 return i;
             }
@@ -280,7 +254,8 @@ public class KassaController {
 
     private void addButtonIcons() {
         addNumpadButtonIcons();
-        addMoreButtonIcons();
+        add48x48ButtonIcons();
+        add24x24ButtonIcons();
     }
 
     private void addNumpadButtonIcons() {
@@ -294,10 +269,17 @@ public class KassaController {
         }
     }
 
-    private void addMoreButtonIcons() {
+    private void add24x24ButtonIcons(){
         Button[][] buttons =
-                {{
-                        this.payCashBtn,
+                {{this.deleteBtn},
+                {}};
+        String [][] filenames = {{"Trash"},{}};
+        setButtonGraphics(buttons, filenames, "24");
+    }
+
+    private void add48x48ButtonIcons() {
+        Button[][] buttons =
+                {{this.payCashBtn,
                         this.payDigitalBtn,
                         this.pauzeTicketBtn,
                         this.pauzeTicketBtn,
@@ -305,17 +287,19 @@ public class KassaController {
                         this.openDrawerBtn,
                         this.printTicketBtn,
                         this.registerCashBtn,
-                        this.mailTicketBtn
-                }, {
-                        this.doubleZeroBtn,
+                        this.mailTicketBtn,
+                        this.scrollDownBTn,
+                        this.scrollUpBtn,
+                },{this.doubleZeroBtn,
                         this.confirmBtn,
-                        this.backspaceBtn,
-                }};
-
+                        this.backspaceBtn}};
         String[][] filenames =
-                {{"Currency Euro", "Dots", "Player Pause", "Player Play", "Database", "Alarme", "Printer", "Mail", "Go In"}, {"0", "OK", "Arrow2 Left"}};
+                {{"Currency Euro", "Dots", "Player Pause", "Player Play", "Database", "Alarme", "Printer", "Mail", "Go In", "Arrow3 Down", "Arrow3 Up"}, {"0", "OK", "Arrow2 Left"}};
 
+        setButtonGraphics(buttons, filenames, "48");
+    }
 
+    private void setButtonGraphics(Button[][] buttons, String[][] filenames, String res) {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 String color;
@@ -324,13 +308,14 @@ public class KassaController {
                 } else {
                     color = "green";
                 }
-                Image image = new Image(getClass().getResourceAsStream("/images/" + color + "/48x48/" + filenames[i][j] + ".png"));
+                Image image = new Image(getClass().getResourceAsStream("/images/" + color + "/"+res+"x"+res+"/" + filenames[i][j] + ".png"));
                 Button button = buttons[i][j];
                 button.setGraphic(new ImageView(image));
                 button.setText("");
             }
         }
     }
+
 
     @FXML
     void Retour(ActionEvent event) {
