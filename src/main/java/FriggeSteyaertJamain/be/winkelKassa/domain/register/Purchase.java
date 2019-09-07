@@ -7,6 +7,7 @@ public class Purchase {
     private double discount;
     private int btw;
     private double total;
+    private String barcode;
 
     /*todo constructor corrigeren van purchase
         en functionaliteit toevoegen
@@ -19,6 +20,7 @@ public class Purchase {
         this.discount = 0;
         this.btw = product.getBtw().getTariff();
         this.total = amount*price;
+        this.barcode = product.getBarcode();
     }
 
     public String getArticle() {
