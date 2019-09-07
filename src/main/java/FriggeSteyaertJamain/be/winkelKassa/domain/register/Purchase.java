@@ -55,4 +55,15 @@ public class Purchase {
     public double getTotal() {
         return total;
     }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void increment(){
+        this.amount ++;
+    }
+    public void decrement(){
+        this.amount --;
+    }
 }
