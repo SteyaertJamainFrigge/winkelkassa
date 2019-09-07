@@ -401,5 +401,11 @@ public class KassaController {
         }
     }
 
+    public void scrollDown(ActionEvent event) {
+        this.shoppingListTable.getSelectionModel().selectNext();
+    }
+
+    public void scrollUP(ActionEvent event) {
+        this.shoppingListTable.getSelectionModel().selectPrevious();
     }
 }
