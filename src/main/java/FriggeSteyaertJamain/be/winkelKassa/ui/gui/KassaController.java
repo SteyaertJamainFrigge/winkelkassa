@@ -119,6 +119,10 @@ public class KassaController {
     @FXML
     private TableView<Purchase> shoppingListTable;
 
+    @FXML
+    private Button deleteBtn;
+
+
     private ToggleGroup group;
 
     @FXML
@@ -208,9 +212,32 @@ public class KassaController {
     private void addProductToShoppingListTable(ActionEvent event) {
         ProductButton button = (ProductButton) event.getSource();
         Product product = button.getProduct();
-        Purchase purchase = new Purchase(product);
-        this.shoppingListTable.getItems().add(purchase);
+        Integer index = containsProduct(product);
+        if(index != null ){
+            Purchase purchase = this.shoppingListTable.getItems().get(index);
+            purchase.increment();
+            this.shoppingListTable.getItems().set(index, purchase);
+        }else {
+            Purchase purchase = new Purchase(product);
+            this.shoppingListTable.getItems().add(purchase);
+        }
+    }
 
+    private void removeProductFromShoppingListTalbe(){
+        this.shoppingListTable.getSelectionModel().getSelectedItem().decrement();
+    }
+
+    private Integer containsProduct(Product product){
+        if(this.shoppingListTable.getItems().isEmpty()){
+            return null;
+        }
+        for(int i = 0; i< this.shoppingListTable.getItems().size(); i++){
+            Purchase purchase = this.shoppingListTable.getItems().get(i);
+            if(purchase.getBarcode().equals(product.getBarcode())){
+                return i;
+            }
+        }
+        return null;
     }
 
     private List<CategoryButton> makeCategoryButonList(List<ProductCategory> categories) {
