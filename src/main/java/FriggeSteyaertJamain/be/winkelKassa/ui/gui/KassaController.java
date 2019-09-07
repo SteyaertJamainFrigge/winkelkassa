@@ -384,8 +384,22 @@ public class KassaController {
         //TODO confirm the input of the previewTxtfield
     }
 
-    @FXML
-    void addPurchase(ActionEvent event) {
+    public void deletePurchase(ActionEvent event) {
+        try{
+            int index = this.shoppingListTable.getSelectionModel().getSelectedIndex();
+            Purchase purchase = this.shoppingList.get(index);
+            if(purchase.getAmount()==1){
+                this.shoppingList.remove(index);
+            }else {
+                purchase.decrement();
+                this.shoppingList.set(index, purchase);
+            }
+        }catch (KassaException ex) {
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setContentText(ex.getMessage());
+            al.showAndWait();
+        }
+    }
 
     }
 }
