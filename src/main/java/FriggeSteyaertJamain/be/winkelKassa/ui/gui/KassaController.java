@@ -425,4 +425,39 @@ public class KassaController {
     public void scrollUP(ActionEvent event) {
         this.shoppingListTable.getSelectionModel().selectPrevious();
     }
+
+    @FXML
+    public void resetCategoryAndProductGrid() {
+        List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
+        List<Product> products = Repositories.getInstance().getProductRepository().getBaseProducts();
+        fillProductAndCategoryGrid(categories, products, "base");
+        this.backBtn.setDisable(true);
+    }
+
+    @FXML
+    public void showPreviousPage() {
+        //TODO scroll up through the category grid
+    }
+
+    @FXML
+    public void findCategoryOrProduct() {
+        //TODO find any category or product out of all the categories and products and show that button in the grid
+    }
+
+    @FXML
+    public void showNextPage() {
+        //TODO scroll down through the category grid
+    }
+
+    @FXML
+    public void ShowParentCategoryAndProductGrid(ActionEvent event) {
+        CategoryButton clickedButton = (CategoryButton) event.getSource();
+        ProductCategory parent = clickedButton.getCategory();
+        if(parent == null){
+            resetCategoryAndProductGrid();
+        }else {
+            clickedButton.setCategory(parent.getParent());
+            fillProductAndCategoryGrid(parent);
+        }
+    }
 }
