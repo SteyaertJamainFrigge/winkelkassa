@@ -1,6 +1,7 @@
 .gradle/
 .idea/
-
+classes/
+out/
 
 # Compiled class file
 *.class
