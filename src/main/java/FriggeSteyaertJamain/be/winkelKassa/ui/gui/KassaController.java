@@ -5,9 +5,9 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Purchase;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton;
+import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButtonList;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
-import com.sun.deploy.util.ArrayUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -28,6 +28,16 @@ public class KassaController {
     public Button scrollUpBtn;
     @FXML
     public Button scrollDownBTn;
+    @FXML
+    public Button homeBtn;
+    @FXML
+    public Button prevPageBtn;
+    @FXML
+    public Button findBtn;
+    @FXML
+    public Button nextPageBtn;
+    @FXML
+    public CategoryButton backBtn;
     @FXML
     private Button dotBtn;
     @FXML
@@ -96,7 +106,7 @@ public class KassaController {
     private TableView<Purchase> shoppingListTable;
     @FXML
     private Button deleteBtn;
-
+    @FXML
     private ToggleGroup group;
 
     private ObservableList<Purchase> shoppingList;
@@ -111,7 +121,7 @@ public class KassaController {
         this.categoriesGrid.setGridLinesVisible(false);
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
         List<Product> products = Repositories.getInstance().getProductRepository().getBaseProducts();
-        fillProductAndCategoryGrid(categories, products);
+        fillProductAndCategoryGrid(categories, products, "base");
     }
 
     private void createShoppingListTableColumns() {
@@ -136,11 +146,12 @@ public class KassaController {
         this.shoppingListTable.getColumns().addAll(column1, column2, column3, column4, column5, column6);
     }
 
-    private void fillProductAndCategoryGrid(List<ProductCategory> categories, List<Product> products) {
+    private void fillProductAndCategoryGrid(List<ProductCategory> categories, List<Product> products, String name) {
+
         List<CategoryButton> categoryButtons;
         List<ProductButton> productButtons;
         if(categories!=null){
-            categoryButtons = makeCategoryButonList(categories);
+            categoryButtons = makeCategoryButonList(categories, name);
         }else {
             categoryButtons = new ArrayList<>();
         }
@@ -150,6 +161,10 @@ public class KassaController {
             productButtons = new ArrayList<>();
         }
         addButtonsToCategoryGrid(categoryButtons, productButtons);
+    }
+
+    private void fillProductAndCategoryGrid(ProductCategory parent){
+        fillProductAndCategoryGrid(parent.getSubCategories(), parent.getProducts(), parent.getName());
     }
 
     private void addButtonsToCategoryGrid(List<CategoryButton> categoryButtons, List<ProductButton> productButtons) {
@@ -214,8 +229,8 @@ public class KassaController {
         return null;
     }
 
-    private List<CategoryButton> makeCategoryButonList(List<ProductCategory> categories) {
-        List<CategoryButton> buttons = new ArrayList<>();
+    private List<CategoryButton> makeCategoryButonList(List<ProductCategory> categories, String listName) {
+        CategoryButtonList<CategoryButton> buttons = new CategoryButtonList<>(listName);
         for (ProductCategory category : categories) {
             CategoryButton button = new CategoryButton(category);
             button.setMaxWidth(1.79E308);
@@ -230,7 +245,8 @@ public class KassaController {
     private void showSubCategoriesAndProducts(ActionEvent event) {
         clearCategoryGrid();
         CategoryButton button = (CategoryButton) event.getSource();
-        fillProductAndCategoryGrid(button.getSubCategories(), button.getProducts());
+        fillProductAndCategoryGrid(button.getSubCategories(), button.getProducts(), button.getName());
+        this.backBtn.setCategory(button.getCategory().getParent());
     }
 
     private void clearCategoryGrid() {
@@ -318,7 +334,7 @@ public class KassaController {
 
 
     @FXML
-    void Retour(ActionEvent event) {
+    void Retour() {
         this.previewTxtField.setText("");
     }
 
@@ -371,7 +387,7 @@ public class KassaController {
     }
 
     @FXML
-    void backspace(ActionEvent event) {
+    void backspace() {
         String text = this.previewTxtField.getText();
         if (text != null && text.length() > 0) {
             text = text.substring(0, text.length() - 1);
@@ -384,7 +400,8 @@ public class KassaController {
         //TODO confirm the input of the previewTxtfield
     }
 
-    public void deletePurchase(ActionEvent event) {
+    @FXML
+    public void deletePurchase() {
         try{
             int index = this.shoppingListTable.getSelectionModel().getSelectedIndex();
             Purchase purchase = this.shoppingList.get(index);
