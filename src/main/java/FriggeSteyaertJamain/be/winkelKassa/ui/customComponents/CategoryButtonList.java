@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class CategoryButtonList extends ArrayList {
+public class CategoryButtonList<E> extends ArrayList<E> {
     private String name;
 
 
@@ -19,7 +19,7 @@ public class CategoryButtonList extends ArrayList {
         this.name = name;
     }
 
-    public CategoryButtonList(@NotNull Collection c, String name) {
+    public CategoryButtonList(@NotNull Collection<E> c, String name) {
         super(c);
         this.name = name;
     }
