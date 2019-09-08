@@ -422,11 +422,13 @@ public class KassaController {
         }
     }
 
-    public void scrollDown(ActionEvent event) {
+    @FXML
+    public void scrollDown() {
         this.shoppingListTable.getSelectionModel().selectNext();
     }
 
-    public void scrollUP(ActionEvent event) {
+    @FXML
+    public void scrollUP() {
         this.shoppingListTable.getSelectionModel().selectPrevious();
     }
 
