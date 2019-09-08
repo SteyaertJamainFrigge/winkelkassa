@@ -9,7 +9,6 @@ import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButtonLis
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -143,7 +142,12 @@ public class KassaController {
         TableColumn<Purchase, Double> column6 = new TableColumn<>("Bedrag");
         column6.setMinWidth(100);
         column6.setCellValueFactory(new PropertyValueFactory<>("total"));
-        this.shoppingListTable.getColumns().addAll(column1, column2, column3, column4, column5, column6);
+        this.shoppingListTable.getColumns().add(column1);
+        this.shoppingListTable.getColumns().add(column2);
+        this.shoppingListTable.getColumns().add(column3);
+        this.shoppingListTable.getColumns().add(column4);
+        this.shoppingListTable.getColumns().add(column5);
+        this.shoppingListTable.getColumns().add(column6);
     }
 
     private void fillProductAndCategoryGrid(List<ProductCategory> categories, List<Product> products, String name) {
