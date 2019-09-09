@@ -34,7 +34,6 @@ public class BarcodePrinterController extends SubWindow {
     private int productid;
 
     public void initialize(){
-        changeReturnBtnStyle();
         SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,200, 1);
         this.amountSpinner.setValueFactory(spinnerValueFactory);
     }

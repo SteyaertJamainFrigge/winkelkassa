@@ -23,20 +23,25 @@ public class MysqlCategoryRepository implements CategoryRepository {
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM categorie WHERE (idcategorie = ?);";
     private static final String SQL_GET_PARENT_CATEGORY = "select c.idcategorie, cs.parent from categorie c left join categorie_subcategorie cs on c.idcategorie = cs.child where c.idcategorie = ?";
 
+    private ProductCategory parent;
+
     private ProductCategory create(ResultSet resultSet) throws SQLException {
+        ProductCategory parent = createParent(resultSet);
+        if (resultSet.getBoolean("heeftsubcategorie")) {
+            ArrayList<Integer> idlist = (ArrayList<Integer>) Repositories.getInstance().getSubCategoryRepository().getSubcategories(parent.getId());
+            for (int subid :
+                    idlist) {
+                parent.addSubCategory(getGategory(subid));
+            }
+        }
+        return parent;
+    }
+
+    private ProductCategory createParent(ResultSet resultSet) throws SQLException{
         String name = resultSet.getString("naam");
         int id = resultSet.getInt("idcategorie");
         ArrayList<Product> products = (ArrayList<Product>) Repositories.getInstance().getProductRepository().getProductByCategory(id);
-        if (resultSet.getBoolean("heeftsubcategorie")) {
-            SubcategoryRepository repo = Repositories.getInstance().getSubCategoryRepository();
-            ArrayList<ProductCategory> subcategories = new ArrayList<>();
-            ArrayList<Integer> idlist = (ArrayList<Integer>) repo.getSubcategories(id);
-            for (int subid :
-                    idlist) {
-                subcategories.add(getGategory(subid));
-            }
-            return new ProductCategory(id, name, products, subcategories);
-        } else return new ProductCategory(id, name, products);
+        return  new ProductCategory(id, name, products);
     }
 
     @Override

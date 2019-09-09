@@ -32,8 +32,8 @@ public class Purchase {
     }
 
     public void setAmount(int amount) {
-        updateTotal();
         this.amount = amount;
+        updateTotal();
     }
 
     private void updateTotal() {
@@ -62,8 +62,10 @@ public class Purchase {
 
     public void increment(){
         this.amount ++;
+        updateTotal();
     }
     public void decrement(){
         this.amount --;
+        updateTotal();
     }
 }

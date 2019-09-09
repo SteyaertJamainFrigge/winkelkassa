@@ -8,23 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
-public abstract class SubWindow {
+abstract class SubWindow {
 
     @FXML
     protected Button returnBtn;
 
-    void changeReturnBtnStyle(){
-        // configure returnBtn
-        returnBtn.getStyleClass().add("icon-button");
-        returnBtn.setPickOnBounds(true);
-        Region icon = new Region();
-        icon.getStyleClass().add("icon");
-        returnBtn.setGraphic(icon);
-    }
-
     void returnToMainScene() throws Exception{
         Stage stage = (Stage) returnBtn.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/start.fxml"));
         Scene scene = new Scene(root);
         stage.hide();
         stage.setScene(scene);

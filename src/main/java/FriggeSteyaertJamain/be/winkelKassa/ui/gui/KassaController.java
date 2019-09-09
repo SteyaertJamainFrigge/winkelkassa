@@ -7,7 +7,6 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.Purchase;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButtonList;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
-import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +37,9 @@ public class KassaController {
     public Button nextPageBtn;
     @FXML
     public CategoryButton backBtn;
+    public Label totallbl;
+    public Label cashLbl;
+    public Label changeLbl;
     @FXML
     private Button dotBtn;
     @FXML
@@ -112,6 +115,7 @@ public class KassaController {
 
     @FXML
     public void initialize() {
+        this.totallbl.setText("0,00");
         addButtonIcons();
         createToggleGroup();
         createShoppingListTableColumns();
@@ -154,20 +158,20 @@ public class KassaController {
 
         List<CategoryButton> categoryButtons;
         List<ProductButton> productButtons;
-        if(categories!=null){
+        if (categories != null) {
             categoryButtons = makeCategoryButonList(categories, name);
-        }else {
+        } else {
             categoryButtons = new ArrayList<>();
         }
-        if(products!=null){
+        if (products != null) {
             productButtons = makeProdcutButtonList(products);
-        }else {
+        } else {
             productButtons = new ArrayList<>();
         }
         addButtonsToCategoryGrid(categoryButtons, productButtons);
     }
 
-    private void fillProductAndCategoryGrid(ProductCategory parent){
+    private void fillProductAndCategoryGrid(ProductCategory parent) {
         fillProductAndCategoryGrid(parent.getSubCategories(), parent.getProducts(), parent.getName());
     }
 
@@ -200,33 +204,35 @@ public class KassaController {
             button.setMaxWidth(1.79E308);
             button.setMaxHeight(1.79E308);
             button.setMnemonicParsing(false);
-            button.setOnAction(this::addProductToShoppingListTable);
+            button.setOnAction(this::addPurchase);
             buttons.add(button);
         }
         return buttons;
     }
 
-    private void addProductToShoppingListTable(ActionEvent event) {
+    private void addPurchase(ActionEvent event) {
         ProductButton button = (ProductButton) event.getSource();
         Product product = button.getProduct();
         Integer index = containsProduct(product);
-        if(index != null ){
+        if (index != null) {
             Purchase purchase = this.shoppingList.get(index);
             purchase.increment();
             this.shoppingList.set(index, purchase);
-        }else {
+            updateTotalPrice();
+        } else {
             Purchase purchase = new Purchase(product);
             this.shoppingList.add(purchase);
+            updateTotalPrice();
         }
     }
 
-    private Integer containsProduct(Product product){
-        if(this.shoppingList.isEmpty()){
+    private Integer containsProduct(Product product) {
+        if (this.shoppingList.isEmpty()) {
             return null;
         }
-        for(int i = 0; i< this.shoppingList.size(); i++){
+        for (int i = 0; i < this.shoppingList.size(); i++) {
             Purchase purchase = this.shoppingList.get(i);
-            if(purchase.getBarcode().equals(product.getBarcode())){
+            if (purchase.getBarcode().equals(product.getBarcode())) {
                 return i;
             }
         }
@@ -289,11 +295,11 @@ public class KassaController {
         }
     }
 
-    private void add24x24ButtonIcons(){
+    private void add24x24ButtonIcons() {
         Button[][] buttons =
                 {{this.deleteBtn},
-                {}};
-        String [][] filenames = {{"Trash"},{}};
+                        {}};
+        String[][] filenames = {{"Trash"}, {}};
         setButtonGraphics(buttons, filenames, "24");
     }
 
@@ -310,7 +316,7 @@ public class KassaController {
                         this.mailTicketBtn,
                         this.scrollDownBTn,
                         this.scrollUpBtn,
-                },{this.doubleZeroBtn,
+                }, {this.doubleZeroBtn,
                         this.confirmBtn,
                         this.backspaceBtn}};
         String[][] filenames =
@@ -328,7 +334,7 @@ public class KassaController {
                 } else {
                     color = "green";
                 }
-                Image image = new Image(getClass().getResourceAsStream("/images/" + color + "/"+res+"x"+res+"/" + filenames[i][j] + ".png"));
+                Image image = new Image(getClass().getResourceAsStream("/images/" + color + "/" + res + "x" + res + "/" + filenames[i][j] + ".png"));
                 Button button = buttons[i][j];
                 button.setGraphic(new ImageView(image));
                 button.setText("");
@@ -406,19 +412,17 @@ public class KassaController {
 
     @FXML
     public void deletePurchase() {
-        try{
-            int index = this.shoppingListTable.getSelectionModel().getSelectedIndex();
+        int index = this.shoppingListTable.getSelectionModel().getSelectedIndex();
+        if(this.shoppingList.size()>0){
             Purchase purchase = this.shoppingList.get(index);
-            if(purchase.getAmount()==1){
+            if (purchase.getAmount() == 1) {
                 this.shoppingList.remove(index);
-            }else {
+                updateTotalPrice();
+            } else {
                 purchase.decrement();
                 this.shoppingList.set(index, purchase);
+                updateTotalPrice();
             }
-        }catch (KassaException ex) {
-            Alert al = new Alert(Alert.AlertType.ERROR);
-            al.setContentText(ex.getMessage());
-            al.showAndWait();
         }
     }
 
@@ -459,11 +463,21 @@ public class KassaController {
     public void ShowParentCategoryAndProductGrid(ActionEvent event) {
         CategoryButton clickedButton = (CategoryButton) event.getSource();
         ProductCategory parent = clickedButton.getCategory();
-        if(parent == null){
+        if (parent == null) {
             resetCategoryAndProductGrid();
-        }else {
+        } else {
             clickedButton.setCategory(parent.getParent());
             fillProductAndCategoryGrid(parent);
         }
+    }
+
+    private void updateTotalPrice() {
+        DecimalFormat df = new DecimalFormat("###,##0.00");
+        double totalPrice = 00.00;
+        for (Purchase purchase :
+                this.shoppingList) {
+            totalPrice += purchase.getTotal();
+        }
+        this.totallbl.setText(df.format(totalPrice));
     }
 }

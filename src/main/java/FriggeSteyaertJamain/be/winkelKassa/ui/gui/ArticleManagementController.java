@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -20,45 +21,38 @@ import java.util.List;
 
 public class ArticleManagementController extends SubWindow {
 
+    public TextField locationInput;
+    public TextArea descriptionInput;
+    public Button PhotoBtn;
+    public Button zoomInBtn;
+    public ImageView articlePreviewImage;
+    public Button databaseBtn;
+    public TextField filterInput;
+    public Button optionsBtn;
+    public Button filterBtn;
+    public Button okBtn;
+    public Button plusBtn;
     private int id;
     private List<ProductCategory> categories;
-
     @FXML
     private ListView<Product> productList;
-
-    @FXML
-    private Button returnBtn;
-
     @FXML
     private TextField nameInput;
-
     @FXML
     private Spinner<Double> priceSpinner;
-
-    @FXML
-    private TextArea descriptionInput;
-
-    @FXML
-    private TextField locationInput;
-
     @FXML
     private TextField storeInput;
-
     @FXML
     private TextField barcodeInput;
-
     @FXML
     private ComboBox<ProductCategory> categoryComboBx;
-
     @FXML
     private ComboBox<Btw> btwComboBx;
-
     @FXML
     private GridPane productInputs;
 
-
     @FXML
-    void returnToMain(ActionEvent event) {
+    void returnToMain() {
         try {
             returnToMainScene();
         } catch (Exception e) {
@@ -67,8 +61,6 @@ public class ArticleManagementController extends SubWindow {
     }
 
     public void initialize() {
-
-        changeReturnBtnStyle();
         initializeSpinner();
         fillCategories();
         fillProductList();
@@ -105,7 +97,7 @@ public class ArticleManagementController extends SubWindow {
 
     private void fillProductValues(Product product){
         this.nameInput.setText(product.getName());
-        this.priceSpinner.getValueFactory().setValue(product.getPrice());
+        //this.priceSpinner.getValueFactory().setValue(product.getPrice());
         this.descriptionInput.clear();
         this.descriptionInput.appendText(product.getDescription());
         this.locationInput.setText(product.getLocation());
@@ -115,7 +107,6 @@ public class ArticleManagementController extends SubWindow {
         this.categoryComboBx.setValue(pc);
         this.btwComboBx.setValue(product.getBtw());
         this.id = product.getId();
-        System.out.println(this.id);
     }
 
     private ProductCategory findCategoryById(int id) {
