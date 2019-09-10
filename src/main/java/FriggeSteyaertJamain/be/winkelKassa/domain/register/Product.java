@@ -1,12 +1,6 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
 import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
-import org.omg.PortableInterceptor.INACTIVE;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Product {
     private int id;
@@ -141,9 +135,7 @@ public class Product {
             this.id = Repositories.getInstance().getProductRepository().getHighestId();
         }
         // add 0's
-        for(int i = Integer.toString(this.id).length() ; i <= 4; i++){
-            product.append('0');
-        }
+        product.append("0".repeat(Math.max(0, 4 - Integer.toString(this.id).length() + 1)));
         product.append(this.id);
         return product.toString();
     }
