@@ -1,10 +1,13 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 group 'friggeSteyaertJamain.be'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -14,7 +17,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
 
     // https://mvnrepository.com/artifact/com.guigarage/flatter
     compile group: 'com.guigarage', name: 'flatter', version: '0.7'
@@ -22,9 +25,12 @@ dependencies {
     // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
     compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
 
-    /*compile files(  './lib/javafx-sdk-11.0.2/lib/javafx.base.jar', './lib/javafx-sdk-11.0.2/lib/javafx.controls.jar',
-                    './lib/javafx-sdk-11.0.2/lib/javafx.fxml.jar', './lib/javafx-sdk-11.0.2/lib/javafx.media.jar', './lib/javafx-sdk-11.0.2/lib/javafx.swing.jar',
-                    './lib/javafx-sdk-11.0.2/lib/javafx.web.jar',  './lib/javafx-sdk-11.0.2/lib/javafx-swt.jar', './lib/annotations-16.0.2.jar')
-    */
     compile files('./lib/annotations-16.0.2.jar')
 }
+
+javafx{
+    version = '11.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+mainClassName = 'FriggeSteyaertJamain.be.winkelKassa.main.Program'
