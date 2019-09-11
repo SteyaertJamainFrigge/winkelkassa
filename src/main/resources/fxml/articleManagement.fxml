@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -162,33 +161,36 @@
         <Spinner fx:id="priceSpinner" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         <Label text="Prijs" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     </GridPane>
-    <AnchorPane layoutY="55.0" prefHeight="673.0" prefWidth="313.0">
+    <AnchorPane layoutY="55.0" prefHeight="673.0" prefWidth="313.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="60.0">
         <ListView fx:id="productList" layoutX="4.0" layoutY="2.0" prefHeight="669.0" prefWidth="305.0"
                   AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0"
                   AnchorPane.topAnchor="2.0"/>
     </AnchorPane>
-    <Button fx:id="editBtn" layoutX="58.0" layoutY="5.0" onAction="#enableInputFields" styleClass="iconButton">
-        <graphic>
-            <ImageView>
-                <Image url="@../images/orange/48x48/Gear.png"/>
-            </ImageView>
-        </graphic>
-    </Button>
-    <Button fx:id="okBtn" layoutX="108.0" layoutY="5.0" onAction="#save" styleClass="iconButton">
-        <graphic>
-            <ImageView>
-                <Image url="@../images/green/48x48/Ok.png"/>
-            </ImageView>
-        </graphic>
-    </Button>
-    <Button fx:id="plusBtn" layoutX="5.0" layoutY="5.0" styleClass="iconButton">
+    <Button fx:id="plusBtn" layoutX="5.0" layoutY="5.0" styleClass="iconButton" AnchorPane.leftAnchor="10.0"
+            AnchorPane.topAnchor="5.0">
         <graphic>
             <ImageView>
                 <Image url="@../images/green/48x48/Plus.png"/>
             </ImageView>
         </graphic>
     </Button>
-    <TextField fx:id="filterInput" layoutX="321.0" layoutY="16.0"/>
+    <Button fx:id="editBtn" layoutX="70.0" layoutY="5.0" onAction="#enableInputFields" styleClass="iconButton"
+            AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="5.0">
+        <graphic>
+            <ImageView>
+                <Image url="@../images/orange/48x48/Gear.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button fx:id="okBtn" layoutX="130.0" layoutY="5.0" onAction="#save" styleClass="iconButton"
+            AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="5.0">
+        <graphic>
+            <ImageView>
+                <Image url="@../images/green/48x48/Ok.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
     <Button fx:id="databaseBtn" layoutX="216.0" layoutY="5.0" styleClass="iconButton">
         <graphic>
             <ImageView>
@@ -196,27 +198,31 @@
             </ImageView>
         </graphic>
     </Button>
-    <Pane layoutX="711.0" layoutY="277.0" prefHeight="175.0" prefWidth="201.0" style="-fx-border-color: green;"
-          AnchorPane.leftAnchor="711.0" AnchorPane.rightAnchor="60.0">
+    <TextField fx:id="filterInput" layoutX="321.0" layoutY="16.0"/>
+    <AnchorPane layoutX="711.0" layoutY="277.0" prefHeight="175.0" prefWidth="201.0" style="-fx-border-color: green;"
+                AnchorPane.leftAnchor="711.0" AnchorPane.rightAnchor="60.0">
         <ImageView fx:id="articlePreviewImage" fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <Button fx:id="zoomInBtn" layoutX="176.0" layoutY="2.0" styleClass="iconButton">
+                   preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0"/>
+        <Button fx:id="zoomInBtn" layoutX="176.0" layoutY="2.0" styleClass="iconButton" AnchorPane.rightAnchor="2.0"
+                AnchorPane.topAnchor="2.0">
             <graphic>
                 <ImageView>
                     <Image url="@../images/orange/24x24/Zoom In.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="PhotoBtn" layoutX="147.0" layoutY="2.0" mnemonicParsing="false" styleClass="iconButton">
+        <Button fx:id="PhotoBtn" layoutX="144.0" layoutY="3.0" mnemonicParsing="false" styleClass="iconButton"
+                AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="2.0">
             <graphic>
                 <ImageView>
                     <Image url="@../images/orange/24x24/Photo.png"/>
                 </ImageView>
             </graphic>
         </Button>
-    </Pane>
-    <Button layoutX="890.0" layoutY="16.0" mnemonicParsing="false" onAction="#returnToMainScene"
-            styleClass="iconButton">
+    </AnchorPane>
+    <Button layoutX="931.0" layoutY="15.0" mnemonicParsing="false" onAction="#returnToMainScene" styleClass="iconButton"
+            AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
         <graphic>
             <ImageView fitHeight="28.0" preserveRatio="true">
                 <Image url="@../images/orange/32x32/Cancel.png"/>
