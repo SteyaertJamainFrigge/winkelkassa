@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane stylesheets="@../style/css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KassaController">
+<Pane fx:id="root" stylesheets="@../style/css/stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KassaController">
     <AnchorPane>
         <AnchorPane layoutY="170.0" prefHeight="80.0" prefWidth="585.0">
             <GridPane layoutY="-2.0" prefHeight="88.0" prefWidth="692.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -29,12 +29,16 @@
                 <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
-                <ImageView>
-                    <Image url="@../images/orange/48x48/Search.png" />
+                <Button styleClass="iconButton">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@../images/orange/48x48/Search.png" />
+                        </ImageView>
+                    </graphic>
                     <GridPane.margin>
                         <Insets left="20.0" />
                     </GridPane.margin>
-                </ImageView>
+                </Button>
                 <GridPane prefHeight="80.0" prefWidth="482.0" GridPane.columnIndex="1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -342,9 +346,13 @@
             <SplitPane dividerPositions="0.13027295285359802" layoutX="-0.5" layoutY="-0.5" minWidth="-Infinity" prefHeight="543.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <AnchorPane prefHeight="546.0" prefWidth="100.0">
                     <Label layoutX="14.0" layoutY="26.0" text="Pg 1/1" />
-                    <ImageView layoutX="63.0" layoutY="506.0">
-                        <Image url="@../images/orange/24x24/Tool.png" />
-                    </ImageView>
+                    <Button styleClass="iconButton" layoutX="63.0" layoutY="506.0">
+                        <graphic>
+                            <ImageView>
+                                <Image url="@../images/orange/24x24/Tool.png" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
                     <Button fx:id="homeBtn" layoutX="26.0" layoutY="50.0" mnemonicParsing="false" onAction="#resetCategoryAndProductGrid" prefHeight="48.0" prefWidth="48.0" text="home" />
                     <CategoryButton fx:id="backBtn" layoutX="26.0" layoutY="108.0" mnemonicParsing="false" onAction="#ShowParentCategoryAndProductGrid" prefHeight="48.0" prefWidth="48.0" text="back" />
                     <Button fx:id="prevPageBtn" layoutX="26.0" layoutY="166.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" text="up" />
@@ -406,15 +414,27 @@
                         <Font size="20.0" />
                     </font>
                 </CheckBox>
-                <ImageView layoutX="115.0" AnchorPane.rightAnchor="0.0">
-                    <Image url="@../images/orange/24x24/Info2.png" />
-                </ImageView>
-                <ImageView layoutX="27.0">
-                    <Image url="@../images/orange/24x24/Gear.png" />
-                </ImageView>
-                <ImageView layoutX="1.0">
-                    <Image url="@../images/orange/24x24/Zoom In.png" />
-                </ImageView>
+                <Button styleClass="iconButton" layoutX="115.0" AnchorPane.rightAnchor="0.0">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@../images/orange/24x24/Info2.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button styleClass="iconButton" layoutX="27.0">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@../images/orange/24x24/Gear.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button styleClass="iconButton" layoutX="1.0">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@../images/orange/24x24/Zoom In.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
             </AnchorPane>
             <Label layoutX="5.0" layoutY="190.0" prefHeight="80.0" prefWidth="172.0" text="info">
                 <font>
@@ -425,10 +445,11 @@
                 </opaqueInsets>
             </Label>
         </Pane>
-        <GridPane layoutX="1598.0" layoutY="3.0" prefHeight="37.0" prefWidth="75.0">
+        <GridPane layoutX="1579.0" layoutY="3.0" prefHeight="37.0" prefWidth="113.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -436,12 +457,27 @@
             <padding>
                 <Insets right="5.0" top="5.0" />
             </padding>
-            <ImageView>
-                <Image url="@../images/orange/24x24/Search.png" />
-            </ImageView>
-            <ImageView GridPane.columnIndex="1">
-                <Image url="@../images/orange/24x24/Tool.png" />
-            </ImageView>
+            <Button styleClass="iconButton">
+                <graphic>
+                    <ImageView>
+                        <Image url="@../images/orange/24x24/Search.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button styleClass="iconButton" GridPane.columnIndex="1">
+                <graphic>
+                    <ImageView>
+                        <Image url="@../images/orange/24x24/Tool.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="returnBtn" onAction="#returnToMain" styleClass="iconButton" GridPane.columnIndex="2">
+                <graphic>
+                    <ImageView>
+                        <Image url="@../images/orange/24x24/Cancel.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </GridPane>
         <GridPane layoutX="1432.0" layoutY="40.0" prefHeight="60.0" prefWidth="267.0">
             <columnConstraints>
@@ -476,9 +512,13 @@
                 <TableView fx:id="shoppingListTable" layoutX="-3.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </AnchorPane>
         </SplitPane>
-        <ImageView fitWidth="24.0" layoutX="1649.0" layoutY="955.0">
-            <Image url="@../images/orange/24x24/Cancel.png" />
-        </ImageView>
+        <Button styleClass="iconButton" layoutX="1554.0" layoutY="742.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@../images/orange/24x24/Cancel.png" />
+                </ImageView>
+            </graphic>
+        </Button>
         <padding>
             <Insets bottom="10.0" />
         </padding>
