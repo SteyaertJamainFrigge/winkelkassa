@@ -1,6 +1,5 @@
 package FriggeSteyaertJamain.be.winkelKassa.ui.gui;
 
-import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,11 +58,9 @@ public class MainController {
         Scene scene = new Scene(root);
         register.setScene(scene);
         register.setFullScreen(true);
-        registerDisplay = new Stage();
-        Parent display = FXMLLoader.load(getClass().getResource("/fxml/kassadisplay.fxml"));
-        Scene diplayScene = new Scene(display);
-        registerDisplay.setScene(diplayScene);
-        registerDisplay.initOwner(register);
+        register.setFullScreenExitHint("");
+        register.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        startRegisterDisplay();
     }
 
     private void startRegisterDisplay() throws IOException{
