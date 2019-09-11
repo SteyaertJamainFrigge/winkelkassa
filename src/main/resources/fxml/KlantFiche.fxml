@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+<AnchorPane fx:id="root" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KlantFicheController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="980.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <AnchorPane VBox.vgrow="ALWAYS">
         <ImageView layoutX="55.0" layoutY="3.0">
@@ -263,4 +263,4 @@
             <Button layoutX="54.0" layoutY="3.0" mnemonicParsing="false" text="Verpakkingen"/>
         </Pane>
     </AnchorPane>
-</VBox>
+</AnchorPane>
