@@ -20,6 +20,7 @@ abstract class SubWindow {
         stage.hide();
         stage.setScene(scene);
         stage.setMaximized(false);
+        stage.setFullScreen(false);
         stage.centerOnScreen();
         stage.show();
     }
