@@ -19,7 +19,7 @@ public class MysqlProductRepository implements ProductRepository {
 
     private static final String SQL_ADD_PRODUCT =   "insert into product(naam, prijs, btw, omschrijving, locatie, winkel, barcode, idcategorie) " +
                                                     "values(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_GET_PRODUCT =   "SELECT p.*, b.tarief FROM product p where idproduct=? LEFT JOIN btw b on p.btw = b.idbtw";
+    private static final String SQL_GET_PRODUCT =   "SELECT p.*, b.tarief FROM product p LEFT JOIN btw b on p.btw = b.idbtw where idproduct=?";
     private static final String SQL_GET_PRODUCTS =  "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw";
     private static final String SQL_DELETE_PRODUCT= "delete from product p where p.idproduct = ?";
     private static final String SQL_UPDATE_PRODUCT ="UPDATE product " +
