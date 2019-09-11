@@ -7,6 +7,7 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.Purchase;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButtonList;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
+import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +22,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KassaController {
+public class KassaController extends SubWindow {
 
     @FXML
     public Button scrollUpBtn;
@@ -40,6 +41,7 @@ public class KassaController {
     public Label totallbl;
     public Label cashLbl;
     public Label changeLbl;
+    public Button returnBtn;
     @FXML
     private Button dotBtn;
     @FXML
@@ -479,5 +481,14 @@ public class KassaController {
             totalPrice += purchase.getTotal();
         }
         this.totallbl.setText(df.format(totalPrice));
+    }
+
+    @FXML
+    void returnToMain() {
+        try {
+            returnToMainScene();
+        } catch (Exception e) {
+            throw new KassaException("Unable to go back to main scene", e);
+        }
     }
 }
