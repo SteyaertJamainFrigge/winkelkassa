@@ -12,13 +12,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,30 +34,33 @@ import java.util.List;
 public class KassaController extends SubWindow {
 
     @FXML
-    public Button scrollUpBtn;
+    private Button scrollUpBtn;
     @FXML
-    public Button scrollDownBTn;
+    private Button scrollDownBTn;
     @FXML
-    public Button homeBtn;
+    private Button homeBtn;
     @FXML
-    public Button prevPageBtn;
+    private Button prevPageBtn;
     @FXML
-    public Button findBtn;
+    private Button findBtn;
     @FXML
-    public Button nextPageBtn;
+    private Button nextPageBtn;
     @FXML
     public CategoryButton backBtn;
-    public Label totallbl;
-    public Label cashLbl;
-    public Label changeLbl;
-    public Button returnBtn;
-    public Pane root;
+    @FXML
+    private Label totalLbl;
+    @FXML
+    private Label cashLbl;
+    @FXML
+    private Label changeLbl;
+    @FXML
+    private Button returnBtn;
+    @FXML
+    private ToggleButton retourBtn;
     @FXML
     private Button dotBtn;
     @FXML
     private Button backspaceBtn;
-    @FXML
-    private ToggleButton retourBtn;
     @FXML
     private Button zeroBtn;
     @FXML
@@ -118,8 +129,8 @@ public class KassaController extends SubWindow {
     private ObservableList<Purchase> shoppingList;
 
     @FXML
-    public void initialize() {
-        this.totallbl.setText("0,00");
+    private void initialize() {
+        this.totalLbl.setText("0,00");
         addButtonIcons();
         createToggleGroup();
         createShoppingListTableColumns();
@@ -159,7 +170,6 @@ public class KassaController extends SubWindow {
     }
 
     private void fillProductAndCategoryGrid(List<ProductCategory> categories, List<Product> products, String name) {
-
         List<CategoryButton> categoryButtons;
         List<ProductButton> productButtons;
         if (categories != null) {
@@ -348,12 +358,12 @@ public class KassaController extends SubWindow {
 
 
     @FXML
-    void Retour() {
+    private void Retour() {
         this.previewTxtField.setText("");
     }
 
     @FXML
-    void addInteger(ActionEvent event) {
+    private void addInteger(ActionEvent event) {
         String source = event.getSource().toString();
         int indexOf = source.indexOf("=");
         int lastIndexOf = source.indexOf(",");
@@ -401,7 +411,7 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    void backspace() {
+    private void backspace() {
         String text = this.previewTxtField.getText();
         if (text != null && text.length() > 0) {
             text = text.substring(0, text.length() - 1);
@@ -415,7 +425,7 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    public void deletePurchase() {
+    private void deletePurchase() {
         int index = this.shoppingListTable.getSelectionModel().getSelectedIndex();
         try {
             Purchase purchase = this.shoppingList.get(index);
@@ -427,7 +437,7 @@ public class KassaController extends SubWindow {
                 this.shoppingList.set(index, purchase);
                 updateTotalPrice();
             }
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             Alert al = new Alert(Alert.AlertType.ERROR);
             al.setContentText("selecteer een product om te verwijderen");
             al.initOwner(this.root.getScene().getWindow());
@@ -436,17 +446,17 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    public void scrollDown() {
+    private void scrollDown() {
         this.shoppingListTable.getSelectionModel().selectNext();
     }
 
     @FXML
-    public void scrollUP() {
+    private void scrollUP() {
         this.shoppingListTable.getSelectionModel().selectPrevious();
     }
 
     @FXML
-    public void resetCategoryAndProductGrid() {
+    private void resetCategoryAndProductGrid() {
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
         List<Product> products = Repositories.getInstance().getProductRepository().getBaseProducts();
         fillProductAndCategoryGrid(categories, products, "base");
@@ -454,22 +464,22 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    public void showPreviousPage() {
+    private void showPreviousPage() {
         //TODO scroll up through the category grid
     }
 
     @FXML
-    public void findCategoryOrProduct() {
+    private void findCategoryOrProduct() {
         //TODO find any category or product out of all the categories and products and show that button in the grid
     }
 
     @FXML
-    public void showNextPage() {
+    private void showNextPage() {
         //TODO scroll down through the category grid
     }
 
     @FXML
-    public void ShowParentCategoryAndProductGrid(ActionEvent event) {
+    private void ShowParentCategoryAndProductGrid(ActionEvent event) {
         CategoryButton clickedButton = (CategoryButton) event.getSource();
         ProductCategory parent = clickedButton.getCategory();
         if (parent == null) {
@@ -487,15 +497,30 @@ public class KassaController extends SubWindow {
                 this.shoppingList) {
             totalPrice += purchase.getTotal();
         }
-        this.totallbl.setText(df.format(totalPrice));
+        this.totalLbl.setText(df.format(totalPrice));
     }
 
     @FXML
-    void returnToMain() {
-        try {
-            returnToMainScene();
-        } catch (Exception e) {
-            throw new KassaException("Unable to go back to main scene", e);
-        }
+    private void startClientWindow() throws IOException {
+        startWindow("/fxml/KlantFiche.fxml");
     }
+
+    @FXML
+    private void startGridregisterWindow() throws IOException{
+        startWindow("/fxml/gridkassa.fxml");
+    }
+
+    private void startWindow(String resource) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource(resource));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/style/css/stylesheet.css");
+        stage.setScene(scene);
+        stage.initOwner(this.root.getScene().getWindow());
+        stage.setFullScreen(false);
+        stage.show();
+    }
+
+
+
 }
