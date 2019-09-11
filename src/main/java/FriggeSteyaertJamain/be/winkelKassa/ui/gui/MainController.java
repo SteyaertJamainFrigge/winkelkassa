@@ -66,6 +66,14 @@ public class MainController {
         registerDisplay.initOwner(register);
     }
 
+    private void startRegisterDisplay() throws IOException{
+        registerDisplay = new Stage();
+        Parent display = FXMLLoader.load(getClass().getResource("/fxml/kassadisplay.fxml"));
+        Scene diplayScene = new Scene(display);
+        registerDisplay.setScene(diplayScene);
+        registerDisplay.initOwner(register);
+    }
+
     private void startWindow(@NotNull Stage window, String resource,  boolean fullscreen) throws IOException{
             Parent root = FXMLLoader.load(getClass().getResource(resource));
             Scene scene = new Scene(root);
