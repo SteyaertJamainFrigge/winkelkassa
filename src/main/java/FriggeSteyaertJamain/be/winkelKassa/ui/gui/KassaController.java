@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class KassaController extends SubWindow {
     public Label cashLbl;
     public Label changeLbl;
     public Button returnBtn;
+    public Pane root;
     @FXML
     private Button dotBtn;
     @FXML
@@ -415,7 +417,7 @@ public class KassaController extends SubWindow {
     @FXML
     public void deletePurchase() {
         int index = this.shoppingListTable.getSelectionModel().getSelectedIndex();
-        if(this.shoppingList.size()>0){
+        try {
             Purchase purchase = this.shoppingList.get(index);
             if (purchase.getAmount() == 1) {
                 this.shoppingList.remove(index);
@@ -425,6 +427,11 @@ public class KassaController extends SubWindow {
                 this.shoppingList.set(index, purchase);
                 updateTotalPrice();
             }
+        }catch (IndexOutOfBoundsException e){
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setContentText("selecteer een product om te verwijderen");
+            al.initOwner(this.root.getScene().getWindow());
+            al.showAndWait();
         }
     }
 
