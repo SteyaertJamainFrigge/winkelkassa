@@ -2,7 +2,6 @@ package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
 
 import FriggeSteyaertJamain.be.winkelKassa.data.CategoryRepository;
 import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
-import FriggeSteyaertJamain.be.winkelKassa.data.SubcategoryRepository;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
@@ -26,7 +25,11 @@ public class MysqlCategoryRepository implements CategoryRepository {
     private ProductCategory parent;
 
     private ProductCategory create(ResultSet resultSet) throws SQLException {
-        ProductCategory parent = createParent(resultSet);
+        ProductCategory parent = createParentCategory(resultSet);
+        return creatSubCategories(parent, resultSet);
+    }
+
+    private ProductCategory creatSubCategories(ProductCategory parent, ResultSet resultSet) throws SQLException{
         if (resultSet.getBoolean("heeftsubcategorie")) {
             ArrayList<Integer> idlist = (ArrayList<Integer>) Repositories.getInstance().getSubCategoryRepository().getSubcategories(parent.getId());
             for (int subid :
@@ -37,7 +40,7 @@ public class MysqlCategoryRepository implements CategoryRepository {
         return parent;
     }
 
-    private ProductCategory createParent(ResultSet resultSet) throws SQLException{
+    private ProductCategory createParentCategory(ResultSet resultSet) throws SQLException{
         String name = resultSet.getString("naam");
         int id = resultSet.getInt("idcategorie");
         ArrayList<Product> products = (ArrayList<Product>) Repositories.getInstance().getProductRepository().getProductByCategory(id);
