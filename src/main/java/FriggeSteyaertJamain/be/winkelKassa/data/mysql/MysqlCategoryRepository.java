@@ -27,6 +27,13 @@ public class MysqlCategoryRepository implements CategoryRepository {
         return creatSubCategories(parent, resultSet);
     }
 
+    private ProductCategory createParentCategory(ResultSet resultSet) throws SQLException{
+        String name = resultSet.getString("naam");
+        int id = resultSet.getInt("idcategorie");
+        ArrayList<Product> products = (ArrayList<Product>) Repositories.getInstance().getProductRepository().getProductByCategory(id);
+        return  new ProductCategory(id, name, products);
+    }
+
     private ProductCategory creatSubCategories(ProductCategory parent, ResultSet resultSet) throws SQLException{
         if (resultSet.getBoolean("heeftsubcategorie")) {
             ArrayList<Integer> idlist = (ArrayList<Integer>) Repositories.getInstance().getSubCategoryRepository().getSubcategories(parent.getId());
@@ -36,13 +43,6 @@ public class MysqlCategoryRepository implements CategoryRepository {
             }
         }
         return parent;
-    }
-
-    private ProductCategory createParentCategory(ResultSet resultSet) throws SQLException{
-        String name = resultSet.getString("naam");
-        int id = resultSet.getInt("idcategorie");
-        ArrayList<Product> products = (ArrayList<Product>) Repositories.getInstance().getProductRepository().getProductByCategory(id);
-        return  new ProductCategory(id, name, products);
     }
 
     @Override
