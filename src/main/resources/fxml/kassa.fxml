@@ -28,7 +28,7 @@
                 <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
-                <Button styleClass="iconButton">
+                <Button onAction="#startClientWindow" styleClass="iconButton">
                     <graphic>
                         <ImageView>
                             <Image url="@../images/orange/48x48/Search.png" />
@@ -100,7 +100,7 @@
                         <Font name="System Bold" size="34.0" />
                     </font>
                 </Label>
-                <Label fx:id="totallbl" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="344.0" text="999.999,99" textFill="WHITE" GridPane.columnIndex="1">
+                <Label fx:id="totalLbl" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="344.0" text="999.999,99" textFill="WHITE" GridPane.columnIndex="1">
                     <font>
                         <Font name="System Bold" size="40.0" />
                     </font>
@@ -345,7 +345,7 @@
             <SplitPane dividerPositions="0.13027295285359802" layoutX="-0.5" layoutY="-0.5" minWidth="-Infinity" prefHeight="543.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <AnchorPane prefHeight="546.0" prefWidth="100.0">
                     <Label layoutX="14.0" layoutY="26.0" text="Pg 1/1" />
-                    <Button styleClass="iconButton" layoutX="63.0" layoutY="506.0">
+                    <Button layoutX="63.0" layoutY="506.0" onAction="#startGridregisterWindow" styleClass="iconButton">
                         <graphic>
                             <ImageView>
                                 <Image url="@../images/orange/24x24/Tool.png" />
@@ -413,21 +413,21 @@
                         <Font size="20.0" />
                     </font>
                 </CheckBox>
-                <Button styleClass="iconButton" layoutX="115.0" AnchorPane.rightAnchor="0.0">
+                <Button layoutX="115.0" styleClass="iconButton" AnchorPane.rightAnchor="0.0">
                     <graphic>
                         <ImageView>
                             <Image url="@../images/orange/24x24/Info2.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button styleClass="iconButton" layoutX="27.0">
+                <Button layoutX="27.0" styleClass="iconButton">
                     <graphic>
                         <ImageView>
                             <Image url="@../images/orange/24x24/Gear.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button styleClass="iconButton" layoutX="1.0">
+                <Button layoutX="1.0" styleClass="iconButton">
                     <graphic>
                         <ImageView>
                             <Image url="@../images/orange/24x24/Zoom In.png" />
@@ -470,10 +470,10 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="returnBtn" onAction="#returnToMain" styleClass="iconButton" GridPane.columnIndex="2">
+            <Button fx:id="returnBtn" onAction="#returnToMainScene" styleClass="iconButton" GridPane.columnIndex="2">
                 <graphic>
                     <ImageView>
-                        <Image url="@../images/orange/24x24/Cancel.png"/>
+                        <Image url="@../images/orange/24x24/Cancel.png" />
                     </ImageView>
                 </graphic>
             </Button>
@@ -511,7 +511,7 @@
                 <TableView fx:id="shoppingListTable" layoutX="-3.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </AnchorPane>
         </SplitPane>
-        <Button styleClass="iconButton" layoutX="1554.0" layoutY="742.0">
+        <Button layoutX="1554.0" layoutY="742.0" styleClass="iconButton">
             <graphic>
                 <ImageView>
                     <Image url="@../images/orange/24x24/Cancel.png" />
@@ -521,5 +521,4 @@
         <padding>
             <Insets bottom="10.0" />
         </padding>
-    </AnchorPane>
-</Pane>
+</AnchorPane>
