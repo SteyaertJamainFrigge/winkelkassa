@@ -22,8 +22,6 @@ public class MysqlCategoryRepository implements CategoryRepository {
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM categorie WHERE (idcategorie = ?);";
     private static final String SQL_GET_PARENT_CATEGORY = "select c.idcategorie, cs.parent from categorie c left join categorie_subcategorie cs on c.idcategorie = cs.child where c.idcategorie = ?";
 
-    private ProductCategory parent;
-
     private ProductCategory create(ResultSet resultSet) throws SQLException {
         ProductCategory parent = createParentCategory(resultSet);
         return creatSubCategories(parent, resultSet);
