@@ -1,44 +1,40 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
 
+import javax.swing.text.Style;
+import java.time.Instant;
 import java.util.*;
 
 public class Transaction {
 
     private int id;
-    private Date date;
     private String store;
     private Personnel personnel;
     private List<Product> products;
     private Map<Integer, Integer> productsFrequency;
     private String note;
     private Client client;
+    private double totalPrice;
+    private Date timestamp;
 
-    public Transaction(int id, Date date, String store, Personnel personnel, Client client) {
+    public Transaction(int id, String store, Personnel personnel, List<Product> products, Map<Integer, Integer> productsFrequency, String note, Client client, double totalPrice) {
         this.id = id;
-        this.date = date;
+        this.timestamp = new Date();
         this.store = store;
         this.personnel = personnel;
-        this.products = new ArrayList<>();
-        this.note = "";
+        this.products = products;
+        this.productsFrequency = productsFrequency;
+        this.note = note;
         this.client = client;
-        productsFrequency = new HashMap<>();
+        this.totalPrice = totalPrice;
     }
 
     public Transaction (int id, String store, Personnel personnel, Client client){
-        this(id, new Date(), store, personnel, client);
+        this(id, store, personnel, null, null, "", client, 0);
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public String getStore() {
@@ -53,32 +49,24 @@ public class Transaction {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public Map<Integer, Integer> getProductsFrequency() {
+        return productsFrequency;
     }
 
     public String getNote() {
         return note;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public Client getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public Map<Integer, Integer> getProductsFrequency() {
-        return productsFrequency;
-    }
-
-    public void setProductsFrequency(Map<Integer, Integer> productsFrequency) {
-        this.productsFrequency = productsFrequency;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     public void addProduct(Product p){
@@ -114,18 +102,6 @@ public class Transaction {
             }
         }
     }
-
-    public double getTotalPrice(){
-        double totalPrice = 0.0;
-        for (Product p:
-             products) {
-            int amount = productsFrequency.get(p.getId());
-            double btw = p.getPrice() / 100 * p.getBtw().getTariff();
-            totalPrice = totalPrice + (amount + btw) * amount;
-        }
-        return totalPrice;
-    }
-    
     private boolean hasProduct(Product p){
         for (Product product:
              products) {

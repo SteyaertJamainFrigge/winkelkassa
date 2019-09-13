@@ -1,6 +1,9 @@
 package FriggeSteyaertJamain.be.winkelKassa.data;
 
 import FriggeSteyaertJamain.be.winkelKassa.data.mysql.*;
+import FriggeSteyaertJamain.be.winkelKassa.domain.register.Transaction;
+
+import java.util.List;
 
 public class Repositories {
     private static Repositories ourInstance = new Repositories();
@@ -29,4 +32,6 @@ public class Repositories {
     public SubcategoryRepository getSubCategoryRepository(){return new MysqlSubcategoryRepository();}
 
     public SupplierRepository getSupplierRepository(){return new MysqlSupplierRepository();}
+
+    public TransactionRepository getTransactionRepository(){return new MysqlTransactionRepository();}
 }
