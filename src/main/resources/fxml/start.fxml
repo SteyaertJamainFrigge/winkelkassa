@@ -9,7 +9,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.MainController">
-    <MenuBar VBox.vgrow="NEVER" fx:id="menubar">
+    <MenuBar fx:id="menubar" VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="Bestand">
             <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit"/>
         </Menu>
@@ -32,7 +32,8 @@
         </Menu>
     </MenuBar>
     <AnchorPane prefHeight="414.0" prefWidth="649.0" VBox.vgrow="ALWAYS">
-        <Button fx:id="showRegisterBtn" layoutX="272.0" layoutY="133.0" mnemonicParsing="false"
-                onAction="#ShowRegister" prefHeight="89.0" prefWidth="109.0" text="Kassa"/>
+        <Button fx:id="showRegisterBtn" layoutX="272.0" layoutY="133.0" mnemonicParsing="false" onAction="#ShowRegister"
+                prefHeight="89.0" prefWidth="109.0" text="Kassa" AnchorPane.bottomAnchor="153.0"
+                AnchorPane.rightAnchor="259.0"/>
     </AnchorPane>
 </VBox>

@@ -25,6 +25,8 @@ import java.util.List;
 public class ArticleManagementController extends SubWindow {
 
     @FXML
+    private ComboBox unitComboBx;
+    @FXML
     private Button editBtn;
     @FXML
     private TextField locationInput;
@@ -105,10 +107,12 @@ public class ArticleManagementController extends SubWindow {
     private void fillCategories() {
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         this.categories = categories;
+        this.categories.add(new ProductCategory(0, "zonder categorie"));
         this.categoryComboBx.setItems(FXCollections.observableList(categories));
     }
 
     private void fillProductValues(Product product) {
+        enableDisableInputFields(false);
         this.nameInput.setText(product.getName());
         this.priceSpinner.getValueFactory().setValue(product.getPrice());
         this.descriptionInput.clear();

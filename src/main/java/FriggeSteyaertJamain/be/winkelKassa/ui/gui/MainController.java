@@ -47,7 +47,7 @@ public class MainController {
     @FXML
     void ShowRegister(){
         register.show();
-        registerDisplay.show();
+        //registerDisplay.show();
         Stage stage = (Stage) showRegisterBtn.getScene().getWindow();
         stage.close();
     }
@@ -60,7 +60,7 @@ public class MainController {
         register.setFullScreen(true);
         register.setFullScreenExitHint("");
         register.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        startRegisterDisplay();
+        //startRegisterDisplay();
     }
 
     private void startRegisterDisplay() throws IOException{

@@ -7,7 +7,9 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.Purchase;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButtonList;
 import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
-import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
+import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,11 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -33,6 +31,10 @@ import java.util.List;
 
 public class KassaController extends SubWindow {
 
+    @FXML
+    private ToggleGroup numpadAction;
+    @FXML
+    private GridPane numpadGrid;
     @FXML
     private Button scrollUpBtn;
     @FXML
@@ -56,7 +58,7 @@ public class KassaController extends SubWindow {
     @FXML
     private Button returnBtn;
     @FXML
-    private ToggleButton retourBtn;
+    private Button retourBtn;
     @FXML
     private Button dotBtn;
     @FXML
@@ -123,16 +125,16 @@ public class KassaController extends SubWindow {
     private TableView<Purchase> shoppingListTable;
     @FXML
     private Button deleteBtn;
-    @FXML
-    private ToggleGroup group;
 
     private ObservableList<Purchase> shoppingList;
+    private SerialPort commPort;
+    private boolean scaleCanWriteToPreview = false;
 
     @FXML
     private void initialize() {
         this.totalLbl.setText("0,00");
+        setupSerialPort();
         addButtonIcons();
-        createToggleGroup();
         createShoppingListTableColumns();
         shoppingList = FXCollections.observableArrayList();
         this.shoppingListTable.setItems(shoppingList);
@@ -140,6 +142,32 @@ public class KassaController extends SubWindow {
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
         List<Product> products = Repositories.getInstance().getProductRepository().getBaseProducts();
         fillProductAndCategoryGrid(categories, products, "base");
+    }
+
+    private void setupSerialPort() {
+        this.commPort = SerialPort.getCommPorts()[1];
+        this.commPort.openPort();
+        this.commPort.addDataListener(new SerialPortDataListener() {
+            @Override
+            public int getListeningEvents() {
+                return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+            }
+
+            @Override
+            public void serialEvent(SerialPortEvent event) {
+                byte[] newData = event.getReceivedData();
+                if (newData.length == 20) {
+                    StringBuilder stringData = new StringBuilder();
+                    for (byte b : newData) {
+                        char c = (char) b;
+                        if(Character.isDigit(c)){
+                            stringData.append(c);
+                        }
+                    }
+                    if(scaleCanWriteToPreview) previewTxtField.setText(stringData.toString());
+                }
+            }
+        });
     }
 
     private void createShoppingListTableColumns() {
@@ -277,21 +305,6 @@ public class KassaController extends SubWindow {
         this.categoriesGrid.getChildren().clear();
     }
 
-
-    private void createToggleGroup() {
-        this.group = new ToggleGroup();
-        this.amountBtn.setUserData("amount");
-        this.scaleBtn.setUserData("scale");
-        this.priceBTn.setUserData("price");
-        this.discountBtn.setUserData("discount");
-        this.VATBtn.setUserData("VAT");
-        this.amountBtn.setToggleGroup(this.group);
-        this.scaleBtn.setToggleGroup(this.group);
-        this.priceBTn.setToggleGroup(this.group);
-        this.discountBtn.setToggleGroup(this.group);
-        this.VATBtn.setToggleGroup(this.group);
-    }
-
     private void addButtonIcons() {
         addNumpadButtonIcons();
         add48x48ButtonIcons();
@@ -420,8 +433,30 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    void confirm(ActionEvent event) {
-        //TODO confirm the input of the previewTxtfield
+    void confirm() {
+        try {
+            String action = (String) this.numpadAction.getSelectedToggle().getUserData();
+            switch (action) {
+                case "amount":
+                    System.out.println(Double.parseDouble(this.previewTxtField.getText()));
+                    double floatAmount = Double.parseDouble(this.previewTxtField.getText());
+                    int amount = (int) Math.round(floatAmount);
+                    this.shoppingListTable.getSelectionModel().getSelectedItem().setAmount(amount);
+                    break;
+                case "scale":
+
+                    break;
+                default:
+                    //de nothing
+                    break;
+            }
+        } catch (NullPointerException ex) {
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setContentText("selecteer een optie");
+            al.initOwner(this.root.getScene().getWindow());
+            al.showAndWait();
+        }
+
     }
 
     @FXML
@@ -506,7 +541,7 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    private void startGridregisterWindow() throws IOException{
+    private void startGridregisterWindow() throws IOException {
         startWindow("/fxml/gridkassa.fxml");
     }
 
@@ -521,6 +556,35 @@ public class KassaController extends SubWindow {
         stage.show();
     }
 
+    @FXML
+    private void confirmDigitalPayment() {
 
+    }
 
+    @FXML
+    private void confirmCashPayment(ActionEvent actionEvent) {
+
+    }
+
+    private void updateCommPort(){
+        if(this.scaleBtn.isSelected()){
+            this.scaleCanWriteToPreview = true;
+            this.numpadGrid.setDisable(true);
+        }else {
+            this.scaleCanWriteToPreview = false;
+            this.numpadGrid.setDisable(false);
+        }
+    }
+
+    @FXML
+    private void startWeightListener() {
+        this.previewTxtField.setText("");
+        updateCommPort();
+    }
+
+    @FXML
+    public void closeCommPort() {
+        this.previewTxtField.setText("");
+        updateCommPort();
+    }
 }
