@@ -7,7 +7,6 @@ plugins {
 group 'friggeSteyaertJamain.be'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -26,11 +25,12 @@ dependencies {
     compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
 
     compile files('./lib/annotations-16.0.2.jar')
+
+    // https://mvnrepository.com/artifact/com.fazecast/jSerialComm
+    compile group: 'com.fazecast', name: 'jSerialComm', version: '2.5.2'
 }
 
 javafx{
     version = '11.0.2'
     modules = ['javafx.controls', 'javafx.fxml']
 }
-
-mainClassName = 'FriggeSteyaertJamain.be.winkelKassa.main.Program'
