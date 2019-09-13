@@ -8,10 +8,7 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import com.mysql.cj.protocol.Resultset;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +48,11 @@ public class MysqlProductRepository implements ProductRepository {
         prep.setString(5, p.getLocation());
         prep.setString(6, p.getStore());
         prep.setString(7, p.getBarcode());
-        prep.setInt(8, p.getCategory());
+        if(p.getCategory() == 0){
+            prep.setNull(8, Types.INTEGER);
+        }else {
+            prep.setInt(8, p.getCategory());
+        }
     }
 
     private Product createProduct(ResultSet rs) throws SQLException {
