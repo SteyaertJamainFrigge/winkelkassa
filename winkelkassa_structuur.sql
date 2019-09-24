@@ -1,15 +1,15 @@
 CREATE DATABASE  IF NOT EXISTS `kassa` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `kassa`;
--- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: kassa
 -- ------------------------------------------------------
--- Server version	8.0.16
+-- Server version	8.0.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -23,7 +23,7 @@ USE `kassa`;
 
 DROP TABLE IF EXISTS `bestelling`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bestelling` (
   `idbestelling` int(11) NOT NULL AUTO_INCREMENT,
   `idleverancier` int(11) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `bestelling` (
 
 DROP TABLE IF EXISTS `btw`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `btw` (
   `idbtw` int(11) NOT NULL AUTO_INCREMENT,
   `tarief` int(11) NOT NULL,
@@ -59,13 +59,13 @@ CREATE TABLE `btw` (
 
 DROP TABLE IF EXISTS `categorie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categorie` (
   `idcategorie` int(11) NOT NULL AUTO_INCREMENT,
   `naam` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `heeftsubcategorie` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idcategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,17 +74,17 @@ CREATE TABLE `categorie` (
 
 DROP TABLE IF EXISTS `categorie_subcategorie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categorie_subcategorie` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idcategorie` int(11) DEFAULT NULL,
-  `idsubcategorie` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_idcategorie_idx` (`idcategorie`),
-  KEY `fk_idsubcategorie_idx` (`idsubcategorie`),
-  CONSTRAINT `fk_idcategorie` FOREIGN KEY (`idcategorie`) REFERENCES `categorie` (`idcategorie`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_idsubcategorie` FOREIGN KEY (`idsubcategorie`) REFERENCES `categorie` (`idcategorie`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `idcategorie_subcategorie` int(11) NOT NULL AUTO_INCREMENT,
+  `parent` int(11) DEFAULT NULL,
+  `child` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idcategorie_subcategorie`),
+  KEY `fk_idcategorie_idx` (`parent`),
+  KEY `fk_idsubcategorie_idx` (`child`),
+  CONSTRAINT `fk_idcategorie` FOREIGN KEY (`parent`) REFERENCES `categorie` (`idcategorie`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_idsubcategorie` FOREIGN KEY (`child`) REFERENCES `categorie` (`idcategorie`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `categorie_subcategorie` (
 
 DROP TABLE IF EXISTS `groep_product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `groep_product` (
   `idgroep_product` int(11) NOT NULL AUTO_INCREMENT,
   `groepnaam` varchar(45) NOT NULL DEFAULT 'nieuwe groep',
@@ -107,7 +107,7 @@ CREATE TABLE `groep_product` (
 
 DROP TABLE IF EXISTS `klant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `klant` (
   `idklant` int(11) NOT NULL AUTO_INCREMENT,
   `voornaam` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE `klant` (
 
 DROP TABLE IF EXISTS `klantenkaart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `klantenkaart` (
   `idklantenkaart` int(11) NOT NULL AUTO_INCREMENT,
   `punten` int(11) NOT NULL DEFAULT '0',
@@ -147,7 +147,7 @@ CREATE TABLE `klantenkaart` (
 
 DROP TABLE IF EXISTS `leverancier`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `leverancier` (
   `idleverancier` int(11) NOT NULL AUTO_INCREMENT,
   `bedrijfNaam` varchar(320) DEFAULT NULL,
@@ -165,7 +165,7 @@ CREATE TABLE `leverancier` (
 
 DROP TABLE IF EXISTS `login`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `login` (
   `idlogin` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
@@ -183,7 +183,7 @@ CREATE TABLE `login` (
 
 DROP TABLE IF EXISTS `login_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `login_role` (
   `idrole` int(11) NOT NULL AUTO_INCREMENT,
   `rolename` varchar(45) COLLATE utf8_bin NOT NULL,
@@ -198,7 +198,7 @@ CREATE TABLE `login_role` (
 
 DROP TABLE IF EXISTS `personeel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `personeel` (
   `idpersoneel` int(11) NOT NULL AUTO_INCREMENT,
   `voornaam` varchar(45) DEFAULT NULL,
@@ -221,20 +221,18 @@ CREATE TABLE `personeel` (
 
 DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
   `idproduct` int(11) NOT NULL AUTO_INCREMENT,
   `naam` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `prijs` double NOT NULL,
-  `btw` int(11) DEFAULT NULL,
-  `omschrijving` varchar(320) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `locatie` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `winkel` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `btw` int(11) NOT NULL,
+  `omschrijving` varchar(320) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `locatie` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `winkel` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `barcode` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `idcategorie` int(11) DEFAULT NULL,
   `idgroep` int(11) DEFAULT NULL,
-  `geldigheidsdatum` date DEFAULT NULL,
-  `vervaldatum` date DEFAULT NULL,
   PRIMARY KEY (`idproduct`),
   KEY `idcategorie_idx` (`idcategorie`),
   KEY `fk_btw_idx` (`btw`),
@@ -242,7 +240,7 @@ CREATE TABLE `product` (
   CONSTRAINT `fk_idbtw` FOREIGN KEY (`btw`) REFERENCES `btw` (`idbtw`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idcategorie` FOREIGN KEY (`idcategorie`) REFERENCES `categorie` (`idcategorie`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idgroep` FOREIGN KEY (`idgroep`) REFERENCES `groep_product` (`idgroep_product`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +249,7 @@ CREATE TABLE `product` (
 
 DROP TABLE IF EXISTS `product_bestelling`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_bestelling` (
   `idproduct_bestelling` int(11) NOT NULL AUTO_INCREMENT,
   `idbestelling` int(11) NOT NULL,
@@ -272,7 +270,7 @@ CREATE TABLE `product_bestelling` (
 
 DROP TABLE IF EXISTS `product_verrichting`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_verrichting` (
   `idproduct_verrichting` int(11) NOT NULL AUTO_INCREMENT,
   `idverrichting` int(11) NOT NULL,
@@ -292,7 +290,7 @@ CREATE TABLE `product_verrichting` (
 
 DROP TABLE IF EXISTS `verrichting`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `verrichting` (
   `idverrichting` int(11) NOT NULL AUTO_INCREMENT,
   `timeStamp` datetime NOT NULL,
@@ -305,7 +303,7 @@ CREATE TABLE `verrichting` (
   KEY `fk_verichting_klant_idx` (`idklant`),
   KEY `fk_verrichting_personeel_idx` (`idpersoneel`),
   CONSTRAINT `fk_verichting_klant` FOREIGN KEY (`idklant`) REFERENCES `klant` (`idklant`),
-  CONSTRAINT `fk_verrichting_personeel` FOREIGN KEY (`idpersoneel`) REFERENCES `personeel` (`idpersoneel`)
+  CONSTRAINT `fk_verrichting_personeel` FOREIGN KEY (`idpersoneel`) REFERENCES `personeel` (`idpersoneel`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -318,4 +316,4 @@ CREATE TABLE `verrichting` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-25 18:50:58
+-- Dump completed on 2019-09-24 20:57:49
