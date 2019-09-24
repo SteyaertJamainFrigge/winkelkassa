@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="911.0" layoutY="203.0">
+        <Image url="@../images/orange/48x48/Search.png"/>
+    </ImageView>
+    <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="911.0" layoutY="32.0">
+        <Image url="@../images/orange/48x48/Plus.png"/>
+    </ImageView>
+    <Label layoutX="1038.0" layoutY="46.0" prefHeight="88.0" prefWidth="291.0" text="Nog geen klant? Klik hier"
+           wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+    <Label layoutX="1038.0" layoutY="217.0" prefHeight="88.0" prefWidth="228.0" text="Reeds klant? Klik hier"
+           wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+    <Label layoutX="1329.0" layoutY="238.0" prefHeight="46.0" prefWidth="563.0" text="Welkom: klantnaam"
+           wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+    <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="195.0" layoutY="425.0">
+        <Image url="@../images/orange/48x48/Photo.png"/>
+    </ImageView>
+    <ImageView fitHeight="115.0" fitWidth="115.0" layoutX="1804.0" layoutY="426.0">
+        <Image url="@../images/orange/48x48/Audio Message.png"/>
+    </ImageView>
+    <Label layoutX="316.0" layoutY="420.0" prefHeight="128.0" prefWidth="298.0"
+           text="Nieuwe verpakking mee? Klik hier" textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+    <Label layoutX="1506.0" layoutY="420.0" prefHeight="128.0" prefWidth="298.0"
+           text="Eenzelfde verpakking mee? Klik hier" textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+    <Label layoutX="195.0" layoutY="543.0" prefHeight="77.0" prefWidth="408.0"
+           text="Voeg er zoveel toe als je wil... opgelet: weeg ook het deksel!" wrapText="true">
+        <font>
+            <Font size="26.0"/>
+        </font>
+    </Label>
+    <ImageView fitHeight="450.0" fitWidth="800.0" layoutX="14.0" layoutY="615.0" pickOnBounds="true"
+               preserveRatio="true"/>
+    <ImageView fitHeight="450.0" fitWidth="800.0" layoutX="1235.0" layoutY="615.0" pickOnBounds="true"
+               preserveRatio="true"/>
+    <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="899.0" layoutY="681.0">
+        <Image url="@../images/green/48x48/Ok.png"/>
+    </ImageView>
+    <Label layoutX="911.0" layoutY="318.0" prefHeight="96.0" prefWidth="377.0"
+           text="Je hoeft geen klant te worden. Klik dan hieronder gewoon op &quot;Nieuwe verpakking mee?&quot;"
+           wrapText="true">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="899.0" layoutY="941.0">
+        <Image url="@../images/orange/48x48/Cancel.png"/>
+    </ImageView>
+    <Label layoutX="911.0" layoutY="849.0" prefHeight="46.0" prefWidth="228.0" text="Log uit" wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+    <Label layoutX="824.0" layoutY="895.0" prefHeight="46.0" prefWidth="291.0" text="Als je klaar bent"
+           wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+    <Label layoutX="824.0" layoutY="635.0" prefHeight="46.0" prefWidth="335.0" text="Bewaar verpakking"
+           wrapText="true">
+        <font>
+            <Font size="34.0"/>
+        </font>
+    </Label>
+</AnchorPane>
