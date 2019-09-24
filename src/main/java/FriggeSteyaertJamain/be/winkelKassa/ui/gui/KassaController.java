@@ -145,29 +145,31 @@ public class KassaController extends SubWindow {
     }
 
     private void setupSerialPort() {
-        this.commPort = SerialPort.getCommPorts()[1];
-        this.commPort.openPort();
-        this.commPort.addDataListener(new SerialPortDataListener() {
-            @Override
-            public int getListeningEvents() {
-                return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
-            }
-
-            @Override
-            public void serialEvent(SerialPortEvent event) {
-                byte[] newData = event.getReceivedData();
-                if (newData.length == 20) {
-                    StringBuilder stringData = new StringBuilder();
-                    for (byte b : newData) {
-                        char c = (char) b;
-                        if(Character.isDigit(c)){
-                            stringData.append(c);
-                        }
-                    }
-                    if(scaleCanWriteToPreview) previewTxtField.setText(stringData.toString());
+        if(SerialPort.getCommPorts().length > 0){
+            this.commPort = SerialPort.getCommPorts()[1];
+            this.commPort.openPort();
+            this.commPort.addDataListener(new SerialPortDataListener() {
+                @Override
+                public int getListeningEvents() {
+                    return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
                 }
-            }
-        });
+
+                @Override
+                public void serialEvent(SerialPortEvent event) {
+                    byte[] newData = event.getReceivedData();
+                    if (newData.length == 20) {
+                        StringBuilder stringData = new StringBuilder();
+                        for (byte b : newData) {
+                            char c = (char) b;
+                            if(Character.isDigit(c)){
+                                stringData.append(c);
+                            }
+                        }
+                        if(scaleCanWriteToPreview) previewTxtField.setText(stringData.toString());
+                    }
+                }
+            });
+        }
     }
 
     private void createShoppingListTableColumns() {
