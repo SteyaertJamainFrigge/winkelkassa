@@ -10,6 +10,7 @@ import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.ProductButton;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import javafx.beans.value.ObservableListValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +28,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -135,8 +135,8 @@ public class KassaController extends SubWindow {
     private Button gridEditorBtn;
 
     private ObservableList<Purchase> shoppingList;
-    private SerialPort commPort;
     private boolean scaleCanWriteToPreview = false;
+    private ObservableList<Purchase> pauzedShoppingList;
 
     @FXML
     private void initialize() {
@@ -176,9 +176,9 @@ public class KassaController extends SubWindow {
 
     private void setupSerialPort() {
         if(SerialPort.getCommPorts().length > 1){
-            this.commPort = SerialPort.getCommPorts()[1];
-            this.commPort.openPort();
-            this.commPort.addDataListener(new SerialPortDataListener() {
+            SerialPort commPort = SerialPort.getCommPorts()[1];
+            commPort.openPort();
+            commPort.addDataListener(new SerialPortDataListener() {
                 @Override
                 public int getListeningEvents() {
                     return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
@@ -586,11 +586,13 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    private void confirmCashPayment(ActionEvent actionEvent) {
+    private void confirmCashPayment() {
 
     }
 
+    @FXML
     private void updateCommPort(){
+        this.previewTxtField.setText("");
         if(this.scaleBtn.isSelected()){
             this.scaleCanWriteToPreview = true;
             this.numpadGrid.setDisable(true);
@@ -601,14 +603,26 @@ public class KassaController extends SubWindow {
     }
 
     @FXML
-    private void startWeightListener() {
-        this.previewTxtField.setText("");
-        updateCommPort();
+    private void pauzeTicket() {
+         pauzedShoppingList = FXCollections.observableArrayList(shoppingListTable.getItems());
+         shoppingList.clear();
     }
 
     @FXML
-    public void closeCommPort() {
-        this.previewTxtField.setText("");
-        updateCommPort();
+    private void resumeTicket() {
+        if(shoppingList.size()>0){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Onbetaalde artikelen verwijderen?", ButtonType.YES, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                showPauzedTicket();
+            }
+        }else {
+            showPauzedTicket();
+        }
+    }
+
+    private void showPauzedTicket() {
+        shoppingList.clear();
+        shoppingListTable.getItems().addAll(pauzedShoppingList);
     }
 }
