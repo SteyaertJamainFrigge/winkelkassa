@@ -14,19 +14,26 @@ abstract class SubWindow {
 
     @FXML
     AnchorPane root;
+    private Stage stage;
+
+    @FXML
+    private void returnToParentScene(){
+        stage = (Stage) root.getScene().getWindow();
+        if(stage.getOwner() == null) returnToMainScene();
+        else closeWindow();
+    }
 
     @FXML
     private void returnToMainScene(){
-        Stage stage = (Stage) root.getScene().getWindow();
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/start.fxml"));
             Scene scene = new Scene(root);
-            stage.hide();
-            stage.setScene(scene);
-            stage.setMaximized(false);
-            stage.setFullScreen(false);
-            stage.centerOnScreen();
-            stage.show();
+            this.stage.hide();
+            this.stage.setScene(scene);
+            this.stage.setMaximized(false);
+            this.stage.setFullScreen(false);
+            this.stage.centerOnScreen();
+            this.stage.show();
         }catch (IOException e){
             throw new KassaException("Unable to return to main scene");
         }
@@ -34,8 +41,7 @@ abstract class SubWindow {
 
     @FXML
     private void closeWindow(){
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.close();
+        this.stage.close();
     }
 
 }
