@@ -14,12 +14,13 @@ public class TransactionTest {
     private Product product11;
     private Transaction transaction;
 
+
     @Before
     public void setUp(){
         product1 = new Product(1, "choco", 2.99, new Btw(1, 21), "chocolate paste", "back of the store", "store1", null);
         product11 = new Product(1, "choco", 2.99, new Btw(1, 21), "chocolate paste", "back of the store", "store1", null);
         product2 = new Product(2, "choco", 2.99, new Btw(1, 21), "chocolate paste", "back of the store", "store1", null);
-        transaction = new Transaction(1, new Date(), "store1", null, null);
+        transaction = new Transaction(1,  "store1", null, null);
     }
 
     @Test
@@ -80,4 +81,5 @@ public class TransactionTest {
         transaction.removeAllProducts();
         assertTrue("products is empty", transaction.getProducts().isEmpty());
     }
+
 }

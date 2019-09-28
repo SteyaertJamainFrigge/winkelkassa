@@ -1,4 +1,4 @@
-package FriggeSteyaertJamain.be.winkelKassa.data;
+package FriggeSteyaertJamain.be.winkelKassa.data.db;
 
 import FriggeSteyaertJamain.be.winkelKassa.domain.login.User;
 

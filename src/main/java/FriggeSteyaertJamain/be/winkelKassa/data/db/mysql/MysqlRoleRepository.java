@@ -1,6 +1,6 @@
-package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
+package FriggeSteyaertJamain.be.winkelKassa.data.db.mysql;
 
-import FriggeSteyaertJamain.be.winkelKassa.data.RoleRepository;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.RoleRepository;
 import FriggeSteyaertJamain.be.winkelKassa.domain.login.Role;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 

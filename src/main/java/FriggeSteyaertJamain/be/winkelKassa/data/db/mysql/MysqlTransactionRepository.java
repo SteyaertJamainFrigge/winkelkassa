@@ -1,7 +1,6 @@
-package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
+package FriggeSteyaertJamain.be.winkelKassa.data.db.mysql;
 
-import FriggeSteyaertJamain.be.winkelKassa.data.TransactionRepository;
-import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.TransactionRepository;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Transaction;
 
 import java.sql.Connection;

@@ -1,6 +1,6 @@
 package FriggeSteyaertJamain.be.winkelKassa.ui.gui;
 
-import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Purchase;
@@ -236,9 +236,9 @@ public class KassaController extends SubWindow {
         int y = 0;
         int categoryIndex = 0;
         int productIndex = 0;
-        while (y < 6) {
+        while (y < 7) {
             int x = 0;
-            while (x < 4) {
+            while (x < 6) {
                 if (categoryIndex < categoryButtons.size()) {
                     this.categoriesGrid.add(categoryButtons.get(categoryIndex), x, y);
                     categoryIndex++;

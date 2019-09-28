@@ -1,6 +1,6 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
-import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 
 public class Product {
     private int id;
