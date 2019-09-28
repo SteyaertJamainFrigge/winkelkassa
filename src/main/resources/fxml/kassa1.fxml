@@ -184,7 +184,7 @@
                 <Button fx:id="printTicketBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308"
                         maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="2"
                         GridPane.rowIndex="1"/>
-                <Button fx:id="resumeTicketBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308"
+                <Button fx:id="resumeTicketBtn" onAction="#resumeTicket" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308"
                         maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="3"/>
                 <Button fx:id="recallTicketBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308"
                         maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="4"/>
