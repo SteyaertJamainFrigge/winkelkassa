@@ -292,14 +292,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
-                    <children>
-                        <Button fx:id="confirmBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                mnemonicParsing="false" onAction="#confirm" GridPane.rowIndex="2"/>
-                        <Button fx:id="backspaceBtn" maxHeight="1.7976931348623157E308"
-                                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backspace"/>
-                        <Button fx:id="retourBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                mnemonicParsing="false" onAction="#retour" text="RETOUR" GridPane.rowIndex="3"/>
-                    </children>
+                    <Button fx:id="confirmBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" onAction="#confirm" GridPane.rowIndex="2"/>
+                    <Button fx:id="backspaceBtn" maxHeight="1.7976931348623157E308"
+                            maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backspace"/>
+                    <Button fx:id="retourBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                            mnemonicParsing="false" onAction="#retour" text="RETOUR" GridPane.rowIndex="3"/>
                 </GridPane>
             </GridPane>
             <TextField fx:id="previewTxtField" editable="false" maxHeight="1.7976931348623157E308" promptText="0"
