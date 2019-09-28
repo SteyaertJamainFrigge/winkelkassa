@@ -6,16 +6,20 @@ import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,6 +28,12 @@ import java.util.List;
 
 public class ArticleManagementController extends SubWindow {
 
+    @FXML
+    private Label gridPosition;
+    @FXML
+    private HBox barcodeHbox;
+    @FXML
+    private GridPane inputGrid;
     @FXML
     private ComboBox unitComboBx;
     @FXML
@@ -62,6 +72,14 @@ public class ArticleManagementController extends SubWindow {
     private ComboBox<ProductCategory> categoryComboBx;
     @FXML
     private ComboBox<Btw> btwComboBx;
+    @FXML
+    private TextField imageLocationInput;
+    @FXML
+    private TextField packageCodeInput;
+    @FXML
+    private Button openExplorerBtn;
+    @FXML
+    private Button barcodePrintBtn;
 
     public void initialize() {
         initializeSpinner();
@@ -70,7 +88,6 @@ public class ArticleManagementController extends SubWindow {
         fillBtw();
         addProductListListener();
         this.productList.getSelectionModel().selectFirst();
-        enableDisableInputFields(false);
     }
 
     private void initializeSpinner() {
@@ -80,7 +97,11 @@ public class ArticleManagementController extends SubWindow {
 
     private void addProductListListener() {
         this.productList.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> fillProductValues(newValue));
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        fillProductValues(newValue);
+                    }
+                });
     }
 
     private void fillProductList() {
@@ -107,7 +128,7 @@ public class ArticleManagementController extends SubWindow {
     private void fillCategories() {
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getAllCategories();
         this.categories = categories;
-        this.categories.add(new ProductCategory(0, "zonder categorie"));
+        this.categories.add(0,new ProductCategory(0, "zonder categorie"));
         this.categoryComboBx.setItems(FXCollections.observableList(categories));
     }
 
@@ -120,10 +141,8 @@ public class ArticleManagementController extends SubWindow {
         this.locationInput.setText(product.getLocation());
         this.storeInput.setText(product.getStore());
         this.barcodeInput.setText(product.getBarcode());
-        ProductCategory pc = findCategoryById(product.getCategory());
-        this.categoryComboBx.setValue(pc);
+        this.categoryComboBx.getSelectionModel().select(product.getCategory());
         this.btwComboBx.setValue(product.getBtw());
-        int id = product.getId();
     }
 
     private ProductCategory findCategoryById(int id) {
@@ -135,6 +154,18 @@ public class ArticleManagementController extends SubWindow {
             }
         }
         return category;
+    }
+
+    private void clearProductValues() {
+        enableDisableInputFields(true);
+        this.nameInput.clear();
+        this.priceSpinner.getValueFactory().setValue(0.00);
+        this.descriptionInput.clear();
+        this.locationInput.clear();
+        this.storeInput.clear();
+        this.barcodeInput.clear();
+        this.categoryComboBx.getSelectionModel().selectFirst();
+        this.btwComboBx.getSelectionModel().selectFirst();
     }
 
     private void saveChangesToObject(Product product) {
@@ -152,13 +183,23 @@ public class ArticleManagementController extends SubWindow {
         Repositories.getInstance().getProductRepository().updateProduct(productToSave);
     }
 
+    private void addNewObjectToDb(Product productToSave) {
+        Repositories.getInstance().getProductRepository().addProduct(productToSave);
+    }
+
     @FXML
     private void save() {
         Product productToSave = this.productList.getSelectionModel().getSelectedItem();
-        saveChangesToObject(productToSave);
-        savechangedObjectToDB(productToSave);
+        if (productToSave == null) {
+            addNewObjectToDb(getNewProduct());
+            fillProductList();
+        } else {
+            saveChangesToObject(productToSave);
+            savechangedObjectToDB(productToSave);
+        }
         enableDisableInputFields(false);
     }
+
 
     @FXML
     private void runBarcodePrinter() throws IOException {
@@ -180,20 +221,40 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void enableDisableInputFields(boolean bool) {
-        TextInputControl[] inputFields = {
-                this.nameInput,
-                this.barcodeInput,
-                this.descriptionInput,
-                this.locationInput,
-                this.storeInput};
-        for (TextInputControl inputField : inputFields) {
-            inputField.setDisable(!bool);
-        }
-        this.priceSpinner.setDisable(!bool);
-        this.btwComboBx.setDisable(!bool);
-        this.categoryComboBx.setDisable(!bool);
+        ObservableList<Node> inputFields = this.inputGrid.getChildren();
+        inputFields.forEach(node -> {
+            if (node == this.barcodeHbox) {
+                keepPrintBarcodeBtnEnabled(node, bool);
+            } else {
+                node.setDisable(!bool);
+            }
+        });
+
     }
 
+    private void keepPrintBarcodeBtnEnabled(Node node, boolean bool) {
+        HBox box = (HBox) node;
+        box.getChildren().get(0).setDisable(!bool);
+    }
 
+    @FXML
+    private void createProduct() {
+        this.productList.getSelectionModel().clearSelection();
+        clearProductValues();
+    }
+
+    private Product getNewProduct() {
+        return new Product(
+                0,
+                this.nameInput.getText(),
+                this.priceSpinner.getValue(),
+                this.btwComboBx.getValue(),
+                this.descriptionInput.getText(),
+                this.locationInput.getText(),
+                this.storeInput.getText(),
+                this.barcodeInput.getText(),
+                this.categoryComboBx.getValue().getId()
+        );
+    }
 }
 
