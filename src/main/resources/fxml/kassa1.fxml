@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import FriggeSteyaertJamain.be.winkelKassa.ui.customComponents.CategoryButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,107 +17,305 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KassaController">
-    <GridPane layoutX="286.0" layoutY="135.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="789.0" prefWidth="1174.0" stylesheets="@../style/css/stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KassaController">
+    <GridPane layoutX="286.0" layoutY="135.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="65.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="65.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <padding>
-            <Insets bottom="10.0"/>
+            <Insets bottom="10.0" />
         </padding>
         <GridPane gridLinesVisible="true" GridPane.columnIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <TableView GridPane.columnIndex="1"/>
+            <TableView fx:id="shoppingListTable" GridPane.columnIndex="1" />
             <GridPane>
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <VBox spacing="25.0">
                     <padding>
-                        <Insets left="20.0" top="25.0"/>
+                        <Insets left="20.0" top="25.0" />
                     </padding>
-                    <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" text="up"/>
-                    <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" text="down"/>
+                    <Button fx:id="scrollUpBtn" mnemonicParsing="false" onAction="#scrollUP" prefHeight="48.0" prefWidth="48.0" text="up" />
+                    <Button fx:id="scrollDownBTn" mnemonicParsing="false" onAction="#scrollDown" prefHeight="48.0" prefWidth="48.0" text="down" />
                 </VBox>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                    <Button mnemonicParsing="false" text="del" AnchorPane.leftAnchor="15.0"
-                            AnchorPane.topAnchor="0.0"/>
+                    <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deletePurchase" text="del" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="0.0" />
                 </AnchorPane>
             </GridPane>
-            <GridPane gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane fx:id="categoriesGrid" gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
             </GridPane>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="1">
-                <Button mnemonicParsing="false" text="home"/>
-                <Button mnemonicParsing="false" text="back"/>
-                <Button mnemonicParsing="false" text="up"/>
-                <Button mnemonicParsing="false" text="find"/>
-                <Button mnemonicParsing="false" text="down"/>
-            </VBox>
+            <GridPane GridPane.rowIndex="1">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                    <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#resetCategoryAndProductGrid" text="home" />
+                    <CategoryButton fx:id="backBtn" mnemonicParsing="false" onAction="#ShowParentCategoryAndProductGrid" text="back" />
+                    <Button fx:id="prevPageBtn" mnemonicParsing="false" text="up" />
+                    <Button fx:id="findBtn" mnemonicParsing="false" text="find" />
+                    <Button fx:id="nextPageBtn" mnemonicParsing="false" text="down" />
+                    <padding>
+                        <Insets left="20.0" top="25.0" />
+                    </padding>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                    <padding>
+                        <Insets left="20.0" top="25.0" />
+                    </padding>
+                    <Button fx:id="gridEditorBtn" mnemonicParsing="false" onAction="#startGridregisterWindow" text="g" />
+                </VBox>
+            </GridPane>
             <BorderPane GridPane.columnIndex="2">
                 <top>
                     <HBox spacing="10.0" BorderPane.alignment="CENTER">
-                        <padding>
-                            <Insets top="10.0"/>
-                        </padding>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button"/>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button"/>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button"/>
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button" />
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Button" />
+                        <Button fx:id="returnBtn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#returnToMainScene" text="Button" />
                     </HBox>
                 </top>
                 <center>
                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
                         <padding>
-                            <Insets left="15.0" top="15.0"/>
+                            <Insets left="15.0" top="15.0" />
                         </padding>
                         <Label text="gebruikersnaam">
                             <font>
-                                <Font size="17.0"/>
+                                <Font size="17.0" />
                             </font>
                         </Label>
                         <Label text="kassa">
                             <font>
-                                <Font size="17.0"/>
+                                <Font size="17.0" />
                             </font>
                         </Label>
                     </VBox>
                 </center>
             </BorderPane>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        </GridPane>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="12.5" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="7.5" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="45.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <GridPane GridPane.rowIndex="4">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <Button fx:id="pauzeTicketBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="2" />
+                <Button fx:id="payCashBtn" layoutX="50.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#confirmCashPayment" />
+                <Button fx:id="payDigitalBtn" layoutX="50.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#confirmDigitalPayment" GridPane.columnIndex="1" />
+                <Button fx:id="openDrawerBtn" layoutX="50.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.rowIndex="1" />
+                <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="printTicketBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Button fx:id="resumeTicketBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="3" />
+                <Button fx:id="recallTicketBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="4" />
+                <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="5" />
+                <Button fx:id="mailTicketBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <Button fx:id="registerCashBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane GridPane.rowIndex="3">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <Button fx:id="oneBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.rowIndex="2" />
+                    <Button fx:id="sevenBtn" layoutX="10.0" layoutY="120.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" />
+                    <Button fx:id="eightBtn" layoutX="10.0" layoutY="120.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.columnIndex="1" />
+                    <Button fx:id="nineBtn" layoutX="62.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.columnIndex="2" />
+                    <Button fx:id="fourBtn" layoutX="62.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.rowIndex="1" />
+                    <Button fx:id="fiveBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Button fx:id="sixBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <Button fx:id="backspaceBtn" layoutX="114.0" layoutY="65.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backspace" GridPane.columnIndex="3" />
+                    <Button fx:id="twoBtn" layoutX="167.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Button fx:id="threeBtn" layoutX="62.0" layoutY="120.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <Button fx:id="confirmBtn" layoutX="114.0" layoutY="120.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#confirm" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    <Button fx:id="zeroBtn" layoutX="167.0" layoutY="120.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.rowIndex="3" />
+                    <Button fx:id="doubleZeroBtn" layoutX="10.0" layoutY="175.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Button fx:id="dotBtn" layoutX="62.0" layoutY="175.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInteger" text="." GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                    <Button fx:id="retourBtn" layoutX="62.0" layoutY="175.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#retour" text="RETOUR" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                </GridPane>
+                <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="17.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="17.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="17.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <ToggleButton fx:id="amountBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closeCommPort" text="Aantal" />
+                    <ToggleButton fx:id="scaleBtn" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startWeightListener" text="Weegschaal" GridPane.rowIndex="1" />
+                    <ToggleButton fx:id="priceBTn" layoutX="10.0" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closeCommPort" text="Prijs" GridPane.rowIndex="2" />
+                    <ToggleButton fx:id="discountBtn" layoutX="10.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closeCommPort" text="Korting" GridPane.rowIndex="3" />
+                    <Button fx:id="packagingBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Verpakking" GridPane.rowIndex="5" />
+                </GridPane>
+            </GridPane>
+            <TextField fx:id="previewTxtField" editable="false" maxHeight="1.7976931348623157E308" promptText="0" GridPane.rowIndex="2">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </TextField>
+            <GridPane GridPane.rowIndex="1">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <Label text="Klantnaam">
+                        <font>
+                            <Font size="20.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="10.0" layoutY="10.0" text="Spaarkaart €" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="17.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="84.0" layoutY="41.0" text="Tegoed €" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="17.0" />
+                        </font>
+                    </Label>
+                    <CheckBox mnemonicParsing="false" text="Lid Coop" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="17.0" />
+                        </font>
+                    </CheckBox>
+                </GridPane>
+                <Button fx:id="searchClientBtn" mnemonicParsing="false" onAction="#startClientWindow" styleClass="iconButton">
+                    <GridPane.margin>
+                        <Insets left="20.0" />
+                    </GridPane.margin>
+                </Button>
+            </GridPane>
+            <GridPane hgap="10.0" style="-fx-background-color: limegreen;">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Bedrag" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Cash" textAlignment="RIGHT" textFill="WHITE" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="32.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Wissel" textAlignment="RIGHT" textFill="WHITE" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="34.0" />
+                    </font>
+                </Label>
+                <Label fx:id="totalLbl" layoutX="10.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="999.999,99" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Bold" size="40.0" />
+                    </font>
+                </Label>
+                <Label fx:id="cashLbl" layoutX="150.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="999.999,99" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="40.0" />
+                    </font>
+                </Label>
+                <Label fx:id="changeLbl" layoutX="150.0" layoutY="32.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="999.999,99" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="40.0" />
+                    </font>
+                </Label>
+            </GridPane>
         </GridPane>
     </GridPane>
 </AnchorPane>

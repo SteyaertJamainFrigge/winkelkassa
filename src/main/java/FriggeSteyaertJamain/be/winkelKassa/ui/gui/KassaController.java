@@ -27,7 +27,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static java.util.Map.entry;
 
 public class KassaController extends SubWindow {
 
@@ -125,6 +129,10 @@ public class KassaController extends SubWindow {
     private TableView<Purchase> shoppingListTable;
     @FXML
     private Button deleteBtn;
+    @FXML
+    private Button searchClientBtn;
+    @FXML
+    private Button gridEditorBtn;
 
     private ObservableList<Purchase> shoppingList;
     private SerialPort commPort;
@@ -136,16 +144,38 @@ public class KassaController extends SubWindow {
         setupSerialPort();
         addButtonIcons();
         createShoppingListTableColumns();
+        initializeShoppnigList();
+        removeCategoryGridLines();
+        addBaseProductAndCategoryGrid();
+        setupNumpadToggleGroup();
+    }
+
+    private void setupNumpadToggleGroup() {
+        this.numpadAction = new ToggleGroup();
+        this.amountBtn.setUserData("amount");
+        this.discountBtn.setUserData("discount");
+        this.scaleBtn.setUserData("scale");
+        this.priceBTn.setUserData("price");
+        this.numpadAction.getToggles().addAll(this.amountBtn, this.scaleBtn, this.discountBtn, this.priceBTn);
+    }
+
+    private void removeCategoryGridLines() {
+        this.categoriesGrid.setGridLinesVisible(false);
+    }
+
+    private void initializeShoppnigList() {
         shoppingList = FXCollections.observableArrayList();
         this.shoppingListTable.setItems(shoppingList);
-        this.categoriesGrid.setGridLinesVisible(false);
+    }
+
+    private void addBaseProductAndCategoryGrid() {
         List<ProductCategory> categories = Repositories.getInstance().getCategoryRepository().getbaseCategories();
         List<Product> products = Repositories.getInstance().getProductRepository().getBaseProducts();
         fillProductAndCategoryGrid(categories, products, "base");
     }
 
     private void setupSerialPort() {
-        if(SerialPort.getCommPorts().length > 0){
+        if(SerialPort.getCommPorts().length > 1){
             this.commPort = SerialPort.getCommPorts()[1];
             this.commPort.openPort();
             this.commPort.addDataListener(new SerialPortDataListener() {
@@ -173,30 +203,14 @@ public class KassaController extends SubWindow {
     }
 
     private void createShoppingListTableColumns() {
-        TableColumn<Purchase, String> column1 = new TableColumn<>("Artikel");
-        column1.setMinWidth(100);
-        column1.setCellValueFactory(new PropertyValueFactory<>("article"));
-        TableColumn<Purchase, Integer> column2 = new TableColumn<>("Aantal");
-        column2.setMinWidth(100);
-        column2.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        TableColumn<Purchase, Double> column3 = new TableColumn<>("Prijs");
-        column3.setMinWidth(100);
-        column3.setCellValueFactory(new PropertyValueFactory<>("price"));
-        TableColumn<Purchase, Double> column4 = new TableColumn<>("Korting");
-        column4.setMinWidth(100);
-        column4.setCellValueFactory(new PropertyValueFactory<>("discount"));
-        TableColumn<Purchase, Integer> column5 = new TableColumn<>("BTW");
-        column5.setMinWidth(100);
-        column5.setCellValueFactory(new PropertyValueFactory<>("btw"));
-        TableColumn<Purchase, Double> column6 = new TableColumn<>("Bedrag");
-        column6.setMinWidth(100);
-        column6.setCellValueFactory(new PropertyValueFactory<>("total"));
-        this.shoppingListTable.getColumns().add(column1);
-        this.shoppingListTable.getColumns().add(column2);
-        this.shoppingListTable.getColumns().add(column3);
-        this.shoppingListTable.getColumns().add(column4);
-        this.shoppingListTable.getColumns().add(column5);
-        this.shoppingListTable.getColumns().add(column6);
+        String[] columnNames = {"Artikel", "Aantal", "Prijs", "Korting", "BTW", "Bedrag"};
+        String[] cellValue = {"article", "amount", "price", "discount", "btw", "total"};
+        for(int i = 0; i<columnNames.length; i++){
+            TableColumn<Purchase, String> column = new TableColumn<>(columnNames[i]);
+            column.setMinWidth(100);
+            column.setCellValueFactory(new PropertyValueFactory<>(cellValue[i]));
+            this.shoppingListTable.getColumns().add(column);
+        }
     }
 
     private void fillProductAndCategoryGrid(List<ProductCategory> categories, List<Product> products, String name) {
@@ -325,55 +339,54 @@ public class KassaController extends SubWindow {
     }
 
     private void add24x24ButtonIcons() {
-        Button[][] buttons =
-                {{this.deleteBtn},
-                        {}};
-        String[][] filenames = {{"Trash"}, {}};
-        setButtonGraphics(buttons, filenames, "24");
+        Map<Button, String> orangeButtonHashMap = Map.ofEntries(
+                entry(this.deleteBtn, "Trash"),
+                entry(this.gridEditorBtn, "Tool"),
+                entry(this.returnBtn, "Cancel")
+        );
+        setButtonGraphics(orangeButtonHashMap, "24", "orange");
     }
 
     private void add48x48ButtonIcons() {
-        Button[][] buttons =
-                {{this.payCashBtn,
-                        this.payDigitalBtn,
-                        this.pauzeTicketBtn,
-                        this.pauzeTicketBtn,
-                        this.recallTicketBtn,
-                        this.openDrawerBtn,
-                        this.printTicketBtn,
-                        this.registerCashBtn,
-                        this.mailTicketBtn,
-                        this.scrollDownBTn,
-                        this.scrollUpBtn,
-                }, {this.doubleZeroBtn,
-                        this.confirmBtn,
-                        this.backspaceBtn}};
-        String[][] filenames =
-                {{"Currency Euro", "Dots", "Player Pause", "Player Play", "Database", "Alarme", "Printer", "Mail", "Go In", "Arrow3 Down", "Arrow3 Up"}, {"0", "OK", "Arrow2 Left"}};
-
-        setButtonGraphics(buttons, filenames, "48");
+        Map<Button, String> orangeButtonHashMap = Map.ofEntries(
+                entry(this.payCashBtn,"Currency Euro"),
+                entry(this.payDigitalBtn,"Dots"),
+                entry(this.pauzeTicketBtn, "Player Pause"),
+                entry(this.resumeTicketBtn,"Player Play"),
+                entry(this.recallTicketBtn, "Database"),
+                entry(this.openDrawerBtn, "Alarme"),
+                entry(this.printTicketBtn, "Printer"),
+                entry(this.mailTicketBtn, "Mail"),
+                entry(this.scrollDownBTn, "Arrow3 Down"),
+                entry(this.scrollUpBtn, "Arrow3 Up"),
+                entry(this.homeBtn,"Home"),
+                entry(this.searchClientBtn, "Search"),
+                entry(this.findBtn, "Search"),
+                entry(this.backBtn, "Back"),
+                entry(this.prevPageBtn, "Arrow3 Up"),
+                entry(this.nextPageBtn, "Arrow3 Down")
+                );
+        Map<Button, String> greenButtonHashMap = Map.ofEntries(
+                entry(this.doubleZeroBtn, "0"),
+                entry(this.confirmBtn, "OK"),
+                entry(this.backspaceBtn, "Arrow2 Left")
+        );
+        setButtonGraphics(orangeButtonHashMap, "48", "orange");
+        setButtonGraphics(greenButtonHashMap, "48", "green");
     }
 
-    private void setButtonGraphics(Button[][] buttons, String[][] filenames, String res) {
-        for (int i = 0; i < buttons.length; i++) {
-            for (int j = 0; j < buttons[i].length; j++) {
-                String color;
-                if (i == 0) {
-                    color = "orange";
-                } else {
-                    color = "green";
-                }
-                Image image = new Image(getClass().getResourceAsStream("/images/" + color + "/" + res + "x" + res + "/" + filenames[i][j] + ".png"));
-                Button button = buttons[i][j];
-                button.setGraphic(new ImageView(image));
-                button.setText("");
-            }
-        }
-    }
+    private void setButtonGraphics(Map<Button, String> buttonMap, String res, String color){
+        buttonMap.forEach((key, value) ->{
+            Image image = new Image(getClass().getResourceAsStream("/images/"+ color +"/" + res + "x" + res + "/" + value + ".png"));
+            key.setGraphic(new ImageView(image));
+            key.setText("");
+            key.getStyleClass().add("iconButton");
+        });
 
+    }
 
     @FXML
-    private void Retour() {
+    private void retour() {
         this.previewTxtField.setText("");
     }
 
@@ -383,7 +396,7 @@ public class KassaController extends SubWindow {
         int indexOf = source.indexOf("=");
         int lastIndexOf = source.indexOf(",");
         String id = source.substring(indexOf + 1, lastIndexOf);
-        String text = previewTxtField.getText();
+        String text = this.previewTxtField.getText();
         switch (id) {
             case "doubleZeroBtn":
                 text += "00";
@@ -440,10 +453,17 @@ public class KassaController extends SubWindow {
             String action = (String) this.numpadAction.getSelectedToggle().getUserData();
             switch (action) {
                 case "amount":
-                    System.out.println(Double.parseDouble(this.previewTxtField.getText()));
-                    double floatAmount = Double.parseDouble(this.previewTxtField.getText());
-                    int amount = (int) Math.round(floatAmount);
-                    this.shoppingListTable.getSelectionModel().getSelectedItem().setAmount(amount);
+                    try{
+                        int selectedIndex = this.shoppingListTable.getSelectionModel().getSelectedIndex();
+                        Purchase purchase = this.shoppingList.get(selectedIndex);
+                        purchase.setAmount(Integer.parseInt(this.previewTxtField.getText()));
+                        this.shoppingListTable.refresh();
+                    }catch (NullPointerException ex){
+                        Alert al = new Alert(Alert.AlertType.ERROR);
+                        al.setContentText("selecteer een optie");
+                        al.initOwner(this.root.getScene().getWindow());
+                        al.showAndWait();
+                    }
                     break;
                 case "scale":
 
@@ -452,6 +472,8 @@ public class KassaController extends SubWindow {
                     //de nothing
                     break;
             }
+            updateTotalPrice();
+            retour();
         } catch (NullPointerException ex) {
             Alert al = new Alert(Alert.AlertType.ERROR);
             al.setContentText("selecteer een optie");
@@ -471,7 +493,7 @@ public class KassaController extends SubWindow {
                 updateTotalPrice();
             } else {
                 purchase.decrement();
-                this.shoppingList.set(index, purchase);
+                this.shoppingListTable.refresh();
                 updateTotalPrice();
             }
         } catch (IndexOutOfBoundsException e) {
