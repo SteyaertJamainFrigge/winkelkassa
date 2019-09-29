@@ -248,7 +248,8 @@ public class ArticleManagementController extends SubWindow {
                 this.locationInput.getText(),
                 this.storeInput.getText(),
                 this.barcodeInput.getText(),
-                this.categoryComboBx.getValue().getId()
+                this.categoryComboBx.getValue().getId(),
+                this.imageLocationInput.getText()
         );
     }
 }
