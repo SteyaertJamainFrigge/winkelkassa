@@ -29,10 +29,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.fazecast/jSerialComm
     compile group: 'com.fazecast', name: 'jSerialComm', version: '2.5.2'
-
-    // https://mvnrepository.com/artifact/commons-net/commons-net
-    compile group: 'commons-net', name: 'commons-net', version: '3.6'
-
 }
 
 javafx{

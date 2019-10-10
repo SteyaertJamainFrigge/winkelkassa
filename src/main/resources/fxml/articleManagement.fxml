@@ -226,11 +226,9 @@
                       <Button fx:id="openExplorerBtn" mnemonicParsing="false" onAction="#openExplorer" text="Kies" GridPane.columnIndex="1" />
                   </GridPane>
                   <TextArea fx:id="descriptionInput" prefHeight="107.0" prefWidth="310.0" GridPane.rowIndex="9" />
-                  <HBox fx:id="categoryHbx" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0"
-                        GridPane.rowIndex="10">
-                      <ComboBox fx:id="categoryComboBx"/>
-                      <Button fx:id="addCategoryBtn" mnemonicParsing="false" onAction="#showAddProductCategoryDialog"
-                              text="+"/>
+                  <HBox fx:id="categoryHbx" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="10">
+                      <ComboBox fx:id="categoryComboBx" />
+                      <Button fx:id="addCategoryBtn" mnemonicParsing="false" onAction="#showAddProductCategoryDialog" text="+" />
                   </HBox>
                   <GridPane hgap="5.0" GridPane.rowIndex="11">
                       <columnConstraints>
@@ -255,11 +253,9 @@
       </center>
       <right>
           <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true"
-                         AnchorPane.bottomAnchor="339.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                         AnchorPane.topAnchor="272.0">
+              <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="339.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="272.0">
                  <viewport>
-                     <Rectangle2D/>
+                     <Rectangle2D />
                  </viewport>
               </ImageView>
           </AnchorPane>

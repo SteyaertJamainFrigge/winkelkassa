@@ -18,12 +18,11 @@ abstract class SubWindow {
 
     @FXML
     private void returnToParentScene(){
-        stage = (Stage) root.getScene().getWindow();
+        this.stage = (Stage) root.getScene().getWindow();
         if(stage.getOwner() == null) returnToMainScene();
         else closeWindow();
     }
 
-    @FXML
     private void returnToMainScene(){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/start.fxml"));
@@ -39,9 +38,7 @@ abstract class SubWindow {
         }
     }
 
-    @FXML
     private void closeWindow(){
         this.stage.close();
     }
-
 }
