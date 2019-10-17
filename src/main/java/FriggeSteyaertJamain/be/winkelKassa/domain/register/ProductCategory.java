@@ -10,11 +10,15 @@ public class ProductCategory {
     private ArrayList<ProductCategory> subCategories = new ArrayList<>();
     private List<Product> products;
 
-    public ProductCategory(int id, String name, ProductCategory parent, List<Product> products) {
+    private ProductCategory(int id, String name, ProductCategory parent, List<Product> products) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.products = products;
+    }
+
+    public ProductCategory(int id, String name, ProductCategory parent){
+        this(id, name, parent, null);
     }
 
     public ProductCategory(int id, String name) {

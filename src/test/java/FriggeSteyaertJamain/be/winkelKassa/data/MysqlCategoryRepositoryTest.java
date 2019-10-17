@@ -1,10 +1,10 @@
 package FriggeSteyaertJamain.be.winkelKassa.data;
 
-import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.CategoryRepository;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.validator.ValidateWith;
 
 import java.util.List;
 

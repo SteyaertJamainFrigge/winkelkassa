@@ -1,5 +1,7 @@
 package FriggeSteyaertJamain.be.winkelKassa.data;
 
+import FriggeSteyaertJamain.be.winkelKassa.data.db.ClientRepository;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Client;
 import org.junit.BeforeClass;
 import org.junit.Test;

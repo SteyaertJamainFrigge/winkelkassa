@@ -1,11 +1,11 @@
 package FriggeSteyaertJamain.be.winkelKassa.data;
 
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.SubcategoryRepository;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import org.junit.*;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class MysqlSubcategoryRepositoryTest {
 

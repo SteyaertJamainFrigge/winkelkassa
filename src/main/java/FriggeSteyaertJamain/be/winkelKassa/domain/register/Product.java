@@ -1,6 +1,6 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
-import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 
 public class Product {
     private int id;
@@ -12,8 +12,9 @@ public class Product {
     private String store;
     private String barcode;
     private Integer category;
+    private String imageLocation;
 
-    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, Integer category) {
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, Integer category, String imageLocation) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -23,10 +24,15 @@ public class Product {
         this.store = store;
         this.barcode = barcode;
         this.category = category;
+        this.imageLocation = imageLocation;
     }
 
-    public Product(int id, String name, double price, Btw btw, String description, String location, String store, Integer category) {
-        this(id, name, price, btw, description, location, store, null, category);
+    public String getImageLocation() {
+        return imageLocation;
+    }
+
+    public void setImageLocation(String imageLocation) {
+        this.imageLocation = imageLocation;
     }
 
     public int getId() {
@@ -45,7 +51,9 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {return price; }
+    public double getPrice() {
+        return price;
+    }
 
     public void setPrice(double price) {
         this.price = price;
@@ -106,12 +114,12 @@ public class Product {
 
 
     /**
-     *  generates a unique code that will be used for making the barcode
-     *  uses EAN standard
+     * generates a unique code that will be used for making the barcode
+     * uses EAN standard
      *
      * @return {String} 13 digits between 0 and 9
      */
-    public String generateInternalUniqueCode(){
+    public String generateInternalUniqueCode() {
         String prefix = "029";
         String manufacturer = "80156";
         StringBuilder code = new StringBuilder(prefix + manufacturer);
@@ -125,13 +133,13 @@ public class Product {
     }
 
     /**
-     *  add's the id that the product has to the barcode number as a product code
+     * add's the id that the product has to the barcode number as a product code
      *
      * @return {String} 4 digits between 0 and 9
      */
-    private String getProductCode(){
+    private String getProductCode() {
         StringBuilder product = new StringBuilder();
-        if(this.id == 0){
+        if (this.id == 0) {
             this.id = Repositories.getInstance().getProductRepository().getHighestId();
         }
         // add 0's
@@ -145,21 +153,21 @@ public class Product {
      *
      * @return {String} a single digit between 0 and 9
      */
-    private String getChecksum(String code){
+    private String getChecksum(String code) {
         String[] strArray = code.split("");
         int[] intArray = new int[strArray.length];
-        for(int i = 0; i < strArray.length; i++) {
+        for (int i = 0; i < strArray.length; i++) {
             intArray[i] = Integer.parseInt(strArray[i]);
         }
         int total = 0;
-        for(int i = 0; i < strArray.length; i+=2) {
-            total += (intArray[i] * 3) + intArray[i+1];
+        for (int i = 0; i < strArray.length; i += 2) {
+            total += (intArray[i] * 3) + intArray[i + 1];
         }
         int rest = 10 - (total % 10);
         return Integer.toString(rest);
     }
 
-    public boolean Equals(Product p){
+    public boolean Equals(Product p) {
         return this.id == p.getId();
     }
 }

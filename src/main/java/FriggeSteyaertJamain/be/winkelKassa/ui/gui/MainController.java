@@ -54,7 +54,7 @@ public class MainController {
 
     private void startRegister() throws Exception{
         register = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/kassa.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/kassa1.fxml"));
         Scene scene = new Scene(root);
         register.setScene(scene);
         register.setFullScreen(true);

@@ -16,8 +16,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KlantFicheController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="980.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="980.0" prefWidth="1400.0" stylesheets="@../style/css/stylesheet.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.KlantFicheController">
     <AnchorPane VBox.vgrow="ALWAYS">
         <ImageView layoutX="55.0" layoutY="3.0">
             <Image url="@../images/orange/48x48/Gear.png"/>
@@ -28,9 +30,14 @@
         <ImageView layoutX="283.0" layoutY="3.0" AnchorPane.leftAnchor="283.0" AnchorPane.topAnchor="3.0">
             <Image url="@../images/orange/48x48/Search.png"/>
         </ImageView>
-        <ImageView layoutX="1373.0" layoutY="2.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
-            <Image url="@../images/orange/24x24/Cancel.png"/>
-        </ImageView>
+        <Button styleClass="iconButton" onAction="#returnToParentScene" layoutX="1373.0" layoutY="2.0"
+                AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@../images/orange/24x24/Cancel.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
         <ImageView layoutX="106.0" layoutY="3.0">
             <Image url="@../images/green/48x48/Ok.png"/>
         </ImageView>
@@ -165,8 +172,8 @@
             <ImageView layoutX="3.0" layoutY="33.0">
                 <Image url="@../images/orange/48x48/Arrow3 Up.png"/>
             </ImageView>
-            <GridPane gridLinesVisible="true" layoutX="54.0" layoutY="34.0" maxHeight="-Infinity"
-                      maxWidth="-Infinity" prefHeight="477.0" prefWidth="214.0">
+            <GridPane gridLinesVisible="true" layoutX="54.0" layoutY="34.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      prefHeight="477.0" prefWidth="214.0">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                 </columnConstraints>
@@ -187,8 +194,8 @@
             </GridPane>
             <Button layoutX="54.0" layoutY="3.0" mnemonicParsing="false" text="Tickets"/>
             <TextField layoutX="109.0" layoutY="513.0" prefHeight="26.0" prefWidth="159.0"/>
-            <Label alignment="CENTER" layoutX="54.0" layoutY="516.0" style="&#10;" text="Totaal"
-                   textAlignment="CENTER" textFill="#9f9f9f">
+            <Label alignment="CENTER" layoutX="54.0" layoutY="516.0" style="&#10;" text="Totaal" textAlignment="CENTER"
+                   textFill="#9f9f9f">
                 <font>
                     <Font size="18.0"/>
                 </font>
@@ -216,8 +223,8 @@
             <ImageView layoutX="3.0" layoutY="33.0">
                 <Image url="@../images/orange/48x48/Arrow3 Up.png"/>
             </ImageView>
-            <GridPane gridLinesVisible="true" layoutX="54.0" layoutY="34.0" maxHeight="-Infinity"
-                      maxWidth="-Infinity" prefHeight="477.0" prefWidth="214.0">
+            <GridPane gridLinesVisible="true" layoutX="54.0" layoutY="34.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      prefHeight="477.0" prefWidth="214.0">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                 </columnConstraints>
@@ -248,8 +255,8 @@
             <ImageView layoutX="3.0" layoutY="33.0">
                 <Image url="@../images/orange/48x48/Arrow3 Up.png"/>
             </ImageView>
-            <GridPane gridLinesVisible="true" layoutX="54.0" layoutY="34.0" maxHeight="-Infinity"
-                      maxWidth="-Infinity" prefHeight="477.0" prefWidth="214.0">
+            <GridPane gridLinesVisible="true" layoutX="54.0" layoutY="34.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                      prefHeight="477.0" prefWidth="214.0">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                 </columnConstraints>

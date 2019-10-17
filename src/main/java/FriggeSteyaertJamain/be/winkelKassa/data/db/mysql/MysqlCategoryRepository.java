@@ -1,7 +1,7 @@
-package FriggeSteyaertJamain.be.winkelKassa.data.mysql;
+package FriggeSteyaertJamain.be.winkelKassa.data.db.mysql;
 
-import FriggeSteyaertJamain.be.winkelKassa.data.CategoryRepository;
-import FriggeSteyaertJamain.be.winkelKassa.data.Repositories;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.CategoryRepository;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
@@ -68,7 +68,7 @@ public class MysqlCategoryRepository implements CategoryRepository {
              PreparedStatement prep = con.prepareStatement(SQL_ADD_CATEGORY)) {
             prep.setInt(1, pc.getId());
             prep.setString(2, pc.getName());
-            prep.setInt(3,  pc.getSubCategories() == null ? 0 : 1);
+            prep.setInt(3,  pc.getSubCategories().size() > 0 ? 0 : 1);
             prep.executeUpdate();
         } catch (SQLException e) {
             throw new KassaException("unable do add category", e);
