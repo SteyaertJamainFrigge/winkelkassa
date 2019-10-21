@@ -59,7 +59,7 @@ public class MainController {
         register.setScene(scene);
         register.setFullScreen(true);
         register.setFullScreenExitHint("");
-        register.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        //register.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         //startRegisterDisplay();
     }
 

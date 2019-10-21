@@ -29,7 +29,7 @@ public class Transaction {
         this.totalPrice = totalPrice;
     }
 
-    public Transaction (int id, String store, Personnel personnel, Client client){
+    public Transaction(int id, Date date, String store, Personnel personnel, Client client){
         this(id, store, personnel, null, null, "", client, 0);
     }
 

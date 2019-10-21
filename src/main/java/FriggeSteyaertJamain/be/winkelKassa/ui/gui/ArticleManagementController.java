@@ -322,7 +322,7 @@ public class ArticleManagementController extends SubWindow {
     private void saveProductCategory(Pair<String, ProductCategory> stringProductCategoryPair) {
         ProductCategory pc = new ProductCategory(0, stringProductCategoryPair.getKey(), stringProductCategoryPair.getValue());
         addProductCategoryToDb(pc);
-        addProducCategoryToComboBx(pc);
+        addProductCategoryToComboBx(pc);
     }
 
     private boolean validateCategory(String categoryName) {
@@ -336,13 +336,16 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void addProductCategoryToDb(ProductCategory productCategory) {
-        Repositories.getInstance().getCategoryRepository().addCategory(productCategory);
+        Repositories repo = Repositories.getInstance();
+        repo.getCategoryRepository().addCategory(productCategory);
         if(productCategory.getParent().getId() != 0){
-            Repositories.getInstance().getSubCategoryRepository().addSubcategory(productCategory.getParent().getId(), productCategory.getId());
+            int parentCategoryId = productCategory.getParent().getId();
+            int databaseGeneratedId = repo.getCategoryRepository().getCategoryByName(productCategory.getName());
+            repo.getSubCategoryRepository().addSubcategory(parentCategoryId, databaseGeneratedId);
         }
     }
 
-    private void addProducCategoryToComboBx(ProductCategory productCategory) {
+    private void addProductCategoryToComboBx(ProductCategory productCategory) {
         this.categoryComboBx.getItems().add(productCategory);
     }
 }

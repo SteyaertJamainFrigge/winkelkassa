@@ -17,6 +17,7 @@ public class MysqlCategoryRepository implements CategoryRepository {
 
     private static final String SQL_GET_CATEGORIES = "SELECT * FROM categorie";
     private static final String SQL_GET_CATEGORY = "SELECT * FROM categorie c where c.idcategorie = ?";
+    private static final String SQL_GET_CATEGORY_ID_BY_NAME = "SELECT c.idcategorie FROM categorie c where c.naam = ?";
     private static final String SQL_ADD_CATEGORY = "insert into categorie(idcategorie, naam, heeftsubcategorie) values (?,?,?)";
     private static final String SQL_UPDATE_CATEGORY = "UPDATE `kassa`.`categorie` SET `naam` =? WHERE (`idcategorie` = ?)";
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM categorie WHERE (idcategorie = ?);";
@@ -59,6 +60,20 @@ public class MysqlCategoryRepository implements CategoryRepository {
             }
         } catch (SQLException e) {
             throw new KassaException("Unable to get Category from Db");
+        }
+    }
+
+    public int getCategoryByName(String name){
+        try(Connection con = MySqlConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(SQL_GET_CATEGORY_ID_BY_NAME)){
+            prep.setString(1, name);
+            try (ResultSet rs = prep.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt("idcategorie");
+                }else return 0;
+            }
+        } catch (SQLException e) {
+            throw new KassaException("Unable to get Category by name from db");
         }
     }
 
