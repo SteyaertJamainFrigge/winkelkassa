@@ -16,12 +16,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +55,7 @@ public class ArticleManagementController extends SubWindow {
     @FXML
     private Button zoomInBtn;
     @FXML
-    private ImageView articlePreviewImage;
+    private ImageView productPreviewImage;
     @FXML
     private Button databaseBtn;
     @FXML
@@ -148,6 +151,16 @@ public class ArticleManagementController extends SubWindow {
         this.barcodeInput.setText(product.getBarcode());
         this.categoryComboBx.getSelectionModel().select(findCategoryById(product.getCategory()));
         this.btwComboBx.setValue(product.getBtw());
+        this.imageLocationInput.setText(product.getImageLocation());
+        setImagePreview(product.getImageLocation());
+    }
+
+    private void setImagePreview(String imageLocation) {
+        if(imageLocation != null && !imageLocation.equals("")){
+            this.productPreviewImage.setImage(new Image(imageLocation));
+        }else {
+            this.productPreviewImage.setImage(null);
+        }
     }
 
     private ProductCategory findCategoryById(int id) {
@@ -264,6 +277,15 @@ public class ArticleManagementController extends SubWindow {
     }
 
     public void openExplorer() {
+        Stage stage = new Stage();
+        stage.initOwner(this.root.getScene().getWindow());
+        FileChooser.ExtensionFilter imageFilter
+                = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().clear();
+        chooser.getExtensionFilters().add(imageFilter);
+        chooser.setTitle("Open File");
+        File image = chooser.showOpenDialog(stage);
     }
 
     public void showAddProductCategoryDialog() {
@@ -347,6 +369,17 @@ public class ArticleManagementController extends SubWindow {
 
     private void addProductCategoryToComboBx(ProductCategory productCategory) {
         this.categoryComboBx.getItems().add(productCategory);
+    }
+
+    public void showLeeggoed() throws IOException {
+        Stage stage = new Stage();
+        stage.initOwner(this.root.getScene().getWindow());
+        //TODO make leeggoed fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TODO"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
 
