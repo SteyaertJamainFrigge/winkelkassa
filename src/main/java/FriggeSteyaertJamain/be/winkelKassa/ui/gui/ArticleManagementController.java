@@ -4,6 +4,7 @@ import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Btw;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
+import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,13 +25,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public class ArticleManagementController extends SubWindow {
-
 
     @FXML
     private HBox categoryHbx;
@@ -99,7 +101,8 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void initializeSpinner() {
-        SpinnerValueFactory<Double> spinnerValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, 2000.00);
+        SpinnerValueFactory<Double> spinnerValueFactory =
+                new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, 2000.00);
         this.priceSpinner.setValueFactory(spinnerValueFactory);
     }
 
@@ -156,9 +159,10 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void setImagePreview(String imageLocation) {
-        if(imageLocation != null && !imageLocation.equals("")){
-            this.productPreviewImage.setImage(new Image(imageLocation));
-        }else {
+        if (imageLocation != null && !imageLocation.equals("")) {
+            Image image = new Image(imageLocation);
+            this.productPreviewImage.setImage(image);
+        } else {
             this.productPreviewImage.setImage(null);
         }
     }
@@ -276,16 +280,11 @@ public class ArticleManagementController extends SubWindow {
         );
     }
 
-    public void openExplorer() {
-        Stage stage = new Stage();
-        stage.initOwner(this.root.getScene().getWindow());
-        FileChooser.ExtensionFilter imageFilter
-                = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
-        FileChooser chooser = new FileChooser();
-        chooser.getExtensionFilters().clear();
-        chooser.getExtensionFilters().add(imageFilter);
-        chooser.setTitle("Open File");
-        File image = chooser.showOpenDialog(stage);
+    @FXML
+    private void chooseImage() {
+        ImageLoader imageLoader = new ImageLoader("/images/product", this.root.getScene().getWindow());
+        String filepath = imageLoader.getImage();
+        //productList.getSelectionModel().getSelectedItem().setImageLocation();
     }
 
     public void showAddProductCategoryDialog() {
@@ -325,7 +324,8 @@ public class ArticleManagementController extends SubWindow {
         Node confirmButton = dialog.getDialogPane().lookupButton(confirmButtonType);
         confirmButton.setDisable(true);
 
-        categoryName.textProperty().addListener((observable, oldValue, newValue) -> confirmButton.setDisable(newValue.trim().isEmpty()));
+        categoryName.textProperty().addListener((observable, oldValue, newValue) ->
+                confirmButton.setDisable(newValue.trim().isEmpty()));
         dialog.getDialogPane().setContent(grid);
 
         Platform.runLater(categoryName::requestFocus);
@@ -342,7 +342,8 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void saveProductCategory(Pair<String, ProductCategory> stringProductCategoryPair) {
-        ProductCategory pc = new ProductCategory(0, stringProductCategoryPair.getKey(), stringProductCategoryPair.getValue());
+        ProductCategory pc =
+                new ProductCategory(0, stringProductCategoryPair.getKey(), stringProductCategoryPair.getValue());
         addProductCategoryToDb(pc);
         addProductCategoryToComboBx(pc);
     }
@@ -360,7 +361,7 @@ public class ArticleManagementController extends SubWindow {
     private void addProductCategoryToDb(ProductCategory productCategory) {
         Repositories repo = Repositories.getInstance();
         repo.getCategoryRepository().addCategory(productCategory);
-        if(productCategory.getParent().getId() != 0){
+        if (productCategory.getParent().getId() != 0) {
             int parentCategoryId = productCategory.getParent().getId();
             int databaseGeneratedId = repo.getCategoryRepository().getCategoryByName(productCategory.getName());
             repo.getSubCategoryRepository().addSubcategory(parentCategoryId, databaseGeneratedId);

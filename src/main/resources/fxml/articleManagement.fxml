@@ -241,7 +241,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         </rowConstraints>
                         <TextField fx:id="imageLocationInput"/>
-                        <Button mnemonicParsing="false" onAction="#openExplorer" text="Kies"
+                        <Button mnemonicParsing="false" onAction="#chooseImage" text="Kies"
                                 GridPane.columnIndex="1"/>
                     </GridPane>
                     <TextArea fx:id="descriptionInput" prefHeight="107.0" prefWidth="310.0" GridPane.rowIndex="9"/>
