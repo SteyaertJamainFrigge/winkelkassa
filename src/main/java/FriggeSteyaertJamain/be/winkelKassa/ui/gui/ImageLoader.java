@@ -1,12 +1,15 @@
 package FriggeSteyaertJamain.be.winkelKassa.ui.gui;
 
+import FriggeSteyaertJamain.be.winkelKassa.data.db.AfbeeldingRepository;
+import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +18,11 @@ public class ImageLoader {
 
     private String folder;
     private Window owner;
-    private BufferedImage image;
     private File f;
 
     ImageLoader(String folder, Window stageOwner) {
         this.folder = folder;
         this.owner = stageOwner;
-        this.image = null;
     }
 
     public String getFolder() {
@@ -29,13 +30,20 @@ public class ImageLoader {
     }
 
     /**
-     * @return String path where the image is saved
+     * @return File chosen image
      */
-    public String getImage() {
+    public Image getImage() {
         openExplorer();
-        readFile();
-        writeFile();
-        return f.getPath();
+        //writeFile();
+        Image image;
+        try {
+            BufferedImage bufferedImage = null;
+            bufferedImage = ImageIO.read(f);
+            image = SwingFXUtils.toFXImage(bufferedImage, null);
+        } catch (IOException e) {
+            throw new KassaException("couldn't read image file");
+        }
+        return image;
     }
 
     private void openExplorer() {
@@ -50,25 +58,24 @@ public class ImageLoader {
         f = chooser.showOpenDialog(stage);
     }
 
-    private void readFile() {
-        int width = 963;    //width of the image
-        int height = 640;   //height of the image
-        try {
-            image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            image = ImageIO.read(f);
-            System.out.println("Reading complete.");
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
-    }
-
     private void writeFile() {
-        try {
-            f = new File(folder+f.getName());  //output file path
+
+        AfbeeldingRepository repo = Repositories.getInstance().getAfbeeldingRepository();
+        repo.addImage(f.getName(), f);
+
+
+        /*try {
+            File dir = new File(folder);
+            boolean folderresult = dir.mkdirs();
+            System.out.println("made folder? "+ folderresult);
+            f = new File(dir, f.getName());  //output file path
+            boolean fileresult =  f.createNewFile();
+            System.out.println("made file? "+ fileresult);
             ImageIO.write(image, "jpg", f);
-            System.out.println("Writing complete.");
         } catch (IOException e) {
             throw new KassaException("couldn't write file");
         }
+
+         */
     }
 }

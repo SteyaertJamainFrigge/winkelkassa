@@ -1,6 +1,7 @@
 package FriggeSteyaertJamain.be.winkelKassa.domain.register;
 
 import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
+import javafx.scene.image.Image;
 
 public class Product {
     private int id;
@@ -13,6 +14,25 @@ public class Product {
     private String barcode;
     private Integer category;
     private String imageLocation;
+    private String imageName;
+    private int imageId;
+    private Image image;
+
+    public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, Integer category, String imageLocation, String imageName, int imageId, Image image) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.btw = btw;
+        this.description = description;
+        this.location = location;
+        this.store = store;
+        this.barcode = barcode;
+        this.category = category;
+        this.imageLocation = imageLocation;
+        this.imageName = imageName;
+        this.imageId = imageId;
+        this.image = image;
+    }
 
     public Product(int id, String name, double price, Btw btw, String description, String location, String store, String barcode, Integer category, String imageLocation) {
         this.id = id;
@@ -33,6 +53,30 @@ public class Product {
 
     public void setImageLocation(String imageLocation) {
         this.imageLocation = imageLocation;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public int getId() {
