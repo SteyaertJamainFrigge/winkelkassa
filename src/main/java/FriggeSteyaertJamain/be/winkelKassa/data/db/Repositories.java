@@ -31,4 +31,6 @@ public class Repositories {
     public SupplierRepository getSupplierRepository(){return new MysqlSupplierRepository();}
 
     public TransactionRepository getTransactionRepository(){return new MysqlTransactionRepository();}
+
+    public AfbeeldingRepository getAfbeeldingRepository(){return new MysqlAfbeeldingRepository();}
 }

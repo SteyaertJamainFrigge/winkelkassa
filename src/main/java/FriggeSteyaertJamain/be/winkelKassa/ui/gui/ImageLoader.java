@@ -13,37 +13,38 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ImageLoader {
 
-    private String folder;
     private Window owner;
-    private File f;
+    private File file;
 
-    ImageLoader(String folder, Window stageOwner) {
-        this.folder = folder;
+    ImageLoader(Window stageOwner) {
         this.owner = stageOwner;
-    }
-
-    public String getFolder() {
-        return folder;
     }
 
     /**
      * @return File chosen image
      */
-    public Image getImage() {
+    public HashMap<String, Image> getImage() {
         openExplorer();
-        //writeFile();
-        Image image;
+        if (file != null) {
+            Image image = readFile();
+            writeFile();
+            HashMap<String, Image> map = new HashMap<>();
+            map.put(file.getName(), image);
+            return map;
+        } else return null;
+    }
+
+    private Image readFile() {
         try {
-            BufferedImage bufferedImage = null;
-            bufferedImage = ImageIO.read(f);
-            image = SwingFXUtils.toFXImage(bufferedImage, null);
+            BufferedImage bufferedImage = ImageIO.read(file);
+            return SwingFXUtils.toFXImage(bufferedImage, null);
         } catch (IOException e) {
             throw new KassaException("couldn't read image file");
         }
-        return image;
     }
 
     private void openExplorer() {
@@ -55,27 +56,11 @@ public class ImageLoader {
         chooser.getExtensionFilters().clear();
         chooser.getExtensionFilters().add(imageFilter);
         chooser.setTitle("Open File");
-        f = chooser.showOpenDialog(stage);
+        file = chooser.showOpenDialog(stage);
     }
 
     private void writeFile() {
-
         AfbeeldingRepository repo = Repositories.getInstance().getAfbeeldingRepository();
-        repo.addImage(f.getName(), f);
-
-
-        /*try {
-            File dir = new File(folder);
-            boolean folderresult = dir.mkdirs();
-            System.out.println("made folder? "+ folderresult);
-            f = new File(dir, f.getName());  //output file path
-            boolean fileresult =  f.createNewFile();
-            System.out.println("made file? "+ fileresult);
-            ImageIO.write(image, "jpg", f);
-        } catch (IOException e) {
-            throw new KassaException("couldn't write file");
-        }
-
-         */
+        repo.addImage(file.getName(), file);
     }
 }

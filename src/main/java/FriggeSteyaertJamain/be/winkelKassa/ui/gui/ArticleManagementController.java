@@ -240,28 +240,38 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private Product getNewProduct() {
-        return new Product(
-                0,
-                this.nameInput.getText(),
-                this.priceSpinner.getValue(),
-                this.btwComboBx.getValue(),
-                this.descriptionInput.getText(),
-                this.locationInput.getText(),
-                this.storeInput.getText(),
-                this.barcodeInput.getText(),
-                this.categoryComboBx.getValue().getId(),
-                this.imageLocationInput.getText()
-        );
+        return new Product.ProdcutBuilder(0)
+                .setName(this.nameInput.getText())
+                .setPrice(this.priceSpinner.getValue())
+                .setBarcode(this.barcodeInput.getText())
+                .setBtw(this.btwComboBx.getValue())
+                .setDescription(this.descriptionInput.getText())
+                .setLocation(this.locationInput.getText())
+                .setStore(this.storeInput.getText())
+                .setCategory(this.categoryComboBx.getValue().getId())
+                .setImage(this.productPreviewImage.getImage())
+                .setImageName(this.imageLocationInput.getText())
+                .build();
     }
 
     @FXML
     private void chooseImage() {
-        ImageLoader imageLoader = new ImageLoader("/images", this.root.getScene().getWindow());
-        Image image = imageLoader.getImage();
-        productPreviewImage.setImage(image);
+        ImageLoader imageLoader = new ImageLoader(this.root.getScene().getWindow());
+        HashMap<String, Image> result = imageLoader.getImage();
+        if(result!=null){
+            Map.Entry<String,Image> entry = result.entrySet().iterator().next();
+            String key = entry.getKey();
+            Image value = entry.getValue();
+            addImageDataToProduct(key, value);
+            fillProductValues(this.productList.getSelectionModel().getSelectedItem(), true);
+        }
+    }
+
+    private void addImageDataToProduct(String key, Image value) {
         Product product = productList.getSelectionModel().getSelectedItem();
-        product.setImageName("name");
-        product.setImage(image);
+        product.setImageName(key);
+        product.setImage(value);
+        product.setImageId(Repositories.getInstance().getAfbeeldingRepository().getImageIdByName(key));
     }
 
     public void showAddProductCategoryDialog() {
