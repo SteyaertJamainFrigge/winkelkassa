@@ -65,10 +65,19 @@ public class MysqlProductRepository implements ProductRepository {
         String store = rs.getString("winkel");
         String barcode = rs.getString("barcode");
         int categoryId = rs.getInt("idcategorie");
-        String imageLocation = rs.getString("locatiefoto");
+        int imageId = rs.getInt("idafbeelding");
         int tariff = Repositories.getInstance().getBtwRepository().getBtw(btwId);
 
-        return new Product(id, name, price, new Btw(btwId, tariff), description, location, store, barcode, categoryId, imageLocation);
+        return new Product.ProdcutBuilder(id)
+                .setName(name)
+                .setPrice(price)
+                .setBtw(new Btw(btwId, tariff))
+                .setDescription(description)
+                .setLocation(location)
+                .setStore(store)
+                .setBarcode(barcode)
+                .setCategory(categoryId)
+                .setImageId(imageId).build();
     }
 
     @Override

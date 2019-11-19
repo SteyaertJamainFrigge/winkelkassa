@@ -29,7 +29,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ArticleManagementController extends SubWindow {
@@ -114,7 +116,11 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void fillProductValues(Product product) {
-        enableDisableInputFields(false);
+        fillProductValues(product, false);
+    }
+
+    private void fillProductValues(Product product, boolean enableInputFields){
+        enableDisableInputFields(enableInputFields);
         this.nameInput.setText(product.getName());
         this.priceSpinner.getValueFactory().setValue(product.getPrice());
         this.descriptionInput.clear();
