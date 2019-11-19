@@ -12,25 +12,26 @@ import java.util.List;
 
 public class MysqlProductRepository implements ProductRepository {
 
-    private static final String SQL_ADD_PRODUCT =   "insert into product(naam, prijs, btw, omschrijving, locatie, winkel, barcode, idcategorie, locatiefoto) " +
-                                                    "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_GET_PRODUCT =   "SELECT p.*, b.tarief FROM product p LEFT JOIN btw b on p.btw = b.idbtw where idproduct=?";
-    private static final String SQL_GET_PRODUCTS =  "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw";
-    private static final String SQL_DELETE_PRODUCT= "delete from product p where p.idproduct = ?";
-    private static final String SQL_UPDATE_PRODUCT ="UPDATE product " +
-                                                    "set naam=?, prijs=?, btw=?, omschrijving=?, locatie=?, winkel=?, barcode=?, idcategorie=? , locatiefoto=? " +
-                                                    "where idproduct=?";
+    private static final String SQL_ADD_PRODUCT = "insert into product(naam, prijs, btw, omschrijving, locatie, winkel, barcode, idcategorie, locatiefoto) " +
+            "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_GET_PRODUCT = "SELECT p.*, b.tarief FROM product p LEFT JOIN btw b on p.btw = b.idbtw where idproduct=?";
+    private static final String SQL_GET_PRODUCTS = "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw";
+    private static final String SQL_DELETE_PRODUCT = "delete from product p where p.idproduct = ?";
+    private static final String SQL_UPDATE_PRODUCT = "UPDATE product " +
+            "set naam=?, prijs=?, btw=?, omschrijving=?, locatie=?, winkel=?, barcode=?, idcategorie=? , locatiefoto=? " +
+            "where idproduct=?";
     private static final String SQL_GET_LAST_ID = "SELECT idproduct FROM product ORDER BY idproduct DESC limit 1";
     private static final String SQL_GET_PRODUCT_BY_CATEGORY_ID = "select * from product where idcategorie=?";
-    private static final String SQL_GET_CATEGORYLESS_PRODUCT = "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw where  p.idcategorie is null";
+    private static final String SQL_GET_CATEGORYLESS_PRODUCT =
+            "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw where  p.idcategorie is null";
 
 
     @Override
     public void addProduct(Product product) {
-        try(
+        try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_ADD_PRODUCT)
-                ){
+        ) {
             fillPreparedStatement(product, prep);
             prep.executeUpdate();
         } catch (SQLException ex) {
@@ -46,9 +47,9 @@ public class MysqlProductRepository implements ProductRepository {
         prep.setString(5, p.getLocation());
         prep.setString(6, p.getStore());
         prep.setString(7, p.getBarcode());
-        if(p.getCategory() == 0){
+        if (p.getCategory() == 0) {
             prep.setNull(8, Types.INTEGER);
-        }else {
+        } else {
             prep.setInt(8, p.getCategory());
         }
         prep.setString(9, p.getImageLocation());
@@ -75,17 +76,17 @@ public class MysqlProductRepository implements ProductRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_GET_PRODUCT)
-                ){
+        ) {
             prep.setInt(1, id);
-            try (ResultSet rs = prep.executeQuery()){
-                if(rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createProduct(rs);
                 } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
-            throw new KassaException("Unable to get product with id: "+ id, ex);
+        } catch (SQLException ex) {
+            throw new KassaException("Unable to get product with id: " + id, ex);
         }
     }
 
@@ -94,10 +95,10 @@ public class MysqlProductRepository implements ProductRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_GET_PRODUCTS)
-                ){
-            try(ResultSet rs = prep.executeQuery()){
+        ) {
+            try (ResultSet rs = prep.executeQuery()) {
                 List<Product> products = new ArrayList<>();
-                while (rs.next()){
+                while (rs.next()) {
                     products.add(createProduct(rs));
                 }
                 return products;
@@ -112,11 +113,11 @@ public class MysqlProductRepository implements ProductRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_UPDATE_PRODUCT)
-        ){
+        ) {
             fillPreparedStatement(product, prep);
             prep.setInt(10, product.getId());
             prep.executeUpdate();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new KassaException("Unable to update product in DB.", ex);
         }
     }
@@ -126,20 +127,19 @@ public class MysqlProductRepository implements ProductRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_DELETE_PRODUCT)
-        )
-        {
+        ) {
             prep.setInt(1, product.getId());
             prep.executeUpdate();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new KassaException("Unable to delete product from DB.", ex);
         }
     }
 
     @Override
     public int getHighestId() {
-        try(Connection con = MySqlConnection.getConnection();
-            PreparedStatement prep = con.prepareStatement(SQL_GET_LAST_ID);
-            ResultSet rs = prep.executeQuery()){
+        try (Connection con = MySqlConnection.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_GET_LAST_ID);
+             ResultSet rs = prep.executeQuery()) {
 
             return rs.getInt("idproduct");
         } catch (SQLException e) {
@@ -148,13 +148,13 @@ public class MysqlProductRepository implements ProductRepository {
     }
 
     @Override
-    public List<Product> getProductByCategory(int categoryId){
-        try(Connection con = MySqlConnection.getConnection();
-            PreparedStatement prep = con.prepareStatement(SQL_GET_PRODUCT_BY_CATEGORY_ID)){
+    public List<Product> getProductByCategory(int categoryId) {
+        try (Connection con = MySqlConnection.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_GET_PRODUCT_BY_CATEGORY_ID)) {
             prep.setInt(1, categoryId);
-            try (ResultSet rs = prep.executeQuery()){
+            try (ResultSet rs = prep.executeQuery()) {
                 ArrayList<Product> products = new ArrayList<>();
-                while (rs.next()){
+                while (rs.next()) {
                     products.add(createProduct(rs));
                 }
                 return products;
@@ -169,10 +169,10 @@ public class MysqlProductRepository implements ProductRepository {
         try (
                 Connection con = MySqlConnection.getConnection();
                 PreparedStatement prep = con.prepareStatement(SQL_GET_CATEGORYLESS_PRODUCT)
-        ){
-            try(ResultSet rs = prep.executeQuery()){
+        ) {
+            try (ResultSet rs = prep.executeQuery()) {
                 List<Product> products = new ArrayList<>();
-                while (rs.next()){
+                while (rs.next()) {
                     products.add(createProduct(rs));
                 }
                 return products;
