@@ -29,7 +29,7 @@ public class MysqlAfbeeldingRepository implements AfbeeldingRepository {
             prep.setBinaryStream(2, imageInputStream, image.length());
             prep.executeUpdate();
         } catch (SQLException ex) {
-            throw new KassaException("couldn't add image to bd" + ex);
+            throw new KassaException("couldn't add image to bd");
         } catch (FileNotFoundException e) {
             throw new KassaException("couldn't find file");
         }
@@ -41,11 +41,13 @@ public class MysqlAfbeeldingRepository implements AfbeeldingRepository {
              PreparedStatement prep = con.prepareStatement(SQL_GET_IMAGE)) {
             prep.setInt(1, id);
             try (ResultSet rs = prep.executeQuery()) {
-                InputStream is = rs.getBinaryStream("afbeelding");
-                Image image = new Image(is);
-                Map<String, Image> map = new HashMap<>();
-                map.put(rs.getString("naam"), image);
-                return map;
+                if(rs.next()){
+                    InputStream is = rs.getBinaryStream("afbeelding");
+                    Image image = new Image(is);
+                    Map<String, Image> map = new HashMap<>();
+                    map.put(rs.getString("naam"), image);
+                    return map;
+                } else return null;
             }
         } catch (SQLException e) {
             throw new KassaException("couldn't get image from db");

@@ -5,25 +5,27 @@ import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Btw;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
+import javafx.scene.image.Image;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MysqlProductRepository implements ProductRepository {
 
-    private static final String SQL_ADD_PRODUCT = "insert into product(naam, prijs, btw, omschrijving, locatie, winkel, barcode, idcategorie, locatiefoto) " +
+    private static final String SQL_ADD_PRODUCT = "insert into product(naam, prijs, btw, omschrijving, locatie, winkel, barcode, idcategorie, idafbeelding) " +
             "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_GET_PRODUCT = "SELECT p.*, b.tarief FROM product p LEFT JOIN btw b on p.btw = b.idbtw where idproduct=?";
     private static final String SQL_GET_PRODUCTS = "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw";
     private static final String SQL_DELETE_PRODUCT = "delete from product p where p.idproduct = ?";
     private static final String SQL_UPDATE_PRODUCT = "UPDATE product " +
-            "set naam=?, prijs=?, btw=?, omschrijving=?, locatie=?, winkel=?, barcode=?, idcategorie=? , locatiefoto=? " +
+            "set naam=?, prijs=?, btw=?, omschrijving=?, locatie=?, winkel=?, barcode=?, idcategorie=?, idafbeelding=? " +
             "where idproduct=?";
     private static final String SQL_GET_LAST_ID = "SELECT idproduct FROM product ORDER BY idproduct DESC limit 1";
-    private static final String SQL_GET_PRODUCT_BY_CATEGORY_ID = "select * from product where idcategorie=?";
-    private static final String SQL_GET_CATEGORYLESS_PRODUCT =
-            "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw where  p.idcategorie is null";
+    private static final String SQL_GET_PRODUCT_BY_CATEGORY_ID = "select * from product left join btw b on product.btw = b.idbtw where idcategorie=?";
+    private static final String SQL_GET_CATEGORYLESS_PRODUCT = "select p.*, b.tarief from product p LEFT JOIN btw b on p.btw = b.idbtw where  p.idcategorie is null";
 
 
     @Override
@@ -49,35 +51,31 @@ public class MysqlProductRepository implements ProductRepository {
         prep.setString(7, p.getBarcode());
         if (p.getCategory() == 0) {
             prep.setNull(8, Types.INTEGER);
-        } else {
-            prep.setInt(8, p.getCategory());
-        }
-        prep.setString(9, p.getImageLocation());
+        } else prep.setInt(8, p.getCategory());
+        if(p.getImageId() == 0){
+            prep.setInt(9, Types.INTEGER);
+        } else prep.setInt(9, p.getImageId());
     }
 
     private Product createProduct(ResultSet rs) throws SQLException {
-        int id = rs.getInt("idproduct");
-        String name = rs.getString("naam");
-        double price = rs.getDouble("prijs");
-        int btwId = rs.getInt("Btw");
-        String description = rs.getString("omschrijving");
-        String location = rs.getString("locatie");
-        String store = rs.getString("winkel");
-        String barcode = rs.getString("barcode");
-        int categoryId = rs.getInt("idcategorie");
+        Product.ProdcutBuilder builder = new Product.ProdcutBuilder(rs.getInt("idproduct"));
+        builder.setName(rs.getString("naam"))
+                .setPrice(rs.getDouble("prijs"))
+                .setBtw(new Btw(rs.getInt("Btw"), rs.getInt("tarief")))
+                .setDescription(rs.getString("omschrijving"))
+                .setLocation(rs.getString("locatie"))
+                .setStore(rs.getString("winkel"))
+                .setBarcode(rs.getString("barcode"))
+                .setCategory(rs.getInt("idcategorie"));
         int imageId = rs.getInt("idafbeelding");
-        int tariff = Repositories.getInstance().getBtwRepository().getBtw(btwId);
-
-        return new Product.ProdcutBuilder(id)
-                .setName(name)
-                .setPrice(price)
-                .setBtw(new Btw(btwId, tariff))
-                .setDescription(description)
-                .setLocation(location)
-                .setStore(store)
-                .setBarcode(barcode)
-                .setCategory(categoryId)
-                .setImageId(imageId).build();
+        builder.setImageId(imageId);
+        Map<String, Image> imageMap = Repositories.getInstance().getAfbeeldingRepository().getImage(imageId);
+        if(imageMap!=null){
+            Map.Entry<String, Image> entry = imageMap.entrySet().iterator().next();
+            builder.setImageName(entry.getKey())
+                    .setImage(entry.getValue());
+        }
+        return builder.build();
     }
 
     @Override
@@ -169,7 +167,7 @@ public class MysqlProductRepository implements ProductRepository {
                 return products;
             }
         } catch (SQLException e) {
-            throw new KassaException("Unabel to get products from DB");
+            throw new KassaException("Unabel to get products from DB", e);
         }
     }
 
