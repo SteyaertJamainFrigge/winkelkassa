@@ -132,15 +132,6 @@ public class ArticleManagementController extends SubWindow {
             this.productPreviewImage.setImage(imagePreview);
         }
 
-    private void setImagePreview(String imageLocation) {
-        if (imageLocation != null && !imageLocation.equals("")) {
-            Image image = new Image(imageLocation);
-            this.productPreviewImage.setImage(image);
-        } else {
-            this.productPreviewImage.setImage(null);
-        }
-    }
-
     private ProductCategory findCategoryById(int id) {
         ProductCategory category = null;
         for (ProductCategory item :
