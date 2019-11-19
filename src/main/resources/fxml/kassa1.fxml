@@ -279,7 +279,7 @@
                     <ToggleButton fx:id="discountBtn" layoutX="10.0" layoutY="80.0" maxHeight="1.7976931348623157E308"
                                   maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateCommPort"
                                   text="Korting" GridPane.rowIndex="3"/>
-                    <Button fx:id="packagingBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                    <Button fx:id="packagingBtn" onAction="#startWeegschaalLijstWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                             mnemonicParsing="false" text="Verpakking" GridPane.rowIndex="5"/>
                 </GridPane>
                 <GridPane GridPane.columnIndex="1">

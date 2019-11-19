@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.WeegschaalLijstController">
+    <GridPane layoutX="123.0" layoutY="133.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <ListView fx:id="imageListView" />
+        <GridPane GridPane.columnIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+            </rowConstraints>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" percentWidth="30.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="30.0" />
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="1.7976931348623157E308" valignment="TOP" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <Label text="klantnaam">
+                    <GridPane.margin>
+                        <Insets top="20.0" />
+                    </GridPane.margin>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <GridPane vgap="10.0" GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <Label text="Kies Verpakking" />
+                    <Label layoutX="10.0" layoutY="32.0" text="Wis Verpakking" GridPane.columnIndex="1" />
+                    <Button onAction="#useContainerImageData" styleClass="iconButton" GridPane.rowIndex="1">
+                        <graphic>
+                            <ImageView>
+                                <Image url="@../images/green/48x48/Ok.png" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button onAction="#deleteImage" styleClass="iconButton" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <graphic>
+                            <ImageView>
+                                <Image url="@../images/orange/48x48/Cancel.png" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </GridPane>
+                <Button mnemonicParsing="false" onAction="#returnToParentScene" styleClass="iconButton" GridPane.columnIndex="2">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@../images/orange/24x24/Cancel.png" />
+                        </ImageView>
+                    </graphic>
+                    <GridPane.margin>
+                        <Insets right="15.0" top="10.0" />
+                    </GridPane.margin>
+                </Button>
+            </GridPane>
+            <AnchorPane fx:id="imageViewContainer" GridPane.rowIndex="1">
+                <ImageView fx:id="imagePreview" fitHeight="462.0" fitWidth="672.0" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <GridPane.margin>
+               <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </GridPane.margin>
+            </AnchorPane>
+        </GridPane>
+    </GridPane>
+</AnchorPane>
