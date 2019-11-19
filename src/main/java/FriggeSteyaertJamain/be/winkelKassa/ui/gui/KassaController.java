@@ -624,4 +624,8 @@ public class KassaController extends SubWindow {
         shoppingList.clear();
         shoppingListTable.getItems().addAll(pauzedShoppingList);
     }
+
+    public void startWeegschaalLijstWindow() throws IOException{
+        startWindow("/fxml/Weegschaallijst1.fxml");
+    }
 }
