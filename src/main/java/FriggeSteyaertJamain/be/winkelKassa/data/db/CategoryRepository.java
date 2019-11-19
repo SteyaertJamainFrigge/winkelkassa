@@ -52,4 +52,6 @@ public interface CategoryRepository {
      */
     void deleteCategory(ProductCategory pc);
 
+
+    int getCategoryByName(String name);
 }

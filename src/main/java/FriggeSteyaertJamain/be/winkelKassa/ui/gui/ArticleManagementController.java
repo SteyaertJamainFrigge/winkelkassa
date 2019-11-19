@@ -4,6 +4,7 @@ import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Btw;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
+import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,18 +17,22 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public class ArticleManagementController extends SubWindow {
-
 
     @FXML
     private HBox categoryHbx;
@@ -52,7 +57,7 @@ public class ArticleManagementController extends SubWindow {
     @FXML
     private Button zoomInBtn;
     @FXML
-    private ImageView articlePreviewImage;
+    private ImageView productPreviewImage;
     @FXML
     private Button databaseBtn;
     @FXML
@@ -96,7 +101,8 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void initializeSpinner() {
-        SpinnerValueFactory<Double> spinnerValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, 2000.00);
+        SpinnerValueFactory<Double> spinnerValueFactory =
+                new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, 2000.00);
         this.priceSpinner.setValueFactory(spinnerValueFactory);
     }
 
@@ -148,6 +154,17 @@ public class ArticleManagementController extends SubWindow {
         this.barcodeInput.setText(product.getBarcode());
         this.categoryComboBx.getSelectionModel().select(findCategoryById(product.getCategory()));
         this.btwComboBx.setValue(product.getBtw());
+        this.imageLocationInput.setText(product.getImageLocation());
+        setImagePreview(product.getImageLocation());
+    }
+
+    private void setImagePreview(String imageLocation) {
+        if (imageLocation != null && !imageLocation.equals("")) {
+            Image image = new Image(imageLocation);
+            this.productPreviewImage.setImage(image);
+        } else {
+            this.productPreviewImage.setImage(null);
+        }
     }
 
     private ProductCategory findCategoryById(int id) {
@@ -263,7 +280,11 @@ public class ArticleManagementController extends SubWindow {
         );
     }
 
-    public void openExplorer() {
+    @FXML
+    private void chooseImage() {
+        ImageLoader imageLoader = new ImageLoader("/images/product", this.root.getScene().getWindow());
+        String filepath = imageLoader.getImage();
+        //productList.getSelectionModel().getSelectedItem().setImageLocation();
     }
 
     public void showAddProductCategoryDialog() {
@@ -303,7 +324,8 @@ public class ArticleManagementController extends SubWindow {
         Node confirmButton = dialog.getDialogPane().lookupButton(confirmButtonType);
         confirmButton.setDisable(true);
 
-        categoryName.textProperty().addListener((observable, oldValue, newValue) -> confirmButton.setDisable(newValue.trim().isEmpty()));
+        categoryName.textProperty().addListener((observable, oldValue, newValue) ->
+                confirmButton.setDisable(newValue.trim().isEmpty()));
         dialog.getDialogPane().setContent(grid);
 
         Platform.runLater(categoryName::requestFocus);
@@ -320,9 +342,10 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void saveProductCategory(Pair<String, ProductCategory> stringProductCategoryPair) {
-        ProductCategory pc = new ProductCategory(0, stringProductCategoryPair.getKey(), stringProductCategoryPair.getValue());
+        ProductCategory pc =
+                new ProductCategory(0, stringProductCategoryPair.getKey(), stringProductCategoryPair.getValue());
         addProductCategoryToDb(pc);
-        addProducCategoryToComboBx(pc);
+        addProductCategoryToComboBx(pc);
     }
 
     private boolean validateCategory(String categoryName) {
@@ -336,14 +359,28 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void addProductCategoryToDb(ProductCategory productCategory) {
-        Repositories.getInstance().getCategoryRepository().addCategory(productCategory);
-        if(productCategory.getParent().getId() != 0){
-            Repositories.getInstance().getSubCategoryRepository().addSubcategory(productCategory.getParent().getId(), productCategory.getId());
+        Repositories repo = Repositories.getInstance();
+        repo.getCategoryRepository().addCategory(productCategory);
+        if (productCategory.getParent().getId() != 0) {
+            int parentCategoryId = productCategory.getParent().getId();
+            int databaseGeneratedId = repo.getCategoryRepository().getCategoryByName(productCategory.getName());
+            repo.getSubCategoryRepository().addSubcategory(parentCategoryId, databaseGeneratedId);
         }
     }
 
-    private void addProducCategoryToComboBx(ProductCategory productCategory) {
+    private void addProductCategoryToComboBx(ProductCategory productCategory) {
         this.categoryComboBx.getItems().add(productCategory);
+    }
+
+    public void showLeeggoed() throws IOException {
+        Stage stage = new Stage();
+        stage.initOwner(this.root.getScene().getWindow());
+        //TODO make leeggoed fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TODO"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
 
