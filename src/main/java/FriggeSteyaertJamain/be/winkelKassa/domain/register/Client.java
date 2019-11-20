@@ -74,4 +74,65 @@ public class Client {
     public void setPostAddress(String postAddress) {
         this.postAddress = postAddress;
     }
+
+    private Client(ClientBuilder builder){
+        this.id = builder.id;
+        this.name = builder.name;
+        this.familyName = builder.familyName;
+        this.email = builder.email;
+        this.telNumber = builder.telNumber;
+        this.address = builder.address;
+        this.postAddress = builder.postAddress;
+    }
+
+    public static class ClientBuilder{
+        private int id;
+        private String name;
+        private String familyName;
+        private String email;
+        private String telNumber;
+        private String address;
+        private String postAddress;
+
+
+        public ClientBuilder(int id){
+            this.id = id;
+        }
+
+        public ClientBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ClientBuilder setFamilyName(String familyName) {
+            this.familyName = familyName;
+            return this;
+        }
+
+        public ClientBuilder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public ClientBuilder setTelNumber(String telNumber) {
+            this.telNumber = telNumber;
+            return this;
+        }
+
+        public ClientBuilder setAddress(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public ClientBuilder setPostAddress(String postAddress) {
+            this.postAddress = postAddress;
+            return this;
+        }
+
+        public Client build(){
+            return new Client(this);
+        }
+    }
+
+
 }
