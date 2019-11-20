@@ -24,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
 import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
@@ -69,8 +70,10 @@ public class ArticleManagementController extends SubWindow {
         fillProductList();
         fillBtw();
         addProductListListener();
+        addProductValuesListener();
         this.productList.getSelectionModel().selectFirst();
     }
+
 
     private void initializeSpinner() {
         SpinnerValueFactory<Double> spinnerValueFactory =
@@ -86,6 +89,16 @@ public class ArticleManagementController extends SubWindow {
                     }
                 });
     }
+
+    private void addProductValuesListener() {
+        this.inputGrid.getChildren().get(0).disabledProperty()
+                .addListener((observable, oldeValue, newValue) -> {
+                    if(newValue){
+                        setCancelBtnToEdit();
+                    }else setEditBtnToCancel();
+                });
+    }
+
 
     private void fillProductList() {
         List<Product> products = Repositories.getInstance().getProductRepository().getAllProducts();
@@ -116,11 +129,7 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void fillProductValues(Product product) {
-        fillProductValues(product, false);
-    }
-
-    private void fillProductValues(Product product, boolean enableInputFields){
-        enableDisableInputFields(enableInputFields);
+        enableDisableInputFields(false);
         this.nameInput.setText(product.getName());
         this.priceSpinner.getValueFactory().setValue(product.getPrice());
         this.descriptionInput.clear();
@@ -134,9 +143,9 @@ public class ArticleManagementController extends SubWindow {
         setImagePreview(product.getImage());
     }
 
-    private void setImagePreview(Image imagePreview){
-            this.productPreviewImage.setImage(imagePreview);
-        }
+    private void setImagePreview(Image imagePreview) {
+        this.productPreviewImage.setImage(imagePreview);
+    }
 
     private ProductCategory findCategoryById(int id) {
         ProductCategory category = null;
@@ -182,6 +191,7 @@ public class ArticleManagementController extends SubWindow {
 
     @FXML
     private void save() {
+        //TODO check if barcode is filled in and if not generate your own
         Product productToSave = this.productList.getSelectionModel().getSelectedItem();
         if (productToSave == null) {
             addNewProductToDb(getNewProduct());
@@ -209,8 +219,22 @@ public class ArticleManagementController extends SubWindow {
     }
 
     @FXML
-    private void enableInputFields() {
-        enableDisableInputFields(true);
+    private void EditInputFields(ActionEvent event) {
+        if (this.inputGrid.getChildren().get(1).isDisable()) {
+            enableDisableInputFields(true);
+        } else {
+            fillProductValues(this.productList.getSelectionModel().getSelectedItem());
+        }
+    }
+
+    private void setEditBtnToCancel() {
+        ImageView imageView = (ImageView) this.editBtn.getGraphic();
+        imageView.setImage(new Image("/images/orange/48x48/Cancel.png"));
+    }
+
+    private void setCancelBtnToEdit() {
+        ImageView imageView = (ImageView) this.editBtn.getGraphic();
+        imageView.setImage(new Image("/images/orange/48x48/Gear.png"));
     }
 
     private void enableDisableInputFields(boolean bool) {
@@ -255,20 +279,13 @@ public class ArticleManagementController extends SubWindow {
     private void chooseImage() {
         ImageLoader imageLoader = new ImageLoader(this.root.getScene().getWindow());
         HashMap<String, Image> result = imageLoader.getImage();
-        if(result!=null){
-            Map.Entry<String,Image> entry = result.entrySet().iterator().next();
+        if (result != null) {
+            Map.Entry<String, Image> entry = result.entrySet().iterator().next();
             String key = entry.getKey();
             Image value = entry.getValue();
-            addImageDataToProduct(key, value);
-            fillProductValues(this.productList.getSelectionModel().getSelectedItem(), true);
+            this.imageLocationInput.setText(key);
+            this.productPreviewImage.setImage(value);
         }
-    }
-
-    private void addImageDataToProduct(String key, Image value) {
-        Product product = productList.getSelectionModel().getSelectedItem();
-        product.setImageName(key);
-        product.setImage(value);
-        product.setImageId(Repositories.getInstance().getAfbeeldingRepository().getImageIdByName(key));
     }
 
     public void showAddProductCategoryDialog() {
@@ -365,6 +382,20 @@ public class ArticleManagementController extends SubWindow {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void deleteSelectedProduct() {
+        deleteProduct(this.productList.getSelectionModel().getSelectedItem());
+    }
+
+    private void deleteProduct(Product product) {
+        deleteProductInDB(product);
+        fillProductList();
+    }
+
+
+    private void deleteProductInDB(Product product) {
+        Repositories.getInstance().getProductRepository().deleteProduct(product);
     }
 }
 

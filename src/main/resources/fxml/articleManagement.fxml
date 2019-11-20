@@ -20,262 +20,258 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="775.0" prefWidth="900.0" stylesheets="@../style/css/stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriggeSteyaertJamain.be.winkelKassa.ui.gui.ArticleManagementController">
-    <GridPane prefHeight="819.0" prefWidth="937.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <GridPane prefHeight="819.0" prefWidth="937.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints percentHeight="12.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints percentHeight="12.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <VBox>
             <HBox spacing="10.0">
                 <padding>
-                    <Insets left="10.0" top="5.0"/>
+                    <Insets left="10.0" top="5.0" />
                 </padding>
                 <Button fx:id="plusBtn" onAction="#createProduct" styleClass="iconButton">
                     <graphic>
                         <ImageView>
-                            <Image url="@../images/green/48x48/Plus.png"/>
+                            <Image url="@../images/green/48x48/Plus.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editBtn" onAction="#enableInputFields" styleClass="iconButton">
+            <Button layoutX="20.0" layoutY="15.0" onAction="#deleteSelectedProduct" styleClass="iconButton">
+               <graphic>
+                   <ImageView>
+                       <Image url="@../images/green/48x48/Minus.png"/>
+                   </ImageView>
+               </graphic>
+            </Button>
+                <Button fx:id="editBtn" onAction="#EditInputFields" styleClass="iconButton">
                     <graphic>
                         <ImageView>
-                            <Image url="@../images/orange/48x48/Gear.png"/>
+                            <Image url="@../images/orange/48x48/Gear.png" />
                         </ImageView>
                     </graphic>
                 </Button>
                 <Button fx:id="okBtn" onAction="#save" styleClass="iconButton">
                     <graphic>
                         <ImageView>
-                            <Image url="@../images/green/48x48/Ok.png"/>
+                            <Image url="@../images/green/48x48/Ok.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <HBox prefHeight="41.0" prefWidth="556.0" HBox.hgrow="ALWAYS"/>
+                <HBox prefHeight="41.0" prefWidth="556.0" HBox.hgrow="ALWAYS" />
                 <Button mnemonicParsing="false" onAction="#returnToParentScene" styleClass="iconButton">
                     <graphic>
                         <ImageView fitHeight="28.0" preserveRatio="true">
-                            <Image url="@../images/orange/32x32/Cancel.png"/>
+                            <Image url="@../images/orange/32x32/Cancel.png" />
                         </ImageView>
                     </graphic>
                     <HBox.margin>
-                        <Insets right="15.0"/>
+                        <Insets right="15.0" />
                     </HBox.margin>
                 </Button>
             </HBox>
             <HBox spacing="10.0">
                 <padding>
-                    <Insets left="10.0" top="5.0"/>
+                    <Insets left="10.0" top="5.0" />
                 </padding>
                 <Label text="filter:">
                     <HBox.margin>
-                        <Insets top="3.0"/>
+                        <Insets top="3.0" />
                     </HBox.margin>
                 </Label>
                 <TextField fx:id="filterInput" alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                 </TextField>
             </HBox>
         </VBox>
         <GridPane hgap="10.0" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <AnchorPane prefHeight="673.0" prefWidth="313.0">
-                <ListView fx:id="productList" layoutX="4.0" layoutY="2.0" prefHeight="669.0" prefWidth="305.0"
-                          AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0"
-                          AnchorPane.topAnchor="2.0"/>
+                <ListView fx:id="productList" layoutX="4.0" layoutY="2.0" prefHeight="669.0" prefWidth="305.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="2.0" />
             </AnchorPane>
             <GridPane hgap="10.0" GridPane.columnIndex="1">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="30.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="30.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <GridPane alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" vgap="5.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <Label alignment="CENTER_RIGHT" text="naam">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
-                    <Label text="Prijs" GridPane.rowIndex="1"/>
-                    <Label text="Eenheid" GridPane.rowIndex="2"/>
+                    <Label text="Prijs" GridPane.rowIndex="1" />
+                    <Label text="Eenheid" GridPane.rowIndex="2" />
                     <Label text="Btw categorie" GridPane.rowIndex="3">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="Locatie" GridPane.rowIndex="4">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="Kassa grid" GridPane.rowIndex="5">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="Afbeelding" GridPane.rowIndex="6">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="Winkel" GridPane.rowIndex="7">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="Barcode" GridPane.rowIndex="8">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="Beschrijving" GridPane.rowIndex="9">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="categorie" GridPane.rowIndex="10">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                         <opaqueInsets>
-                            <Insets/>
+                            <Insets />
                         </opaqueInsets>
                     </Label>
                     <Label text="Leeggoedcode" GridPane.rowIndex="11">
                         <font>
-                            <Font name="DejaVu Sans Bold" size="13.0"/>
+                            <Font name="DejaVu Sans Bold" size="13.0" />
                         </font>
                     </Label>
                     <GridPane.margin>
-                        <Insets/>
+                        <Insets />
                     </GridPane.margin>
                 </GridPane>
                 <GridPane fx:id="inputGrid" vgap="5.0" GridPane.columnIndex="1">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
-                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES"/>
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
+                        <RowConstraints percentHeight="7.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <TextField fx:id="nameInput"/>
-                    <Spinner fx:id="priceSpinner" prefHeight="25.0" prefWidth="95.0" GridPane.rowIndex="1"/>
-                    <ComboBox fx:id="unitComboBx" GridPane.rowIndex="2"/>
-                    <ComboBox fx:id="btwComboBx" GridPane.rowIndex="3"/>
-                    <TextField fx:id="locationInput" prefHeight="26.0" prefWidth="226.0" GridPane.rowIndex="4"/>
-                    <Label fx:id="gridPosition" prefHeight="17.0" prefWidth="145.0" text="Kassanr / Paginanr / X / Y"
-                           GridPane.rowIndex="5"/>
-                    <TextField fx:id="storeInput" GridPane.rowIndex="7"/>
+                    <TextField fx:id="nameInput" />
+                    <Spinner fx:id="priceSpinner" prefHeight="25.0" prefWidth="95.0" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="unitComboBx" GridPane.rowIndex="2" />
+                    <ComboBox fx:id="btwComboBx" GridPane.rowIndex="3" />
+                    <TextField fx:id="locationInput" prefHeight="26.0" prefWidth="226.0" GridPane.rowIndex="4" />
+                    <Label fx:id="gridPosition" prefHeight="17.0" prefWidth="145.0" text="Kassanr / Paginanr / X / Y" GridPane.rowIndex="5" />
+                    <TextField fx:id="storeInput" GridPane.rowIndex="7" />
                     <GridPane hgap="5.0" prefHeight="42.0" prefWidth="304.0" GridPane.rowIndex="6">
                         <columnConstraints>
-                            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0"/>
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" />
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
-                        <TextField fx:id="imageLocationInput"/>
-                        <Button mnemonicParsing="false" onAction="#chooseImage" text="Kies"
-                                GridPane.columnIndex="1"/>
+                        <TextField fx:id="imageLocationInput" />
+                        <Button mnemonicParsing="false" onAction="#chooseImage" text="Kies" GridPane.columnIndex="1" />
                     </GridPane>
-                    <TextArea fx:id="descriptionInput" prefHeight="107.0" prefWidth="310.0" GridPane.rowIndex="9"/>
-                    <HBox fx:id="categoryHbx" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0"
-                          spacing="5.0" GridPane.rowIndex="10">
-                        <ComboBox fx:id="categoryComboBx"/>
-                        <Button fx:id="addCategoryBtn" mnemonicParsing="false"
-                                onAction="#showAddProductCategoryDialog" text="+"/>
+                    <TextArea fx:id="descriptionInput" prefHeight="107.0" prefWidth="310.0" GridPane.rowIndex="9" />
+                    <HBox fx:id="categoryHbx" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="10">
+                        <ComboBox fx:id="categoryComboBx" />
+                        <Button fx:id="addCategoryBtn" mnemonicParsing="false" onAction="#showAddProductCategoryDialog" text="+" />
                     </HBox>
                     <GridPane hgap="5.0" GridPane.rowIndex="11">
                         <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="250.0"/>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0"/>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="250.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" />
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         </rowConstraints>
-                        <TextField fx:id="packageCodeInput" prefHeight="25.0" prefWidth="150.0"/>
-                        <Button onAction="#showLeeggoed" mnemonicParsing="false" text="Kies" GridPane.columnIndex="1"/>
+                        <TextField fx:id="packageCodeInput" prefHeight="25.0" prefWidth="150.0" />
+                        <Button mnemonicParsing="false" onAction="#showLeeggoed" text="Kies" GridPane.columnIndex="1" />
                     </GridPane>
-                    <HBox fx:id="barcodeHbx" alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="158.0"
-                          spacing="5.0" GridPane.rowIndex="8">
-                        <TextField fx:id="barcodeInput"/>
-                        <Button fx:id="barcodePrintBtn" mnemonicParsing="false" onAction="#runBarcodePrinter"
-                                text="Print Barcode"/>
+                    <HBox fx:id="barcodeHbx" alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="158.0" spacing="5.0" GridPane.rowIndex="8">
+                        <TextField fx:id="barcodeInput" />
+                        <Button fx:id="barcodePrintBtn" mnemonicParsing="false" onAction="#runBarcodePrinter" text="Print Barcode" />
                     </HBox>
                 </GridPane>
             </GridPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-                <ImageView fx:id="productPreviewImage" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="253.0" pickOnBounds="true"
-                           preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="10.0"
-                           AnchorPane.topAnchor="253.0">
+                <ImageView fx:id="productPreviewImage" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="253.0">
                     <viewport>
-                        <Rectangle2D/>
+                        <Rectangle2D />
                     </viewport>
                 </ImageView>
             </AnchorPane>
