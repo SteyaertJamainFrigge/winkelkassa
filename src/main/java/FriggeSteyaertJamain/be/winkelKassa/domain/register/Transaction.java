@@ -17,22 +17,6 @@ public class Transaction {
     private double totalPrice;
     private Date timestamp;
 
-    public Transaction(int id, String store, Personnel personnel, List<Product> products, Map<Integer, Integer> productsFrequency, String note, Client client, double totalPrice) {
-        this.id = id;
-        this.timestamp = new Date();
-        this.store = store;
-        this.personnel = personnel;
-        this.products = products;
-        this.productsFrequency = productsFrequency;
-        this.note = note;
-        this.client = client;
-        this.totalPrice = totalPrice;
-    }
-
-    public Transaction(int id, Date date, String store, Personnel personnel, Client client){
-        this(id, store, personnel, null, null, "", client, 0);
-    }
-
     public int getId() {
         return id;
     }
@@ -98,7 +82,7 @@ public class Transaction {
             if(amount == 1){
                 productsFrequency.remove(productId);
             }else{
-                productsFrequency.put(productId, amount -1);
+                productsFrequency.computeIfPresent(productId, (k, v) -> v -1);
             }
         }
     }
@@ -110,5 +94,79 @@ public class Transaction {
             }
         }
         return false;
+    }
+
+    private Transaction(TransactionBuilder builder){
+        this.id = builder.id;
+        this.timestamp = builder.timestamp;
+        this.store = builder.store;
+        this.personnel = builder.personnel;
+        this.products = builder.products;
+        this.productsFrequency = builder.productsFrequency;
+        this.note = builder.note;
+        this.client = builder.client;
+        this.totalPrice = builder.totalPrice;
+    }
+
+    public static class TransactionBuilder{
+        private int id;
+        private String store;
+        private Personnel personnel;
+        private List<Product> products;
+        private Map<Integer, Integer> productsFrequency;
+        private String note;
+        private Client client;
+        private double totalPrice;
+        private Date timestamp;
+
+        public TransactionBuilder setId(int id) {
+            this.id = id;
+            this.timestamp = new Date();
+            return this;
+        }
+
+        public TransactionBuilder setStore(String store) {
+            this.store = store;
+            return this;
+        }
+
+        public TransactionBuilder setPersonnel(Personnel personnel) {
+            this.personnel = personnel;
+            return this;
+        }
+
+        public TransactionBuilder setProducts(List<Product> products) {
+            this.products = products;
+            return this;
+        }
+
+        public TransactionBuilder setProductsFrequency(Map<Integer, Integer> productsFrequency) {
+            this.productsFrequency = productsFrequency;
+            return this;
+        }
+
+        public TransactionBuilder setNote(String note) {
+            this.note = note;
+            return this;
+        }
+
+        public TransactionBuilder setClient(Client client) {
+            this.client = client;
+            return this;
+        }
+
+        public TransactionBuilder setTotalPrice(double totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
+
+        public TransactionBuilder setTimestamp(Date timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        public Transaction build(){
+            return new Transaction(this);
+        }
     }
 }

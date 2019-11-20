@@ -4,11 +4,12 @@ import FriggeSteyaertJamain.be.winkelKassa.data.db.Repositories;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Btw;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.Product;
 import FriggeSteyaertJamain.be.winkelKassa.domain.register.ProductCategory;
-import FriggeSteyaertJamain.be.winkelKassa.util.KassaException;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,75 +22,46 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 import javax.imageio.ImageIO;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ArticleManagementController extends SubWindow {
 
     @FXML
-    private HBox categoryHbx;
+    private HBox categoryHbx, barcodeHbx;
     @FXML
-    private Button addCategoryBtn;
+    private Button addCategoryBtn, editBtn, PhotoBtn, zoomInBtn, databaseBtn, okBtn, plusBtn, openExplorerBtn, barcodePrintBtn;
+    @FXML
+    private TextField locationInput, filterInput, nameInput, storeInput, barcodeInput, imageLocationInput, packageCodeInput;
     @FXML
     private Label gridPosition;
-    @FXML
-    private HBox barcodeHbox;
     @FXML
     private GridPane inputGrid;
     @FXML
     private ComboBox unitComboBx;
     @FXML
-    private Button editBtn;
-    @FXML
-    private TextField locationInput;
-    @FXML
     private TextArea descriptionInput;
     @FXML
-    private Button PhotoBtn;
-    @FXML
-    private Button zoomInBtn;
-    @FXML
     private ImageView productPreviewImage;
-    @FXML
-    private Button databaseBtn;
-    @FXML
-    private TextField filterInput;
-    @FXML
-    private Button okBtn;
-    @FXML
-    private Button plusBtn;
     @FXML
     private List<ProductCategory> categories;
     @FXML
     private ListView<Product> productList;
     @FXML
-    private TextField nameInput;
-    @FXML
     private Spinner<Double> priceSpinner;
-    @FXML
-    private TextField storeInput;
-    @FXML
-    private TextField barcodeInput;
     @FXML
     private ComboBox<ProductCategory> categoryComboBx;
     @FXML
     private ComboBox<Btw> btwComboBx;
-    @FXML
-    private TextField imageLocationInput;
-    @FXML
-    private TextField packageCodeInput;
-    @FXML
-    private Button openExplorerBtn;
-    @FXML
-    private Button barcodePrintBtn;
 
     public void initialize() {
         initializeSpinner();
@@ -144,7 +116,11 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private void fillProductValues(Product product) {
-        enableDisableInputFields(false);
+        fillProductValues(product, false);
+    }
+
+    private void fillProductValues(Product product, boolean enableInputFields){
+        enableDisableInputFields(enableInputFields);
         this.nameInput.setText(product.getName());
         this.priceSpinner.getValueFactory().setValue(product.getPrice());
         this.descriptionInput.clear();
@@ -154,18 +130,13 @@ public class ArticleManagementController extends SubWindow {
         this.barcodeInput.setText(product.getBarcode());
         this.categoryComboBx.getSelectionModel().select(findCategoryById(product.getCategory()));
         this.btwComboBx.setValue(product.getBtw());
-        this.imageLocationInput.setText(product.getImageLocation());
-        setImagePreview(product.getImageLocation());
+        this.imageLocationInput.setText(product.getImageName());
+        setImagePreview(product.getImage());
     }
 
-    private void setImagePreview(String imageLocation) {
-        if (imageLocation != null && !imageLocation.equals("")) {
-            Image image = new Image(imageLocation);
-            this.productPreviewImage.setImage(image);
-        } else {
-            this.productPreviewImage.setImage(null);
+    private void setImagePreview(Image imagePreview){
+            this.productPreviewImage.setImage(imagePreview);
         }
-    }
 
     private ProductCategory findCategoryById(int id) {
         ProductCategory category = null;
@@ -245,7 +216,7 @@ public class ArticleManagementController extends SubWindow {
     private void enableDisableInputFields(boolean bool) {
         ObservableList<Node> inputFields = this.inputGrid.getChildren();
         inputFields.forEach(node -> {
-            if (node == this.barcodeHbox || node == this.categoryHbx) {
+            if (node == this.barcodeHbx || node == this.categoryHbx) {
                 keepHboxButtonEnabled(node, bool);
             } else {
                 node.setDisable(!bool);
@@ -266,25 +237,38 @@ public class ArticleManagementController extends SubWindow {
     }
 
     private Product getNewProduct() {
-        return new Product(
-                0,
-                this.nameInput.getText(),
-                this.priceSpinner.getValue(),
-                this.btwComboBx.getValue(),
-                this.descriptionInput.getText(),
-                this.locationInput.getText(),
-                this.storeInput.getText(),
-                this.barcodeInput.getText(),
-                this.categoryComboBx.getValue().getId(),
-                this.imageLocationInput.getText()
-        );
+        return new Product.ProdcutBuilder(0)
+                .setName(this.nameInput.getText())
+                .setPrice(this.priceSpinner.getValue())
+                .setBarcode(this.barcodeInput.getText())
+                .setBtw(this.btwComboBx.getValue())
+                .setDescription(this.descriptionInput.getText())
+                .setLocation(this.locationInput.getText())
+                .setStore(this.storeInput.getText())
+                .setCategory(this.categoryComboBx.getValue().getId())
+                .setImage(this.productPreviewImage.getImage())
+                .setImageName(this.imageLocationInput.getText())
+                .build();
     }
 
     @FXML
     private void chooseImage() {
-        ImageLoader imageLoader = new ImageLoader("/images/product", this.root.getScene().getWindow());
-        String filepath = imageLoader.getImage();
-        //productList.getSelectionModel().getSelectedItem().setImageLocation();
+        ImageLoader imageLoader = new ImageLoader(this.root.getScene().getWindow());
+        HashMap<String, Image> result = imageLoader.getImage();
+        if(result!=null){
+            Map.Entry<String,Image> entry = result.entrySet().iterator().next();
+            String key = entry.getKey();
+            Image value = entry.getValue();
+            addImageDataToProduct(key, value);
+            fillProductValues(this.productList.getSelectionModel().getSelectedItem(), true);
+        }
+    }
+
+    private void addImageDataToProduct(String key, Image value) {
+        Product product = productList.getSelectionModel().getSelectedItem();
+        product.setImageName(key);
+        product.setImage(value);
+        product.setImageId(Repositories.getInstance().getAfbeeldingRepository().getImageIdByName(key));
     }
 
     public void showAddProductCategoryDialog() {

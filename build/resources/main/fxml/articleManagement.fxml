@@ -262,7 +262,7 @@
                         <TextField fx:id="packageCodeInput" prefHeight="25.0" prefWidth="150.0"/>
                         <Button onAction="#showLeeggoed" mnemonicParsing="false" text="Kies" GridPane.columnIndex="1"/>
                     </GridPane>
-                    <HBox fx:id="barcodeHbox" alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="158.0"
+                    <HBox fx:id="barcodeHbx" alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="158.0"
                           spacing="5.0" GridPane.rowIndex="8">
                         <TextField fx:id="barcodeInput"/>
                         <Button fx:id="barcodePrintBtn" mnemonicParsing="false" onAction="#runBarcodePrinter"
