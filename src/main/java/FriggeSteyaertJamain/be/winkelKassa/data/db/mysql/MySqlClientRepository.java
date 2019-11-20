@@ -63,14 +63,14 @@ public class MySqlClientRepository implements ClientRepository {
     }
 
     private Client createClient(ResultSet rs) throws SQLException {
-        int id = rs.getInt("idklant");
-        String name = rs.getString("voornaam");
-        String familyName = rs.getString("famillienaam");
-        String email = rs.getString("email");
-        String telNumber = rs.getString("telNummer");
-        String address = rs.getString("adres");
-        String postNumber = rs.getString("postNummer");
-        return new Client(id, name, familyName, email, telNumber, address, postNumber);
+        Client.ClientBuilder builder = new Client.ClientBuilder(rs.getInt("idklant"));
+        builder.setName(rs.getString("voornaam"))
+                .setFamilyName(rs.getString("famillienaam"))
+                .setEmail(rs.getString("email"))
+                .setTelNumber( rs.getString("telNummer"))
+                .setPostAddress(rs.getString("postNummer"))
+                .setAddress(rs.getString("adres"));
+        return builder.build();
     }
 
     @Override
