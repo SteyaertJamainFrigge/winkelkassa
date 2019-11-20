@@ -9,15 +9,6 @@ public class Client {
     private String address;
     private String postAddress;
 
-    public Client(int id, String name, String familyName, String email, String telNumber, String address, String postAddress) {
-        this.id = id;
-        this.name = name;
-        this.familyName = familyName;
-        this.email = email;
-        this.telNumber = telNumber;
-        this.address = address;
-        this.postAddress = postAddress;
-    }
 
     public int getId() {
         return id;
